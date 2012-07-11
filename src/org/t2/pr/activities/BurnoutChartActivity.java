@@ -2,33 +2,26 @@ package org.t2.pr.activities;
 
 import java.util.ArrayList;
 import java.util.Date;
-import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.chart.PointStyle;
-import org.achartengine.model.TimeSeries;
-import org.achartengine.model.XYMultipleSeriesDataset;
-import org.achartengine.renderer.BasicStroke;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
 import org.t2.pr.R;
 import org.t2.pr.classes.ActivityFactory;
 import org.t2.pr.classes.DatabaseProvider;
 import org.t2.pr.classes.Global;
 import org.t2.pr.classes.Scoring;
 
-import coolcharts.charts.DateChart;
-import coolcharts.data.DatePoint;
-import coolcharts.data.DateSeries;
+import zencharts.charts.LineChart;
+import zencharts.data.LinePoint;
+import zencharts.data.LineSeries;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 /**
- * Charting activity that displays burnout data using the open-source achartengine
+ * Charting activity that displays burnout data 
  * @author stephenody
  *
  */
@@ -37,11 +30,9 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 
 	private static DatabaseProvider db = new DatabaseProvider(Global.appContext);
 	private Button btnUpdate;
-	GraphicalView mChartView;
-	XYMultipleSeriesDataset dataset;
-	XYMultipleSeriesRenderer renderer;
+	
 	LinearLayout chartLayout;
-	public DateChart dateChart;
+	public LineChart lineChart;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -52,12 +43,11 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 		this.SetMenuVisibility(1);
 		this.btnMainTools.setChecked(true);
 
-		dateChart = (DateChart)this.findViewById(R.id.datechart);
-		dateChart.showGrid = true;
-		dateChart.scrollGrid = false;
-		dateChart.showStars = false;
-		dateChart.transparentBackground = true;
-		getCoolChartData();
+		lineChart = (LineChart)this.findViewById(R.id.linechart);
+		lineChart.gridLines = true;
+		lineChart.loadFont("Elronmonospace.ttf", 16, 2, 2);
+		
+		getZenChartData();
 		
 		//chartLayout = (LinearLayout) findViewById(R.id.chart);
 		btnUpdate = (Button)this.findViewById(R.id.btn_burnoutbutton);
@@ -65,7 +55,7 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 
 	}
 
-	private void getCoolChartData()
+	private void getZenChartData()
 	{
 
 		ArrayList<String> qoldates = (ArrayList<String>) db.selectBURNOUTDates();
@@ -73,7 +63,7 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 		if(qoldates.size() > 0)
 		{
 			//Create the burn series
-			DateSeries boSeries = new DateSeries();
+			LineSeries boSeries = new LineSeries(Global.appContext, 0);
 			boSeries.dashEffect = new float[] {10,20};
 			boSeries.lineColor = Color.RED;
 			boSeries.lineWidth = 5;
@@ -83,92 +73,21 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 				String tdate = qoldates.get(burn);
 				Date date = new java.util.Date(tdate);
 				double score = Scoring.BurnoutScore(qoldates.get(burn));
-				boSeries.add(new DatePoint(date.getTime(), (int)score, ""+(int)score));
+				boSeries.add(new LinePoint((int)score, ""+(int)score, DateFormat.format("MM/dd/yy", date).toString()));
 			}
 			
-			dateChart.AddSeries(boSeries);
+			lineChart.addSeries(boSeries);
 			
-			/*TimeSeries burnData = new TimeSeries ("Burnout"); 
-			for(int burn = 0; burn < qoldates.size(); burn++)
-			{
-				String tdate = qoldates.get(burn);
-				Date date = new java.util.Date(tdate);
-				double score = Scoring.BurnoutScore(qoldates.get(burn));
-				burnData.add(date, score);
-			}
-
-			dataset.addSeries (burnData); 
-
-			XYSeriesRenderer burnrenderer = new XYSeriesRenderer (); 
-			burnrenderer.setColor (Color.argb(255, 18, 145, 18)); 
-			burnrenderer.setLineWidth(5f);
-			burnrenderer.setStroke(BasicStroke.DASHED);
-			burnrenderer.setPointStyle(PointStyle.SQUARE);
-			renderer.addSeriesRenderer (burnrenderer); 
-			renderer.setChartTitle ("Burnout"); 
-			renderer.setXTitle ("Recorded Dates"); 
-			renderer.setYTitle ("Burnout Score"); */
 		}
-		//else maybe show something else when there is no data
 		
 	}
 	
-	/**
-	 * Pulls chart data from database and sets up achartengine renderer
-	 */
-	private void getChartData()
-	{
-		//  Setup the chart 
-		dataset = new XYMultipleSeriesDataset (); 
-		renderer = new XYMultipleSeriesRenderer (); 
-		renderer.setShowAxes (true); 
-		renderer.setShowGrid(true);
-		renderer.setAxesColor (0x000000); 
-		renderer.setAntialiasing (true); 
-		renderer.setBackgroundColor (0xDDDDDD); 
-		renderer.setApplyBackgroundColor (true); 
-		renderer.setShowLabels (true); 
-		renderer.setPanLimits(new double[] {0,0,0,40});
-		renderer.setLabelsTextSize(16f);
-		renderer.setAxisTitleTextSize(16f);
-		renderer.setChartTitleTextSize(16f);
-		renderer.setLegendTextSize(20f);
-
-		ArrayList<String> qoldates = (ArrayList<String>) db.selectBURNOUTDates();
-
-		if(qoldates.size() > 0)
-		{
-			//Create the burn series 
-			TimeSeries burnData = new TimeSeries ("Burnout"); 
-			for(int burn = 0; burn < qoldates.size(); burn++)
-			{
-				String tdate = qoldates.get(burn);
-				Date date = new java.util.Date(tdate);
-				double score = Scoring.BurnoutScore(qoldates.get(burn));
-				burnData.add(date, score);
-			}
-
-			dataset.addSeries (burnData); 
-
-			XYSeriesRenderer burnrenderer = new XYSeriesRenderer (); 
-			burnrenderer.setColor (Color.argb(255, 18, 145, 18)); 
-			burnrenderer.setLineWidth(5f);
-			burnrenderer.setStroke(BasicStroke.DASHED);
-			burnrenderer.setPointStyle(PointStyle.SQUARE);
-			renderer.addSeriesRenderer (burnrenderer); 
-			renderer.setChartTitle ("Burnout"); 
-			renderer.setXTitle ("Recorded Dates"); 
-			renderer.setYTitle ("Burnout Score"); 
-		}
-		//else maybe show something else when there is no data
-		
-	}
+	
 
 	@Override
 	public void onPause()
 	{
 		super.onPause();
-		dateChart.onPause();
 	}
 	
 	/* (non-Javadoc)
@@ -178,18 +97,6 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 	{
 		super.onResume();
 
-		dateChart.onResume();
-		/*if (mChartView == null) 
-		{
-			getChartData();
-			mChartView = ChartFactory.getTimeChartView(this,dataset,renderer, null);
-			chartLayout.addView(mChartView);
-
-		} 
-		else 
-		{
-			mChartView.repaint();
-		}*/
 	}
 
 	/* (non-Javadoc)
