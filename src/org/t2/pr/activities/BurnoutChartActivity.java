@@ -30,29 +30,31 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 
 	private static DatabaseProvider db = new DatabaseProvider(Global.appContext);
 	private Button btnUpdate;
-	
+
 	LinearLayout chartLayout;
 	public LineChart lineChart;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.burnoutchart);
 
-		this.SetMenuVisibility(1);
-		this.btnMainTools.setChecked(true);
-
 		lineChart = (LineChart)this.findViewById(R.id.linechart);
 		lineChart.gridLines = true;
 		lineChart.loadFont("Elronmonospace.ttf", 16, 2, 2);
-		
-		getZenChartData();
-		
-		//chartLayout = (LinearLayout) findViewById(R.id.chart);
-		btnUpdate = (Button)this.findViewById(R.id.btn_burnoutbutton);
-		btnUpdate.setOnClickListener(this);
 
+		getZenChartData();
+
+		//chartLayout = (LinearLayout) findViewById(R.id.chart);
+		try
+		{
+			this.SetMenuVisibility(1);
+			this.btnMainTools.setChecked(true);
+			btnUpdate = (Button)this.findViewById(R.id.btn_burnoutbutton);
+			btnUpdate.setOnClickListener(this);
+		}
+		catch(Exception ex){}
 	}
 
 	private void getZenChartData()
@@ -67,7 +69,7 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 			boSeries.dashEffect = new float[] {10,20};
 			boSeries.lineColor = Color.RED;
 			boSeries.lineWidth = 5;
-			
+
 			for(int burn = 0; burn < qoldates.size(); burn++)
 			{
 				String tdate = qoldates.get(burn);
@@ -75,21 +77,21 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 				double score = Scoring.BurnoutScore(qoldates.get(burn));
 				boSeries.add(new LinePoint((int)score, ""+(int)score, DateFormat.format("MM/dd/yy", date).toString()));
 			}
-			
+
 			lineChart.addSeries(boSeries);
-			
+
 		}
-		
+
 	}
-	
-	
+
+	//
 
 	@Override
 	public void onPause()
 	{
 		super.onPause();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.t2.pr.activities.ABSActivity#onResume()
 	 */

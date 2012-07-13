@@ -14,7 +14,11 @@ public class Global {
 
 	//Brightcove
 	public static final String BRIGHTCOVE_READ_TOKEN = "KqxnaC4wR_9Z7OoPadhidvvddOPPUIwPiHwIj_WZXqJWZohd9G1Mmw..";
+	public static final String ANOTHER_BRIGHTCOVE_READ_TOKEN = "aEKaJd8fSOxJHDP_akYJVkjXLywOcC8jSESi13ZrmdY0VVI6r7FDEQ..";
 	//1279636611001  one of the video id's
+	
+	//http://api.brightcove.com/services/library?command=find_all_playlists&token=KqxnaC4wR_9Z7OoPadhidvvddOPPUIwPiHwIj_WZXqJWZohd9G1Mmw..
+	//http://api.brightcove.com/services/library?command=find_all_playlists&token=aEKaJd8fSOxJHDP_akYJVkjXLywOcC8jSESi13ZrmdY0VVI6r7FDEQ..
 	
 	//Flurry
 	public static final String FLURRY_KEY = "CZLAXW4ZETEQKTVP1TY2";

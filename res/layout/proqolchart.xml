@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="10dip"
         android:layout_weight="0" />
-    
+
     <TextView
         android:id="@+id/tv_proqoltitle"
         style="@style/ScaleFontMedium"
@@ -21,39 +21,62 @@
         android:padding="5dip"
         android:text="ProQOL Graph"
         android:textColor="#000000" />
-    
-    <!-- LinearLayout android:id="@+id/chart" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" /-->
+
     <zencharts.charts.LineChart
-            android:id="@+id/linechart"
+        android:id="@+id/linechart"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="5" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                style="@style/ScaleFontMedium"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Quality of Life"
+                android:background="#990000" />
+
+            <TextView
+                style="@style/ScaleFontMedium"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Burnout" 
+                android:background="#009900" />
+
+            <TextView
+                style="@style/ScaleFontMedium"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Secondary Traumatic Stress" 
+                android:background="#000099" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_proqolbutton"
+            style="@style/ScaleFontMedium"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-         />
-    
-    <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:orientation="horizontal" >
-                <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" />
-                
-    <Button
-            android:id="@+id/btn_proqolbutton"
-            style="@style/ScaleFontMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
             android:contentDescription="Update"
             android:gravity="center_vertical|center_horizontal"
-            android:padding="15dip"
+            
             android:text="Update ProQOL"
-            android:textColor="#000000"
-            android:visibility="gone" />
+            android:textColor="#000000" />
     </LinearLayout>
-
 
     <include
         android:layout_width="fill_parent"

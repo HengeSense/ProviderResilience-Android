@@ -8,8 +8,8 @@
     
     
     <!-- LinearLayout android:id="@+id/chart" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" /-->
-    <coolcharts.charts.DateChart
-            android:id="@+id/datechart"
+    <zencharts.charts.LineChart
+            android:id="@+id/linechart"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"

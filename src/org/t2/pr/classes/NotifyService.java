@@ -23,7 +23,7 @@ public class NotifyService extends Service {
 	}
 
 	private static final int NOTIFICATION = 123;
-	public static final String INTENT_NOTIFY = "org.t2health.paar.INTENT_NOTIFY";
+	public static final String INTENT_NOTIFY = "org.t2.pr.INTENT_NOTIFY";
 	private NotificationManager mNM;
 
 	@Override

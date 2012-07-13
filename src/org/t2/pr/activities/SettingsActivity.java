@@ -33,9 +33,6 @@ public class SettingsActivity extends ABSActivity
 	private ToggleButton toggle_anondata;
 	static final int TIME_DIALOG_ID = 1;
 	
-	private int vHour;
-	private int vMinute;
-	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -151,7 +148,7 @@ public class SettingsActivity extends ABSActivity
 		{
 			//Send action_send to OS
 			Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
-			shareIntent.setType("text/*");
+			shareIntent.setType("plain/text");
 
 			//populate content for message body and email recipients
 			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Provider Resilience Feedback");
@@ -168,8 +165,8 @@ public class SettingsActivity extends ABSActivity
 			new TimePickerDialog.OnTimeSetListener() {
 		@Override
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// TODO actually apply this time selection somewhere :)
-			
+			SharedPref.setNotifyHour(hourOfDay);
+			SharedPref.setNotifyMinute(minute);
 		}
 	};
 
@@ -179,7 +176,7 @@ public class SettingsActivity extends ABSActivity
 		case TIME_DIALOG_ID:
 			return new TimePickerDialog(this,
 					mTimeSetListener,
-					vHour, vMinute, false);
+					SharedPref.getNotifyHour(), SharedPref.getNotifyMinute(), false);
 		}
 		return null;
 	}
@@ -211,8 +208,6 @@ public class SettingsActivity extends ABSActivity
 			break;
 		case R.id.toggle_setrtime:
 			showDialog(TIME_DIALOG_ID);
-			SharedPref.setNotifyHour(vHour);
-			SharedPref.setNotifyMinute(vMinute);
 			break;
 		}
 	}

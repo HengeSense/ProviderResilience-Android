@@ -2,6 +2,14 @@ package org.t2.pr.classes;
 
 public class SharedPref {
 
+	public static int getPopupCardDay() {
+		return Global.sharedPref.getInt("card_day", 0);
+	}
+
+	public static void setPopupCardDay(int dayofyear) {
+		Global.sharedPref.edit().putInt("card_day", dayofyear).commit();
+	}
+	
 	public static boolean getIsEulaAccepted() {
 		return Global.sharedPref.getBoolean("eula_accepted", false);
 	}
@@ -75,7 +83,7 @@ public class SharedPref {
 	}
 	
 	public static int getNotifyHour() {
-		return Global.sharedPref.getInt("notify_hour", 1);
+		return Global.sharedPref.getInt("notify_hour", 0);
 	}
 
 	public static void setNotifyHour(int hour) {
@@ -83,7 +91,7 @@ public class SharedPref {
 	}
 	
 	public static int getNotifyMinute() {
-		return Global.sharedPref.getInt("notify_minute", 1);
+		return Global.sharedPref.getInt("notify_minute", 0);
 	}
 
 	public static void setNotifyMinute(int minute) {

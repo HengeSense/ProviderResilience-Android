@@ -50,17 +50,17 @@ public class Scoring {
 		int leavedays = p.getDays();
 		if(leavedays <= 60)
 		{
-			Global.Log.v("LeaveScore", "20");
+			//Global.Log.v("LeaveScore", "20");
 			return 20;
 		}
 		else if(leavedays <= 120)
 		{
-			Global.Log.v("LeaveScore", "10");
+			//Global.Log.v("LeaveScore", "10");
 			return 10;
 		}
 		else
 		{
-			Global.Log.v("LeaveScore", "0");
+			//Global.Log.v("LeaveScore", "0");
 			return 0;
 		}
 
@@ -94,7 +94,7 @@ public class Scoring {
 		}
 
 		if(totalScore<0)totalScore=0;
-		Global.Log.v("QOLCompassionScore", "" + totalScore);
+		//Global.Log.v("QOLCompassionScore", "" + totalScore);
 		return totalScore;
 	}
 
@@ -141,7 +141,7 @@ public class Scoring {
 
 		if(totalScore<0)totalScore=0;
 		
-		Global.Log.v("QOLBurnoutScore", "" + totalScore);
+		//Global.Log.v("QOLBurnoutScore", "" + totalScore);
 		return totalScore;
 	}
 
@@ -173,7 +173,7 @@ public class Scoring {
 		}
 
 		if(totalScore<0)totalScore=0;
-		Global.Log.v("QOLSTSScore", "" + totalScore);
+		//Global.Log.v("QOLSTSScore", "" + totalScore);
 		return totalScore;
 	}
 
@@ -211,7 +211,7 @@ public class Scoring {
 		if(ss == "LOW") result += 6;
 		if(ss == "MED") result += 2;
 
-		Global.Log.v("TOTALPROQOLScore:", "" + result);
+		//Global.Log.v("TOTALPROQOLScore:", "" + result);
 		return result;
 		
 	}
@@ -228,7 +228,7 @@ public class Scoring {
 		else if(dbvalues >= 65)
 			totalScore = 10;
 
-		Global.Log.v("BurnoutScore", "" + totalScore);
+		//Global.Log.v("BurnoutScore", "" + totalScore);
 		return totalScore;
 	}
 
@@ -236,7 +236,7 @@ public class Scoring {
 	{
 		int totalScore = db.selectBuildersKillersScore(date);
 
-		Global.Log.v("BuildersScore", "" + totalScore);
+		//Global.Log.v("BuildersScore", "" + totalScore);
 		return totalScore;
 	}
 
@@ -251,7 +251,7 @@ public class Scoring {
 		if(video.size() > 0) miscScore += 3;
 		if(remindme.size() > 0) miscScore += 3;
 		if(miscScore > 0) miscScore += 1;
-		Global.Log.v("miscScore", "" + miscScore);
+		//Global.Log.v("miscScore", "" + miscScore);
 		return miscScore;
 	}
 	
@@ -267,31 +267,31 @@ public class Scoring {
 		double proqolPercent = (maxPROQOLPoints * (((PROQOLScore(date) / maxPROQOLPoints) * 100) * .01));
 		if(PROQOLScore(date) <= 0f)
 			proqolPercent = 0;
-		Global.Log.v("proqolPercent", "" + proqolPercent);
+		//Global.Log.v("proqolPercent", "" + proqolPercent);
 
 		//Burnout is 30%
 		double burnPercent = (maxBurnoutPoints * (((BurnoutScore(date) / maxBurnoutPoints) * 100) * .01));
 		if(BurnoutScore(date) <= 0)
 			burnPercent = 0;
-		Global.Log.v("burnPercent", "" + burnPercent);
+		//Global.Log.v("burnPercent", "" + burnPercent);
 
 		//BuildersKillers is 20%
 		double buildersPercent = (10 * (((BuildersKillersScore(date) / maxBuildersKillersPoints) * 100) * .01));
 		if(BuildersKillersScore(date) <= 0)
 			buildersPercent = 0;
-		Global.Log.v("buildersPercent", "" + buildersPercent);
+		//Global.Log.v("buildersPercent", "" + buildersPercent);
 
 		//Leave clock is 20%
 		double leavePercent = (maxLeavePoints * (((LeaveClockScore() / maxLeavePoints) * 100) * .01));
-		Global.Log.v("leavePercent", "" + leavePercent);
+		//Global.Log.v("leavePercent", "" + leavePercent);
 
 		//Misc is 10%
 		double miscPercent = MiscScore(date);
-		Global.Log.v("miscPercent", "" + miscPercent);
+		//Global.Log.v("miscPercent", "" + miscPercent);
 		
 		//Total up all the scores
 		int outScore = (int)proqolPercent + (int)leavePercent + (int)burnPercent + (int)buildersPercent + (int)miscPercent;
-		Global.Log.v("TotalScore", "" + outScore);
+		//Global.Log.v("TotalScore", "" + outScore);
 		return outScore;
 	}
 	

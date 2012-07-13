@@ -1,38 +1,65 @@
 package org.t2.pr.activities;
 
+import java.util.Random;
+
 import org.t2.pr.R;
+import org.t2.pr.classes.ActivityFactory;
 import org.t2.pr.classes.SharedPref;
 import org.t2.pr.classes.SimpleGestureFilter;
 import org.t2.pr.classes.SimpleGestureFilter.SimpleGestureListener;
 import org.t2.pr.classes.TransitionView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
 
 /**
  * Displays images from a set of slides. Handles swipe navigation and transitions
  * @author stephenody
  *
  */
-public class CardsActivity extends ABSActivity implements SimpleGestureListener{
+public class CardsActivity extends ABSActivity implements OnClickListener, SimpleGestureListener{
 
 
 	private String[] cardNames;
 	private int cardIndex = -1;
 	private int cardSide = 0;
 
+	private boolean randomizeCard = false;
+
 	private TransitionView ivCard;
 	private SimpleGestureFilter detector;
 
+	Button btnDone;
+	TextView tvHeader;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.cards);
 
-		this.SetMenuVisibility(1);
-		this.btnMainCards.setChecked(true);
+		Intent intent = this.getIntent();
+		randomizeCard = intent.getBooleanExtra("random", false);
+
+		if(!randomizeCard)
+		{
+			this.SetMenuVisibility(View.VISIBLE);
+			this.btnMainCards.setChecked(true);
+		}
+		else
+		{
+			this.SetMenuVisibility(View.GONE);
+			btnDone = (Button) this.findViewById(R.id.btn_Done);
+			btnDone.setVisibility(View.VISIBLE);
+			btnDone.setOnClickListener(this);
+			tvHeader = (TextView)this.findViewById(R.id.tv_header);
+			tvHeader.setVisibility(View.VISIBLE);
+		}
 
 		detector = new SimpleGestureFilter(this,this);
 
@@ -56,7 +83,9 @@ public class CardsActivity extends ABSActivity implements SimpleGestureListener{
 
 		switch(v.getId()) 
 		{
-
+		case R.id.btn_Done:
+			this.finish();
+			break;
 		}
 	}
 
@@ -65,7 +94,7 @@ public class CardsActivity extends ABSActivity implements SimpleGestureListener{
 		this.detector.onTouchEvent(me);
 		return super.dispatchTouchEvent(me);
 	}
-	
+
 	@Override
 	public void onSwipe(int direction) {
 
@@ -93,11 +122,19 @@ public class CardsActivity extends ABSActivity implements SimpleGestureListener{
 		SharedPref.setCardIndex(cardIndex);
 		super.onPause();
 	}
-	
+
 	@Override
 	public void onResume()
 	{
+		if(randomizeCard)
+		{
+			Random rnd = new Random();
+			cardIndex = rnd.nextInt(cardNames.length - 1);
+		}
+		else
+		{
 		cardIndex = (SharedPref.getCardIndex() - 1);
+		}
 		super.onResume();
 		NextCard();
 	}

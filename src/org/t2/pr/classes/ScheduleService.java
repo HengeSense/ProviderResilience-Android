@@ -3,6 +3,7 @@ package org.t2.pr.classes;
 import java.util.Calendar;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -18,7 +19,6 @@ public class ScheduleService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.i("ScheduleService", "Received start id " + startId + ": " + intent);
 		return START_STICKY;
 	}
 
@@ -29,7 +29,7 @@ public class ScheduleService extends Service {
 
 	private final IBinder mBinder = new ServiceBinder();
 
-	public void setAlarm(Calendar c) {
-		new AlarmTask(this, c).run();
+	public void setAlarm(Context ctx, Calendar c) {
+		new AlarmTask(ctx, c).run();
 	}
 }

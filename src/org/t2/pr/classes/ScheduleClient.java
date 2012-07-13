@@ -34,7 +34,7 @@ public class ScheduleClient {
 	};
 
 	public void setAlarmForNotification(Calendar c){
-		mBoundService.setAlarm(c);
+		mBoundService.setAlarm(mContext, c);
 	}
 	
 	public void doUnbindService() {

@@ -13,13 +13,15 @@ import org.t2.pr.classes.Global;
 import org.t2.pr.classes.ScheduleClient;
 import org.t2.pr.classes.Scoring;
 import org.t2.pr.classes.SharedPref;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -35,6 +37,8 @@ import android.widget.TextView;
  */
 public class HomeActivity extends ABSActivity implements OnClickListener
 {
+	private Handler mHandler = new Handler();
+	
 	public TextView tv_Vacation;
 
 	public TextView tv_rratingvalue;
@@ -95,6 +99,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 	private Timer minTimer;
 
 	private ScheduleClient scheduleClient;
+	private boolean reminderSet = false;
 
 	/* (non-Javadoc)
 	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
@@ -103,8 +108,12 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
+		
 		setContentView(R.layout.home);
 
+		scheduleClient = new ScheduleClient(this.getApplicationContext());
+		scheduleClient.doBindService();
+		
 		this.SetMenuVisibility(1);
 		this.btnMainDashboard.setChecked(true);
 
@@ -194,12 +203,16 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 
 		updateDisplay();
 
-		//Attach to schedule service so we can set a notification
-		scheduleClient = new ScheduleClient(getBaseContext());
-		scheduleClient.doBindService();
-		SetReminder();
-		
 		ShowWelcome();
+		
+		//Show daily card (once a day)
+		int dayofyear = SharedPref.getPopupCardDay();
+		int cdayofyear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+		if(dayofyear != cdayofyear)
+		{
+			SharedPref.setPopupCardDay(cdayofyear);
+			mHandler.postDelayed(startCardsRunnable, 500);
+		}
 
 	}
 
@@ -213,7 +226,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			scheduleClient.doUnbindService();
 		super.onStop();
 	}
-	
+
 	/**
 	 * A timer to handle the display of the vacation clock updates
 	 */
@@ -224,7 +237,9 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			@Override
 			public void run() {
 				updateDisplay();
-
+				
+				if(!reminderSet)
+					SetReminder();
 			}});
 	}
 
@@ -257,6 +272,8 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 
 				TextView text = (TextView) dialog.findViewById(R.id.dialogbody);
 				text.setText(Html.fromHtml(results));
+				text.setTextSize(14f);
+				text.setMovementMethod(new ScrollingMovementMethod());
 				final CheckBox chk = (CheckBox) dialog.findViewById(R.id.dontShowAgain);
 				Button button = (Button) dialog.findViewById(R.id.btnOK);
 				button.setOnClickListener(new OnClickListener() {
@@ -309,22 +326,28 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 		//TODO: CHECK to see if we have already added a reminder today...
 		if(SharedPref.getReminders())
 		{
-			//Schedule a reminder to be displayed to the user in 24 hrs. (or 2 mins in debug mode)
+			//Schedule a reminder to be displayed to the user the following day. (or today in debug mode)
 			try
 			{
 				Calendar c = Calendar.getInstance();
 				if(Global.DebugOn)
-					c.add(Calendar.MINUTE, 2);
+				{
+					c.set(Calendar.HOUR_OF_DAY, SharedPref.getNotifyHour());
+					c.set(Calendar.MINUTE, SharedPref.getNotifyMinute());
+				}
 				else
-					c.add(Calendar.HOUR, 24);
-				
-				//TODO: read saved time selection from settings and apply instead of the above +24hrs...
-				//c.set(year, month, day, hourOfDay, minute);
-				
+				{
+					c.add(Calendar.DAY_OF_MONTH, 1);
+					c.set(Calendar.HOUR_OF_DAY, SharedPref.getNotifyHour());
+					c.set(Calendar.MINUTE, SharedPref.getNotifyMinute());
+				}
+
 				scheduleClient.setAlarmForNotification(c);
+				reminderSet = true;
 			}
 			catch(Exception ex)
 			{
+				reminderSet = false;
 				Global.Log.v("Notification error", ex.toString());
 			}
 		}
@@ -551,6 +574,19 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			this.startActivity(ActivityFactory.getProQOLActivity(this));
 			break;
 		}
+	}
+	
+	private Runnable startCardsRunnable = new Runnable() {
+		   public void run() {
+			   startCardsActivity();
+		   }
+		};
+		
+	private void startCardsActivity() 
+	{
+		Intent intent = new Intent(this, CardsActivity.class);
+		intent.putExtra("random", true);
+		this.startActivity(intent);
 	}
 
 }

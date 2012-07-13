@@ -92,7 +92,7 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 				String tdate = qoldates.get(cs);
 				Date date = new java.util.Date(tdate);
 				double score = Scoring.QOLCompassionScore(qoldates.get(cs));
-				qolSeries.add(new LinePoint((int)score, ""+(int)score, DateFormat.format("MM/dd/yy", date).toString()));
+				qolSeries.add(new LinePoint((int)score, "", DateFormat.format("MM/dd/yy", date).toString()));
 			}
 
 			for(int burn = 0; burn < qoldates.size(); burn++)
@@ -101,7 +101,7 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 				String tdate = qoldates.get(burn);
 				Date date = new java.util.Date(tdate);
 				double score = Scoring.QOLBurnoutScore(qoldates.get(burn));
-				burnSeries.add(new LinePoint((int)score, ""+(int)score, "x"));
+				burnSeries.add(new LinePoint((int)score, "", "x"));
 			}
 
 			for(int sts = 0; sts < qoldates.size(); sts++)
@@ -110,7 +110,7 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 				String tdate = qoldates.get(sts);
 				Date date = new java.util.Date(tdate);
 				double score = Scoring.QOLSTSScore(qoldates.get(sts));
-				stsSeries.add(new LinePoint((int)score, ""+(int)score, "x"));
+				stsSeries.add(new LinePoint((int)score, "", "x"));
 			}
 
 			lineChart.addSeries(qolSeries);

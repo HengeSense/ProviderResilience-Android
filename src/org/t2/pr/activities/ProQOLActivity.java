@@ -180,6 +180,7 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 
 		TextView text = (TextView) dialog.findViewById(R.id.dialogbody);
 		text.setText(Html.fromHtml(inText));
+		text.setTextSize(14f);
 		final CheckBox chk = (CheckBox) dialog.findViewById(R.id.dontShowAgain);
 		chk.setVisibility(View.GONE);
 		Button button = (Button) dialog.findViewById(R.id.btnOK);

@@ -17,35 +17,6 @@
         android:textColor="#000000"
         style="@style/ScaleFontMedium" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/tv_custom"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical|left"
-            android:text=" "
-            android:textColor="#ffffff"
-            style="@style/ScaleFontMedium"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btn_custom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            style="@style/ScaleFontMedium"
-            android:contentDescription="Reset Application"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="Customize"
-            android:textColor="#000000" />
-    </LinearLayout>
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" 
@@ -189,6 +160,17 @@
         android:layout_weight="0"
         android:orientation="horizontal" >
 
+        <Button
+            android:id="@+id/btn_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            style="@style/ScaleFontLarge"
+            android:contentDescription="Reset Application"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="Customize"
+            android:textColor="#000000" />
+
         <TextView
             android:id="@+id/tv_killers"
             android:layout_width="fill_parent"
@@ -199,13 +181,13 @@
             android:textColor="#ffffff"
             style="@style/ScaleFontMedium"
             android:textStyle="bold" />
-
+        
         <Button
             android:id="@+id/btn_killers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            style="@style/ScaleFontMedium"
+            style="@style/ScaleFontLarge"
             android:contentDescription="Reset Application"
             android:gravity="center_vertical|center_horizontal"
             android:text="Rate Killers"
