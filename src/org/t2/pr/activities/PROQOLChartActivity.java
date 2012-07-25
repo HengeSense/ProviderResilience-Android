@@ -73,17 +73,17 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 
 		if(qoldates.size() > 0)
 		{
-			LineSeries qolSeries = new LineSeries(this, 0);
+			LineSeries qolSeries = new LineSeries(this, R.drawable.circle);
 			qolSeries.dashEffect = new float[] {10,20};
 			qolSeries.lineColor = Color.RED;
 			qolSeries.lineWidth = 5;
 
-			LineSeries burnSeries = new LineSeries(this, 0);
+			LineSeries burnSeries = new LineSeries(this, R.drawable.triangle);
 			burnSeries.dashEffect = new float[] {10,20};
 			burnSeries.lineColor = Color.GREEN;
 			burnSeries.lineWidth = 5;
 
-			LineSeries stsSeries = new LineSeries(this, 0);
+			LineSeries stsSeries = new LineSeries(this, R.drawable.square);
 			stsSeries.lineColor = Color.BLUE;
 			stsSeries.lineWidth = 5;
 

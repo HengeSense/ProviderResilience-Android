@@ -65,7 +65,7 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 		if(qoldates.size() > 0)
 		{
 			//Create the burn series
-			LineSeries boSeries = new LineSeries(Global.appContext, 0);
+			LineSeries boSeries = new LineSeries(Global.appContext, R.drawable.triangle);
 			boSeries.dashEffect = new float[] {10,20};
 			boSeries.lineColor = Color.RED;
 			boSeries.lineWidth = 5;
