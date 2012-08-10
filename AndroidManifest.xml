@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.t2.pr" android:installLocation="preferExternal">
+    package="org.t2.pr" android:installLocation="internalOnly">
 
     <uses-sdk
         android:minSdkVersion="7" />
@@ -11,6 +11,16 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
+        <receiver android:name=".widget.PRWidgetProvider" >
+            <intent-filter >
+                <action 
+                    android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
         <activity android:name="org.t2.pr.activities.StartupActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
