@@ -1,5 +1,6 @@
 package org.t2.pr.activities;
 
+import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -8,6 +9,7 @@ import org.t2.pr.classes.ActivityFactory;
 import org.t2.pr.classes.Global;
 import org.t2.pr.classes.SharedPref;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -79,7 +81,25 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 	private void startMainActivity() 
 	{
 		this.stopTimer();
+
 		this.startActivity(ActivityFactory.getHomeActivity(this));
+
+		if (SharedPref.getIsEulaAccepted()) 
+		{
+			int dayofyear = SharedPref.getPopupCardDay();
+			int cdayofyear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+			if(dayofyear != cdayofyear)
+			{
+				Intent intent = new Intent(this, CardsActivity.class);
+				intent.putExtra("random", true);
+				this.startActivity(intent);
+			}
+		}
+
+		if(SharedPref.getWelcomeMessage())
+		{
+			this.startActivity(ActivityFactory.getAboutActivity(this));
+		}
 
 		this.finish();
 	}

@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -75,9 +76,9 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 	Typeface tfDigitalNum;
 	Typeface tfDigitalChr;
 
-	private Button btnRRClock;
-	private Button btnRRating;
-	private Button btnProQOL;
+	private ImageButton btnRRClock;
+	private ImageButton btnRRating;
+	private ImageButton btnProQOL;
 
 	static final int DATE_DIALOG_ID = 0;
 	private int cYear;
@@ -160,11 +161,11 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 		tvMinuteDigit.setTypeface(tfDigitalNum);
 		tvMinuteLabel.setTypeface(tfDigitalChr);
 
-		btnRRClock = (Button)this.findViewById(R.id.btn_rrclock);
+		btnRRClock = (ImageButton)this.findViewById(R.id.btn_rrclock);
 		btnRRClock.setOnClickListener(this);
-		btnRRating = (Button)this.findViewById(R.id.btn_rrating);
+		btnRRating = (ImageButton)this.findViewById(R.id.btn_rrating);
 		btnRRating.setOnClickListener(this);
-		btnProQOL = (Button)this.findViewById(R.id.btn_qolupdate);
+		btnProQOL = (ImageButton)this.findViewById(R.id.btn_qolupdate);
 		btnProQOL.setOnClickListener(this);
 
 		// get the current date
@@ -203,16 +204,18 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 
 		updateDisplay();
 
-		ShowWelcome();
+		//ShowWelcome();
 		
 		//Show daily card (once a day)
-		int dayofyear = SharedPref.getPopupCardDay();
+		/*int dayofyear = SharedPref.getPopupCardDay();
 		int cdayofyear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
 		if(dayofyear != cdayofyear)
 		{
 			SharedPref.setPopupCardDay(cdayofyear);
 			mHandler.postDelayed(startCardsRunnable, 500);
-		}
+		}*/
+		
+		
 
 	}
 

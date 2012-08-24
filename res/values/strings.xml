@@ -9,10 +9,9 @@
     <string name="main_cards">Dashboard</string>
     <string name="main_about">Dashboard</string>
     <string name="main_settings">Dashboard</string>
-
     <string name="emptylist">ERROR</string>
-    
-    <string name="about_content">        <![CDATA[
+    <string name="about_content">
+<![CDATA[
         <font color=\'#ffffff\'>
     	<P>This app has been designed for healthcare professionals who treat service members, veterans and their families.
         Its purpose is to provide you with a set of tools that support resilience and fight burnout and compassion fatigue.
@@ -28,13 +27,14 @@
         <u>mobileapplications@t2health.org</u>
     ]]>
     </string>
-    
+
     <!-- EULA STRINGS -->
     <string name="eula_activity_title">Eula</string>
     <string name="eula_title">License</string>
     <string name="eula_accept">Accept</string>
     <string name="eula_refuse">Refuse</string>
-    <string name="eula_content">        <![CDATA[
+    <string name="eula_content">
+<![CDATA[
         <font color="#ffffff">
 		<p>National Center for Telehealth and Technology ("T2")</p>
 		<p>Software End User License Agreement</p>
