@@ -51,7 +51,7 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 	private ProgressDialog m_ProgressDialog = null;
 	private TextView tvTitle;
 	private String comicTitle = "";
-	
+
 	final static char base64Array [] = {
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 		'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -144,12 +144,12 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 				{
 					URLConnection connection = url.openConnection();
 					connection.setRequestProperty("Authorization", "Basic " + base64Encode("nct_feeds" + ":" + "!nctele"));
-				
-					
+
+
 					HttpsURLConnection httpConnection = (HttpsURLConnection)connection;
 					httpConnection.setRequestMethod("GET");
 					httpConnection.setReadTimeout(10000);
-					
+
 					int responseCode = httpConnection.getResponseCode();
 
 					if(responseCode == HttpURLConnection.HTTP_OK)
@@ -195,7 +195,7 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 			runOnUiThread(ShowDilbertRunnable);
 		}
 	};
-	
+
 	public ArrayList<DilbertObject> parseJSON(StringBuilder sb)
 	{
 		ArrayList<DilbertObject> markers = new ArrayList<DilbertObject>();
@@ -227,15 +227,18 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 						JSONObject jo2 = assetArray.getJSONObject(a);
 						if(jo2.getString("asset_type").trim().equals("mutable"))
 						{
-							DilbertObject ma = new DilbertObject();
-							ma.imageURL = jo2.getString("image_link");// + "/" + jo2.getString("filename");
-							String[] dsplit = jo.getString("date").split("[T]");
-							SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd"); 
-							Date dateObj = curFormater.parse(dsplit[0]); 
-							SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy"); 
-							String newDateStr = postFormater.format(dateObj); 
-							ma.dateTime = newDateStr;
-							markers.add(ma);
+							if(jo2.getString("image_coloration").trim().equals("color"))
+							{
+								DilbertObject ma = new DilbertObject();
+								ma.imageURL = jo2.getString("image_link");// + "/" + jo2.getString("filename");
+								String[] dsplit = jo.getString("date").split("[T]");
+								SimpleDateFormat curFormater = new SimpleDateFormat("yyyy-MM-dd"); 
+								Date dateObj = curFormater.parse(dsplit[0]); 
+								SimpleDateFormat postFormater = new SimpleDateFormat("MMMM dd, yyyy"); 
+								String newDateStr = postFormater.format(dateObj); 
+								ma.dateTime = newDateStr;
+								markers.add(ma);
+							}
 						}
 					}
 
@@ -258,7 +261,7 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		comicTitle = curDilbert.dateTime;
 		bmpDilbert = getBitmapFromURL(curDilbert.imageURL, false);
 	}
-	
+
 	public void ShowDilbert()
 	{
 
@@ -461,7 +464,7 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 	};
 	public void ErrorMsg()
 	{
-		
+
 		m_ProgressDialog.cancel();
 		AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
 		myAlertDialog.setTitle("Error");
@@ -471,8 +474,8 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 			public void onClick(DialogInterface arg0, int arg1) {
 				finish();
 			}});
-		
+
 		myAlertDialog.show();
 	}
-	
+
 }
