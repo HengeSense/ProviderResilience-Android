@@ -21,12 +21,18 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.t2.pr.R;
 import org.t2.pr.classes.DatabaseProvider;
+import org.t2.pr.classes.Global;
+import org.t2.pr.classes.SharedPref;
+
 import ImageViewTouch.ImageViewTouch;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -129,17 +135,21 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 					sc.init(null, trustAllCerts, new java.security.SecureRandom());
 					HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 				} 
-				catch (Exception e) {}
+				catch (Exception e) {
+					Log.v("ssl","");
+				}
 
 
 				try
 				{
 					URLConnection connection = url.openConnection();
 					connection.setRequestProperty("Authorization", "Basic " + base64Encode("nct_feeds" + ":" + "!nctele"));
-
+				
+					
 					HttpsURLConnection httpConnection = (HttpsURLConnection)connection;
 					httpConnection.setRequestMethod("GET");
-
+					httpConnection.setReadTimeout(10000);
+					
 					int responseCode = httpConnection.getResponseCode();
 
 					if(responseCode == HttpURLConnection.HTTP_OK)
@@ -157,8 +167,15 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 						runOnUiThread(GetDilbertRunnable);
 
 					}
+					if(responseCode == HttpURLConnection.HTTP_CLIENT_TIMEOUT)
+					{
+						Log.v("HTTP_CLIENT_TIMEOUT","");
+					}
 				}
-				catch(Exception ex){}
+				catch(Exception ex){
+					runOnUiThread(ErrorMsgRunnable);
+
+				}
 			}
 		};
 
@@ -381,7 +398,9 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 				sc.init(null, trustAllCerts, new java.security.SecureRandom());
 				HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
 			} 
-			catch (Exception e) {}
+			catch (Exception e) {
+				ErrorMsg();
+			}
 
 			try
 			{
@@ -404,7 +423,8 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 				}
 			}
 			catch(Exception ex){
-				Log.v("getBitmapFromURL", ex.toString());
+				Log.v("except", ex.toString());
+				ErrorMsg();
 				return null;
 			}
 
@@ -434,4 +454,25 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		public String imageURL = "";
 	}
 
+	private Runnable ErrorMsgRunnable = new Runnable() {
+		public void run() {
+			ErrorMsg();
+		}
+	};
+	public void ErrorMsg()
+	{
+		
+		m_ProgressDialog.cancel();
+		AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+		myAlertDialog.setTitle("Error");
+		myAlertDialog.setMessage("Please check your network connectivity.");
+		myAlertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface arg0, int arg1) {
+				finish();
+			}});
+		
+		myAlertDialog.show();
+	}
+	
 }

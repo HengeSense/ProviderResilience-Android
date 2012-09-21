@@ -42,7 +42,7 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 
 		this.setContentView(R.layout.splash_activity);
-		int splashDelay = 5000;
+		int splashDelay = 3000;
 		if(Global.DebugOn)
 			splashDelay = 500;
 
@@ -84,25 +84,24 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 
 		this.startActivity(ActivityFactory.getHomeActivity(this));
 
-		if (SharedPref.getIsEulaAccepted()) 
+		int dayofyear = SharedPref.getPopupCardDay();
+		int cdayofyear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+		if(dayofyear != cdayofyear)
 		{
-			int dayofyear = SharedPref.getPopupCardDay();
-			int cdayofyear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
-			if(dayofyear != cdayofyear)
-			{
-				Intent intent = new Intent(this, CardsActivity.class);
-				intent.putExtra("random", true);
-				this.startActivity(intent);
-			}
+			SharedPref.setPopupCardDay(cdayofyear);
+			Intent intent = new Intent(this, CardsActivity.class);
+			intent.putExtra("random", true);
+			this.startActivity(intent);
 		}
-
-		if(SharedPref.getWelcomeMessage())
+		else if(SharedPref.getWelcomeMessage())
 		{
-			this.startActivity(ActivityFactory.getAboutActivity(this));
+			Intent intent = ActivityFactory.getAboutActivity(this);
+			intent.putExtra("shownav", false);
+			this.startActivity(intent);
 		}
 
 		this.finish();
-	}
+	} 
 
 	@Override
 	protected void onStop() 

@@ -12,6 +12,8 @@ import com.brightcove.mobile.mediaapi.model.enums.MediaDeliveryTypeEnum;
 import com.brightcove.mobile.mediaapi.model.enums.SortByTypeEnum;
 import com.brightcove.mobile.mediaapi.model.enums.SortOrderTypeEnum;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -82,7 +84,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 				intent.setDataAndType(Uri.parse(video.getFlvUrl()), "video/*");
 				startActivity(intent);
 			}
-			catch(Exception ex){}
+			catch(Exception ex){ErrorMsg();}
 
 			break;
 		case R.id.iv_alcohol:
@@ -95,7 +97,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 				intent.setDataAndType(Uri.parse(video.getFlvUrl()), "video/*");
 				startActivity(intent);
 			}
-			catch(Exception ex){}
+			catch(Exception ex){ErrorMsg();}
 
 			break;
 
@@ -109,7 +111,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 				intent.setDataAndType(Uri.parse(video.getFlvUrl()), "video/*");
 				startActivity(intent);
 			}
-			catch(Exception ex){}
+			catch(Exception ex){ErrorMsg();}
 
 			break;
 
@@ -123,7 +125,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 				intent.setDataAndType(Uri.parse(video.getFlvUrl()), "video/*");
 				startActivity(intent);
 			}
-			catch(Exception ex){}
+			catch(Exception ex){ErrorMsg();}
 
 			break;
 
@@ -137,11 +139,27 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 				intent.setDataAndType(Uri.parse(video.getFlvUrl()), "video/*");
 				startActivity(intent);
 			}
-			catch(Exception ex){}
+			catch(Exception ex){ErrorMsg();}
 
 			break;
 			//
 		}
+	}
+	
+	public void ErrorMsg()
+	{
+		
+		
+		AlertDialog.Builder myAlertDialog = new AlertDialog.Builder(this);
+		myAlertDialog.setTitle("Error");
+		myAlertDialog.setMessage("Please check your network connectivity.");
+		myAlertDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+			public void onClick(DialogInterface arg0, int arg1) {
+				
+			}});
+		
+		myAlertDialog.show();
 	}
 
 }

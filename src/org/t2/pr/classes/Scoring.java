@@ -53,10 +53,20 @@ public class Scoring {
 			//Global.Log.v("LeaveScore", "20");
 			return 20;
 		}
+		else if(leavedays <= 90)
+		{
+			//Global.Log.v("LeaveScore", "10");
+			return 15;
+		}
 		else if(leavedays <= 120)
 		{
 			//Global.Log.v("LeaveScore", "10");
 			return 10;
+		}
+		else if(leavedays <= 150)
+		{
+			//Global.Log.v("LeaveScore", "10");
+			return 5;
 		}
 		else
 		{
@@ -222,11 +232,11 @@ public class Scoring {
 
 		int totalScore = 0;
 		if(dbvalues >=85)
-			totalScore = 30;
-		else if(dbvalues >= 75)
-			totalScore = 20;
-		else if(dbvalues >= 65)
+			totalScore = 15;
+		else if(dbvalues >= 70)
 			totalScore = 10;
+		else if(dbvalues >= 50)
+			totalScore = 5;
 
 		//Global.Log.v("BurnoutScore", "" + totalScore);
 		return totalScore;
@@ -246,37 +256,44 @@ public class Scoring {
 		ArrayList<Integer> video = (ArrayList<Integer>) db.selectMisc("video", date);
 		ArrayList<Integer> remindme = (ArrayList<Integer>) db.selectMisc("remindme", date);
 
-		int miscScore = 0;
+		/*int miscScore = 0;
 		if(laugh.size() > 0) miscScore += 3;
 		if(video.size() > 0) miscScore += 3;
 		if(remindme.size() > 0) miscScore += 3;
 		if(miscScore > 0) miscScore += 1;
 		//Global.Log.v("miscScore", "" + miscScore);
+		return miscScore;*/
+		
+		int miscScore = 0;
+		if(laugh.size() > 0) miscScore = 10;
+		if(video.size() > 0) miscScore = 10;
+		if(remindme.size() > 0) miscScore = 10;
+		
 		return miscScore;
 	}
 	
 	public static int TotalResilienceScore(String date)
 	{
 		//Max points are equivalent to their percentage worth of total score, except builders/killers
-		double maxPROQOLPoints = 20;
-		double maxBurnoutPoints = 30;
-		double maxBuildersKillersPoints = 20; 
+		double maxPROQOLPoints = 45;
+		double maxBurnoutPoints = 15;
+		double maxBuildersKillersPoints = 10; 
 		double maxLeavePoints = 20;
 		
-		//ProQOL is 20% 
+		//ProQOL is 45% 
 		double proqolPercent = (maxPROQOLPoints * (((PROQOLScore(date) / maxPROQOLPoints) * 100) * .01));
 		if(PROQOLScore(date) <= 0f)
 			proqolPercent = 0;
 		//Global.Log.v("proqolPercent", "" + proqolPercent);
 
-		//Burnout is 30%
+		//Burnout is 15%
 		double burnPercent = (maxBurnoutPoints * (((BurnoutScore(date) / maxBurnoutPoints) * 100) * .01));
 		if(BurnoutScore(date) <= 0)
 			burnPercent = 0;
 		//Global.Log.v("burnPercent", "" + burnPercent);
 
-		//BuildersKillers is 20%
-		double buildersPercent = (10 * (((BuildersKillersScore(date) / maxBuildersKillersPoints) * 100) * .01));
+		//BuildersKillers is 10%
+		double buildersPercent = (5 * (((BuildersKillersScore(date) / maxBuildersKillersPoints) * 100) * .01));
 		if(BuildersKillersScore(date) <= 0)
 			buildersPercent = 0;
 		//Global.Log.v("buildersPercent", "" + buildersPercent);

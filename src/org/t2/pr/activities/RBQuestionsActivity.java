@@ -104,7 +104,7 @@ public class RBQuestionsActivity  extends ABSActivity
 
 	public void SaveQuestions()
 	{
-		String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+		String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 		db.insertRBAnswers(answers, date);
 	}
 

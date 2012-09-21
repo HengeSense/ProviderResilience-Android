@@ -1,9 +1,12 @@
 package org.t2.pr.activities;
 
+import java.util.Calendar;
+
 import org.t2.pr.R;
 import org.t2.pr.classes.ActivityFactory;
 import org.t2.pr.classes.SharedPref;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,7 +44,7 @@ public class EulaActivity extends ABSWebViewActivity
 				DeclinePressed();
 			}
 		});
-		
+
 		this.setTitle(getString(R.string.eula_title));
 		this.setContent(getString(R.string.eula_content));
 	}
@@ -50,7 +53,9 @@ public class EulaActivity extends ABSWebViewActivity
 	{
 		SharedPref.setIsEulaAccepted(true);
 		this.startActivity(ActivityFactory.getHomeActivity(this));
-		
+		Intent intent = ActivityFactory.getAboutActivity(this);
+		intent.putExtra("shownav", false);
+		this.startActivity(intent);
 		this.finish();
 	}
 

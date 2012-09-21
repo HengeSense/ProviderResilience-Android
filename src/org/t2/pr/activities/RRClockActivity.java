@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -50,7 +51,7 @@ public class RRClockActivity extends ABSActivity
 	Typeface tfDigitalNum;
 	Typeface tfDigitalChr;
 
-	private Button btnRRClock;
+	private ImageButton btnRRClock;
 	private ToggleButton tbVacation;
 	TextView tvToggleLabel;
 
@@ -81,7 +82,7 @@ public class RRClockActivity extends ABSActivity
 		this.SetMenuVisibility(1);
 		this.btnMainDashboard.setChecked(true);
 
-		btnRRClock = (Button)this.findViewById(R.id.btn_rrclock);
+		btnRRClock = (ImageButton)this.findViewById(R.id.btn_rrclock);
 		btnRRClock.setOnClickListener(this);
 
 		tfDigitalNum = Typeface.createFromAsset(getAssets(), "digitalkmono.ttf");
@@ -271,27 +272,43 @@ public class RRClockActivity extends ABSActivity
 		//Set color based on leave score
 		if(Scoring.LeaveClockScore() == 20)
 		{
-			tvYearDigit.setTextColor(Color.argb(255, 18, 145, 18));
-			tvMonthDigit.setTextColor(Color.argb(255, 18, 145, 18));
-			tvDayDigit.setTextColor(Color.argb(255, 18, 145, 18));
-			tvHourDigit.setTextColor(Color.argb(255, 18, 145, 18));
-			tvMinuteDigit.setTextColor(Color.argb(255, 18, 145, 18));
+			tvYearDigit.setTextColor(Color.GREEN);
+			tvMonthDigit.setTextColor(Color.GREEN);
+			tvDayDigit.setTextColor(Color.GREEN);
+			tvHourDigit.setTextColor(Color.GREEN);
+			tvMinuteDigit.setTextColor(Color.GREEN);
+		}
+		else if(Scoring.LeaveClockScore() == 15)
+		{
+			tvYearDigit.setTextColor(Color.YELLOW);
+			tvMonthDigit.setTextColor(Color.YELLOW);
+			tvDayDigit.setTextColor(Color.YELLOW);
+			tvHourDigit.setTextColor(Color.YELLOW);
+			tvMinuteDigit.setTextColor(Color.YELLOW);
 		}
 		else if(Scoring.LeaveClockScore() == 10)
 		{
-			tvYearDigit.setTextColor(Color.argb(255, 67, 97, 212));
-			tvMonthDigit.setTextColor(Color.argb(255, 67, 97, 212));
-			tvDayDigit.setTextColor(Color.argb(255, 67, 97, 212));
-			tvHourDigit.setTextColor(Color.argb(255, 67, 97, 212));
-			tvMinuteDigit.setTextColor(Color.argb(255, 67, 97, 212));
+			tvYearDigit.setTextColor(Color.YELLOW);
+			tvMonthDigit.setTextColor(Color.YELLOW);
+			tvDayDigit.setTextColor(Color.YELLOW);
+			tvHourDigit.setTextColor(Color.YELLOW);
+			tvMinuteDigit.setTextColor(Color.YELLOW);
+		}
+		else if(Scoring.LeaveClockScore() == 5)
+		{
+			tvYearDigit.setTextColor(Color.YELLOW);
+			tvMonthDigit.setTextColor(Color.YELLOW);
+			tvDayDigit.setTextColor(Color.YELLOW);
+			tvHourDigit.setTextColor(Color.YELLOW);
+			tvMinuteDigit.setTextColor(Color.YELLOW);
 		}
 		else
 		{
-			tvYearDigit.setTextColor(Color.argb(255, 227, 20, 29));
-			tvMonthDigit.setTextColor(Color.argb(255, 227, 20, 29));
-			tvDayDigit.setTextColor(Color.argb(255, 227, 20, 29));
-			tvHourDigit.setTextColor(Color.argb(255, 227, 20, 29));
-			tvMinuteDigit.setTextColor(Color.argb(255, 227, 20, 29));
+			tvYearDigit.setTextColor(Color.RED);
+			tvMonthDigit.setTextColor(Color.RED);
+			tvDayDigit.setTextColor(Color.RED);
+			tvHourDigit.setTextColor(Color.RED);
+			tvMinuteDigit.setTextColor(Color.RED);
 		}
 
 	}

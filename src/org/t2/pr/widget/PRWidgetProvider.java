@@ -71,6 +71,28 @@ public class PRWidgetProvider extends AppWidgetProvider {
 		    paint.setTypeface(tfDigitalNum);
 		    paint.setStyle(Paint.Style.FILL);
 		    paint.setColor(Color.GREEN);
+		    
+		    if(Scoring.LeaveClockScore() == 20)
+			{
+		    	paint.setColor(Color.GREEN);
+			}
+			else if(Scoring.LeaveClockScore() == 15)
+			{
+		    	paint.setColor(Color.YELLOW);
+			}
+			else if(Scoring.LeaveClockScore() == 10)
+			{
+		    	paint.setColor(Color.YELLOW);
+			}
+			else if(Scoring.LeaveClockScore() == 5)
+			{
+		    	paint.setColor(Color.YELLOW);
+			}
+			else
+			{
+		    	paint.setColor(Color.RED);
+			}
+		    
 		    paint.setTextSize(44);
 		    //paint.setTextAlign(Align.LEFT);
 		    

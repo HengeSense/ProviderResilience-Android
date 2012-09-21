@@ -10,11 +10,12 @@ import org.joda.time.PeriodType;
 import org.t2.pr.R;
 import org.t2.pr.classes.ActivityFactory;
 import org.t2.pr.classes.Global;
-import org.t2.pr.classes.ScheduleClient;
 import org.t2.pr.classes.Scoring;
 import org.t2.pr.classes.SharedPref;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -30,6 +31,7 @@ import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Create screen provides navigation to all activity choosing functionality
@@ -38,8 +40,10 @@ import android.widget.TextView;
  */
 public class HomeActivity extends ABSActivity implements OnClickListener
 {
+	private PendingIntent pendingIntent;
+
 	private Handler mHandler = new Handler();
-	
+
 	public TextView tv_Vacation;
 
 	public TextView tv_rratingvalue;
@@ -99,9 +103,6 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 
 	private Timer minTimer;
 
-	private ScheduleClient scheduleClient;
-	private boolean reminderSet = false;
-
 	/* (non-Javadoc)
 	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
 	 */
@@ -109,17 +110,14 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 	public void onCreate(Bundle savedInstanceState) 
 	{
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.home);
 
-		scheduleClient = new ScheduleClient(this.getApplicationContext());
-		scheduleClient.doBindService();
-		
 		this.SetMenuVisibility(1);
 		this.btnMainDashboard.setChecked(true);
-
+        
 		Global.appContext = this.getApplicationContext();
-		sDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+		sDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 
 		tv_Vacation = (TextView)this.findViewById(R.id.tv_Vacation);
 
@@ -169,7 +167,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 		btnProQOL.setOnClickListener(this);
 
 		// get the current date
-		final Calendar c = Calendar.getInstance();
+		Calendar c = Calendar.getInstance();
 		cYear = c.get(Calendar.YEAR);
 		cMonth = c.get(Calendar.MONTH);
 		cDay = c.get(Calendar.DAY_OF_MONTH);
@@ -205,7 +203,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 		updateDisplay();
 
 		//ShowWelcome();
-		
+
 		//Show daily card (once a day)
 		/*int dayofyear = SharedPref.getPopupCardDay();
 		int cdayofyear = Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
@@ -214,8 +212,8 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			SharedPref.setPopupCardDay(cdayofyear);
 			mHandler.postDelayed(startCardsRunnable, 500);
 		}*/
-		
-		
+
+
 
 	}
 
@@ -223,12 +221,10 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 	 * @see org.t2.pr.activities.FlurryActivity#onStop()
 	 */
 	@Override
-	protected void onStop()
-	{
-		if(scheduleClient != null)
-			scheduleClient.doUnbindService();
-		super.onStop();
-	}
+    protected void onStop() {
+    	
+    	super.onStop();
+    }
 
 	/**
 	 * A timer to handle the display of the vacation clock updates
@@ -240,9 +236,6 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			@Override
 			public void run() {
 				updateDisplay();
-				
-				if(!reminderSet)
-					SetReminder();
 			}});
 	}
 
@@ -319,41 +312,6 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			}
 
 		}, 0, 5000);
-	}
-
-	/**
-	 * Adds a notification bar reminder to remind the user to enter data for the day
-	 */
-	public void SetReminder()
-	{
-		//TODO: CHECK to see if we have already added a reminder today...
-		if(SharedPref.getReminders())
-		{
-			//Schedule a reminder to be displayed to the user the following day. (or today in debug mode)
-			try
-			{
-				Calendar c = Calendar.getInstance();
-				if(Global.DebugOn)
-				{
-					c.set(Calendar.HOUR_OF_DAY, SharedPref.getNotifyHour());
-					c.set(Calendar.MINUTE, SharedPref.getNotifyMinute());
-				}
-				else
-				{
-					c.add(Calendar.DAY_OF_MONTH, 1);
-					c.set(Calendar.HOUR_OF_DAY, SharedPref.getNotifyHour());
-					c.set(Calendar.MINUTE, SharedPref.getNotifyMinute());
-				}
-
-				scheduleClient.setAlarmForNotification(c);
-				reminderSet = true;
-			}
-			catch(Exception ex)
-			{
-				reminderSet = false;
-				Global.Log.v("Notification error", ex.toString());
-			}
-		}
 	}
 
 	/**
@@ -502,27 +460,43 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			//Set color based on leave score
 			if(Scoring.LeaveClockScore() == 20)
 			{
-				tvYearDigit.setTextColor(Color.argb(255, 18, 145, 18));
-				tvMonthDigit.setTextColor(Color.argb(255, 18, 145, 18));
-				tvDayDigit.setTextColor(Color.argb(255, 18, 145, 18));
-				tvHourDigit.setTextColor(Color.argb(255, 18, 145, 18));
-				tvMinuteDigit.setTextColor(Color.argb(255, 18, 145, 18));
+				tvYearDigit.setTextColor(Color.GREEN);
+				tvMonthDigit.setTextColor(Color.GREEN);
+				tvDayDigit.setTextColor(Color.GREEN);
+				tvHourDigit.setTextColor(Color.GREEN);
+				tvMinuteDigit.setTextColor(Color.GREEN);
+			}
+			else if(Scoring.LeaveClockScore() == 15)
+			{
+				tvYearDigit.setTextColor(Color.YELLOW);
+				tvMonthDigit.setTextColor(Color.YELLOW);
+				tvDayDigit.setTextColor(Color.YELLOW);
+				tvHourDigit.setTextColor(Color.YELLOW);
+				tvMinuteDigit.setTextColor(Color.YELLOW);
 			}
 			else if(Scoring.LeaveClockScore() == 10)
 			{
-				tvYearDigit.setTextColor(Color.argb(255, 67, 97, 212));
-				tvMonthDigit.setTextColor(Color.argb(255, 67, 97, 212));
-				tvDayDigit.setTextColor(Color.argb(255, 67, 97, 212));
-				tvHourDigit.setTextColor(Color.argb(255, 67, 97, 212));
-				tvMinuteDigit.setTextColor(Color.argb(255, 67, 97, 212));
+				tvYearDigit.setTextColor(Color.YELLOW);
+				tvMonthDigit.setTextColor(Color.YELLOW);
+				tvDayDigit.setTextColor(Color.YELLOW);
+				tvHourDigit.setTextColor(Color.YELLOW);
+				tvMinuteDigit.setTextColor(Color.YELLOW);
+			}
+			else if(Scoring.LeaveClockScore() == 5)
+			{
+				tvYearDigit.setTextColor(Color.YELLOW);
+				tvMonthDigit.setTextColor(Color.YELLOW);
+				tvDayDigit.setTextColor(Color.YELLOW);
+				tvHourDigit.setTextColor(Color.YELLOW);
+				tvMinuteDigit.setTextColor(Color.YELLOW);
 			}
 			else
 			{
-				tvYearDigit.setTextColor(Color.argb(255, 227, 20, 29));
-				tvMonthDigit.setTextColor(Color.argb(255, 227, 20, 29));
-				tvDayDigit.setTextColor(Color.argb(255, 227, 20, 29));
-				tvHourDigit.setTextColor(Color.argb(255, 227, 20, 29));
-				tvMinuteDigit.setTextColor(Color.argb(255, 227, 20, 29));
+				tvYearDigit.setTextColor(Color.RED);
+				tvMonthDigit.setTextColor(Color.RED);
+				tvDayDigit.setTextColor(Color.RED);
+				tvHourDigit.setTextColor(Color.RED);
+				tvMinuteDigit.setTextColor(Color.RED);
 			}
 		}
 
@@ -578,13 +552,13 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			break;
 		}
 	}
-	
+
 	private Runnable startCardsRunnable = new Runnable() {
-		   public void run() {
-			   startCardsActivity();
-		   }
-		};
-		
+		public void run() {
+			startCardsActivity();
+		}
+	};
+
 	private void startCardsActivity() 
 	{
 		Intent intent = new Intent(this, CardsActivity.class);

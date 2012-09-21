@@ -17,13 +17,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ProQOLActivity extends ABSActivity implements OnClickListener
 {
 
-	Button btnUpdateQOL;
+	ImageButton btnUpdateQOL;
 
 	public TextView tv_qolcsvalue;
 	public TextView tv_qolbvalue;
@@ -72,7 +73,7 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 		this.SetMenuVisibility(1);
 		this.btnMainDashboard.setChecked(true);
 
-		btnUpdateQOL = (Button) this.findViewById(R.id.btn_upproqol);
+		btnUpdateQOL = (ImageButton) this.findViewById(R.id.btn_upproqol);
 		btnUpdateQOL.setOnClickListener(this);
 
 		tv_qolcsvalue = (TextView)this.findViewById(R.id.tv_qolcsvalue);

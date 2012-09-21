@@ -7,6 +7,7 @@ import uk.co.jasonfry.android.tools.ui.PageControl;
 import uk.co.jasonfry.android.tools.ui.SwipeView;
 import uk.co.jasonfry.android.tools.ui.SwipeView.OnPageChangedListener;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 /**
  * Shows a browser based information screen
@@ -23,7 +25,7 @@ import android.widget.LinearLayout;
  */
 public class AboutActivity extends ABSActivity
 {
-
+	boolean shownav = true;
 	SwipeView mSwipeView;
 
 	@Override
@@ -33,6 +35,9 @@ public class AboutActivity extends ABSActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.walkthrough);
 
+		Intent intent = this.getIntent();
+		shownav = intent.getBooleanExtra("shownav", true);
+		
 		PageControl mPageControl = (PageControl) findViewById(R.id.page_control);
 		mSwipeView = (SwipeView) findViewById(R.id.swipe_view);
 
@@ -67,8 +72,15 @@ public class AboutActivity extends ABSActivity
 
 		mSwipeView.setPageControl(mPageControl);
 
-		this.SetMenuVisibility(1);
-		this.btnMainAbout.setChecked(true);
+		if(shownav)
+		{
+			this.SetMenuVisibility(View.VISIBLE);
+			this.btnMainAbout.setChecked(true);
+		}
+		else
+			this.SetMenuVisibility(View.GONE);
+		
+		Toast.makeText(this, "Swipe left/right to view additional instructions.", Toast.LENGTH_SHORT).show();
 	}
 
 	

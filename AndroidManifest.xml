@@ -113,8 +113,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
 
-        <service android:name="org.t2.pr.classes.ScheduleService" />
-        <service android:name="org.t2.pr.classes.NotifyService" />
+        <service android:name="org.t2.pr.classes.NotificationService" />
     </application>
 
 </manifest>

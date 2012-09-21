@@ -1,13 +1,19 @@
 package org.t2.pr.activities;
 
+import java.util.Calendar;
+
 import org.t2.pr.R;
 import org.t2.pr.classes.DatabaseProvider;
 import org.t2.pr.classes.Global;
+import org.t2.pr.classes.NotificationService;
 import org.t2.pr.classes.SharedPref;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,13 +32,15 @@ public class SettingsActivity extends ABSActivity
 {
 	private DatabaseProvider db = new DatabaseProvider(this);
 	Button btnReset;
+	Button btnSetReset;
 	Button btnFeedback;
 	Button btnSetTime;
 	private ToggleButton toggle_welcome;
 	private ToggleButton toggle_reminders;
 	private ToggleButton toggle_anondata;
 	static final int TIME_DIALOG_ID = 1;
-	
+	static final int RESET_DIALOG_ID = 2;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -47,21 +55,24 @@ public class SettingsActivity extends ABSActivity
 
 		btnFeedback = (Button)this.findViewById(R.id.toggle_feedback);
 		btnFeedback.setOnClickListener(this);
-		
+
 		btnSetTime = (Button)this.findViewById(R.id.toggle_setrtime);
 		btnSetTime.setOnClickListener(this);
 
 		toggle_welcome = (ToggleButton)this.findViewById(R.id.toggle_welcome);
 		toggle_welcome.setOnClickListener(this);
 		toggle_welcome.setChecked(SharedPref.getWelcomeMessage());
-		
+
 		toggle_reminders = (ToggleButton)this.findViewById(R.id.toggle_reminders);
 		toggle_reminders.setOnClickListener(this);
 		toggle_reminders.setChecked(SharedPref.getReminders());
-		
+
 		toggle_anondata = (ToggleButton)this.findViewById(R.id.toggle_anondata);
 		toggle_anondata.setOnClickListener(this);
 		toggle_anondata.setChecked(SharedPref.getAnonData());
+
+		btnSetReset = (Button)this.findViewById(R.id.toggle_setreset);
+		btnSetReset.setOnClickListener(this);
 
 	}
 
@@ -98,7 +109,7 @@ public class SettingsActivity extends ABSActivity
 		SharedPref.setVacationDay(0);
 		SharedPref.setVacationMonth(0);
 		SharedPref.setVacationYear(0);
-		
+
 		//If debug, ask insert test data
 		if(Global.DebugOn)
 		{
@@ -137,7 +148,7 @@ public class SettingsActivity extends ABSActivity
 
 		super.onStart();
 	}
-	
+
 	/**
 	 * Opens and pre-populates an email intent
 	 */
@@ -167,6 +178,28 @@ public class SettingsActivity extends ABSActivity
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			SharedPref.setNotifyHour(hourOfDay);
 			SharedPref.setNotifyMinute(minute);
+
+			Calendar nc = Calendar.getInstance();
+			nc.set(Calendar.HOUR_OF_DAY, SharedPref.getNotifyHour());
+			nc.set(Calendar.MINUTE, SharedPref.getNotifyMinute());
+			nc.set(Calendar.SECOND, 0);
+
+			// Schedule an alarm
+			final AlarmManager mgr =
+					(AlarmManager)SettingsActivity.this.getSystemService(Context.ALARM_SERVICE);
+			final Intent intent = new Intent(SettingsActivity.this,NotificationService.class);
+			final PendingIntent pend =
+					PendingIntent.getService(SettingsActivity.this, 0, intent,
+							PendingIntent.FLAG_UPDATE_CURRENT);
+				mgr.setRepeating(AlarmManager.RTC_WAKEUP, nc.getTimeInMillis(), (1000*60*60*24*7), pend);
+		}
+	};
+	private TimePickerDialog.OnTimeSetListener mResetTimeSetListener =
+			new TimePickerDialog.OnTimeSetListener() {
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			SharedPref.setResetHour(hourOfDay);
+			SharedPref.setResetMinute(minute);
 		}
 	};
 
@@ -177,10 +210,14 @@ public class SettingsActivity extends ABSActivity
 			return new TimePickerDialog(this,
 					mTimeSetListener,
 					SharedPref.getNotifyHour(), SharedPref.getNotifyMinute(), false);
+		case RESET_DIALOG_ID:
+			return new TimePickerDialog(this,
+					mResetTimeSetListener,
+					SharedPref.getResetHour(), SharedPref.getResetMinute(), false);
 		}
 		return null;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
 	 */
@@ -208,6 +245,9 @@ public class SettingsActivity extends ABSActivity
 			break;
 		case R.id.toggle_setrtime:
 			showDialog(TIME_DIALOG_ID);
+			break;
+		case R.id.toggle_setreset:
+			showDialog(RESET_DIALOG_ID);
 			break;
 		}
 	}

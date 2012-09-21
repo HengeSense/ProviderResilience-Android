@@ -83,7 +83,7 @@ public class SharedPref {
 	}
 	
 	public static int getNotifyHour() {
-		return Global.sharedPref.getInt("notify_hour", 0);
+		return Global.sharedPref.getInt("notify_hour", 1);
 	}
 
 	public static void setNotifyHour(int hour) {
@@ -91,11 +91,27 @@ public class SharedPref {
 	}
 	
 	public static int getNotifyMinute() {
-		return Global.sharedPref.getInt("notify_minute", 0);
+		return Global.sharedPref.getInt("notify_minute", 1);
 	}
 
 	public static void setNotifyMinute(int minute) {
 		Global.sharedPref.edit().putInt("notify_minute", minute).commit();
+	}
+
+	public static int getResetHour() {
+		return Global.sharedPref.getInt("reset_hour", 1);
+	}
+
+	public static void setResetHour(int hour) {
+		Global.sharedPref.edit().putInt("reset_hour", hour).commit();
+	}
+	
+	public static int getResetMinute() {
+		return Global.sharedPref.getInt("reset_minute", 0);
+	}
+
+	public static void setResetMinute(int minute) {
+		Global.sharedPref.edit().putInt("reset_minute", minute).commit();
 	}
 	
 	public static int getCardIndex() {

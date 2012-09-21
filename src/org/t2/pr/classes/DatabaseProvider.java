@@ -4,7 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -86,14 +91,49 @@ public class DatabaseProvider
 		db.close();
 	}
 
+	public String getStartDate(String inDate)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
+		
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(dateFormat.parse(inDate));
+		} catch (ParseException e) {
+			//e.printStackTrace();
+		}
+		c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+		c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+		
+		return dateFormat.format(c.getTime());
+		
+	}
+	
+	public String getEndDate(String inDate)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
+		
+		Calendar c = Calendar.getInstance();
+		try {
+			c.setTime(dateFormat.parse(inDate));
+		} catch (ParseException e) {
+			//e.printStackTrace();
+		}
+		c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+		c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+		c.add(Calendar.DATE, 1);  
+		
+		return dateFormat.format(c.getTime());
+		
+	}
+	
 	public void insertRBAnswers(List<int[]> inAnswers, String answerDate)
 	{
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-
+		
 		//Only allow one set of answers per day
-		db.execSQL("delete from RBAnswers where answerDate = '" + answerDate + "'");
+		db.execSQL("delete from RBAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'");
 
 		int aLen = inAnswers.size();
 		for(int a=0; a< aLen; a++)
@@ -172,7 +212,7 @@ public class DatabaseProvider
 		this.db = openHelper.getWritableDatabase();
 
 		//Only allow one set of answers per day
-		db.execSQL("delete from RKAnswers where answerDate = '" + answerDate + "'");
+		db.execSQL("delete from RKAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'");
 
 		int aLen = inAnswers.size();
 		for(int a=0; a< aLen; a++)
@@ -231,7 +271,7 @@ public class DatabaseProvider
 		this.db = openHelper.getWritableDatabase();
 
 		//Only allow one set of answers per day
-		db.execSQL("delete from QOLAnswers where answerDate = '" + answerDate + "'");
+		db.execSQL("delete from QOLAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'");
 
 		int aLen = inAnswers.size();
 		for(int a=0; a< aLen; a++)
@@ -288,7 +328,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select banswer from BurnoutAnswers where answerDate = '" + answerDate + "'";
+		String query = "select banswer from BurnoutAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'";
 
 		int scoreTotal = 0;
 
@@ -321,7 +361,7 @@ public class DatabaseProvider
 		this.db = openHelper.getWritableDatabase();
 
 		//Only allow one set of answers per day
-		db.execSQL("delete from BurnoutAnswers where answerDate = '" + answerDate + "'");
+		db.execSQL("delete from BurnoutAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'");
 
 		int aLen = inAnswers.size();
 		for(int a=0; a< aLen; a++)
@@ -347,7 +387,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select distinct answerDate from BurnoutAnswers order by bID desc";
+		String query = "select answerDate from BurnoutAnswers order by bID desc";
 
 		List<String> list = new ArrayList<String>();
 
@@ -375,10 +415,10 @@ public class DatabaseProvider
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
 
-		boolean foundKiller = false;
+		//boolean foundKiller = false;
 		
-		String bquery = "select rbanswer from RBAnswers where answerDate = '" + answerDate + "'";
-		String kquery = "select rkanswer from RKAnswers where answerDate = '" + answerDate + "'";
+		String bquery = "select rbanswer from RBAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'";
+		String kquery = "select rkanswer from RKAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'";
 
 		int scoreTotal = 0;
 
@@ -386,13 +426,14 @@ public class DatabaseProvider
 		{
 			Cursor kcursor = this.db.rawQuery(kquery, null);
 
-			//if any killer, subract 10 pts
+			//if any killer, subract 5 pts
 			if (kcursor.moveToFirst()) 
 			{
 				do 
 				{
 					if(kcursor.getInt(0) == 1)
-						foundKiller = true;
+						scoreTotal -= 5;
+						//foundKiller = true;
 				} 
 				while (kcursor.moveToNext());
 			}
@@ -402,7 +443,9 @@ public class DatabaseProvider
 			}
 		}catch(Exception ex){}
 
-		if(foundKiller) scoreTotal -= 10;
+		if(scoreTotal < -10) scoreTotal = -10;
+		
+		//if(foundKiller) scoreTotal -= 5;
 		
 		try
 		{
@@ -436,7 +479,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select a.qolAnswer, q.custom from QOLAnswers a join PROQOL q on q.qolID = a.qolQuestion where a.answerDate = '" + answerDate + "' order by q.custom";
+		String query = "select a.qolAnswer, q.custom from QOLAnswers a join PROQOL q on q.qolID = a.qolQuestion where a.answerDate >= '" + getStartDate(answerDate) + "' and a.answerdate <= '" + getEndDate(answerDate) + "' order by q.custom";
 
 		List<String[]> list = new ArrayList<String[]>();
 
@@ -467,7 +510,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select distinct answerDate from QOLAnswers order by qolaID desc";
+		String query = "select answerDate from QOLAnswers order by qolaID desc";
 
 		List<String> list = new ArrayList<String>();
 
@@ -565,7 +608,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select mValue from MiscData where mtype = '" + type + "' and answerDate = '" + answerDate + "'";
+		String query = "select mValue from MiscData where mtype = '" + type + "' and answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'";
 
 		List<Integer> list = new ArrayList<Integer>();
 
