@@ -76,7 +76,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 		{
 		case R.id.iv_depression: //1125410612001
 			try{
-				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 				db.insertMisc("remindme", 1, answerDate);
 				//Read the video url from brightcove and load with standard media player (sorry, brightcove's player is junk.)
 				Video video = readAPI.findVideoById(Long.parseLong("1125410612001"), null, null);
@@ -89,7 +89,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 			break;
 		case R.id.iv_alcohol:
 			try{
-				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 				db.insertMisc("remindme", 1, answerDate);
 				//Read the video url from brightcove and load with standard media player (sorry, brightcove's player is junk.)
 				Video video = readAPI.findVideoById(Long.parseLong("1124090491001"), null, null);
@@ -103,7 +103,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 
 		case R.id.iv_anger:
 			try{
-				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 				db.insertMisc("remindme", 1, answerDate);
 				//Read the video url from brightcove and load with standard media player (sorry, brightcove's player is junk.)
 				Video video = readAPI.findVideoById(Long.parseLong("1125552100001"), null, null);
@@ -117,7 +117,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 
 		case R.id.iv_seekdepression:
 			try{
-				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 				db.insertMisc("remindme", 1, answerDate);
 				//Read the video url from brightcove and load with standard media player (sorry, brightcove's player is junk.)
 				Video video = readAPI.findVideoById(Long.parseLong("1125380434001"), null, null);
@@ -131,7 +131,7 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 
 		case R.id.iv_stigma:
 			try{
-				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 				db.insertMisc("remindme", 1, answerDate);
 				//Read the video url from brightcove and load with standard media player (sorry, brightcove's player is junk.)
 				Video video = readAPI.findVideoById(Long.parseLong("1125586040001"), null, null);

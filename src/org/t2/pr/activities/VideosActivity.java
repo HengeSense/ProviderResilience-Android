@@ -65,7 +65,7 @@ public class VideosActivity extends ABSActivity implements OnClickListener
 		{
 		case R.id.iv_compfat:
 			try{
-				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 				db.insertMisc("video", 1, answerDate);
 				//Read the video url from brightcove and load with standard media player (sorry, brightcove's player is junk.)
 				Video video = readAPI.findVideoById(Long.parseLong("1279636611001"), null, null);
@@ -80,7 +80,7 @@ public class VideosActivity extends ABSActivity implements OnClickListener
 			break;
 		case R.id.iv_trauma:
 			try{
-				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+				String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 				db.insertMisc("video", 1, answerDate);
 				//Read the video url from brightcove and load with standard media player (sorry, brightcove's player is junk.)
 				Video video = readAPI.findVideoById(Long.parseLong("1279636609001"), null, null);

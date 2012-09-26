@@ -8,6 +8,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
+import android.util.Log;
+
 public class Scoring {
 
 	private static DatabaseProvider db = new DatabaseProvider(Global.appContext);
@@ -230,6 +232,7 @@ public class Scoring {
 	{
 		int dbvalues = db.selectBurnoutScore(date);
 
+		
 		int totalScore = 0;
 		if(dbvalues >=85)
 			totalScore = 15;
@@ -238,8 +241,12 @@ public class Scoring {
 		else if(dbvalues >= 50)
 			totalScore = 5;
 
-		//Global.Log.v("BurnoutScore", "" + totalScore);
 		return totalScore;
+	}
+	
+	public static int RawBurnoutScore(String date)
+	{
+		return db.selectBurnoutScore(date);
 	}
 
 	public static int BuildersKillersScore(String date)
@@ -274,41 +281,47 @@ public class Scoring {
 	
 	public static int TotalResilienceScore(String date)
 	{
-		//Max points are equivalent to their percentage worth of total score, except builders/killers
-		double maxPROQOLPoints = 45;
+		
+		double proQOLPercentage = 45;
+		double burnoutPercentage = 15;
+		double builderskillersPercentage = 5;
+		double clockPercentage = 10;
+		
+		double maxPROQOLPoints = 20;
 		double maxBurnoutPoints = 15;
 		double maxBuildersKillersPoints = 10; 
 		double maxLeavePoints = 20;
 		
-		//ProQOL is 45% 
-		double proqolPercent = (maxPROQOLPoints * (((PROQOLScore(date) / maxPROQOLPoints) * 100) * .01));
+		//ProQOL
+		double proqolPercent = (proQOLPercentage * (((PROQOLScore(date) / maxPROQOLPoints) * 100) * .01));
 		if(PROQOLScore(date) <= 0f)
 			proqolPercent = 0;
-		//Global.Log.v("proqolPercent", "" + proqolPercent);
+		Global.Log.v("proqolScore", "" + PROQOLScore(date));
+		Global.Log.v("proqolPercent", "" + proqolPercent);
 
-		//Burnout is 15%
-		double burnPercent = (maxBurnoutPoints * (((BurnoutScore(date) / maxBurnoutPoints) * 100) * .01));
+		//Burnout
+		double burnPercent = (burnoutPercentage * (((BurnoutScore(date) / maxBurnoutPoints) * 100) * .01));
 		if(BurnoutScore(date) <= 0)
 			burnPercent = 0;
-		//Global.Log.v("burnPercent", "" + burnPercent);
+		Global.Log.v("burnPercent", "" + burnPercent);
 
-		//BuildersKillers is 10%
-		double buildersPercent = (5 * (((BuildersKillersScore(date) / maxBuildersKillersPoints) * 100) * .01));
-		if(BuildersKillersScore(date) <= 0)
-			buildersPercent = 0;
-		//Global.Log.v("buildersPercent", "" + buildersPercent);
+		//BuildersKillers
+		double buildersPercent = (builderskillersPercentage * (((BuildersKillersScore(date) / maxBuildersKillersPoints) * 100) * .01));
+//		if(BuildersKillersScore(date) <= 0)
+//			buildersPercent = 0;
+		Global.Log.v("buildersPercent", "" + buildersPercent);
 
-		//Leave clock is 20%
-		double leavePercent = (maxLeavePoints * (((LeaveClockScore() / maxLeavePoints) * 100) * .01));
-		//Global.Log.v("leavePercent", "" + leavePercent);
+		//Leave clock
+		double leavePercent = (clockPercentage * (((LeaveClockScore() / maxLeavePoints) * 100) * .01));
+		Global.Log.v("leavePercent", "" + leavePercent);
 
 		//Misc is 10%
 		double miscPercent = MiscScore(date);
-		//Global.Log.v("miscPercent", "" + miscPercent);
+		Global.Log.v("miscPercent", "" + miscPercent);
 		
 		//Total up all the scores
 		int outScore = (int)proqolPercent + (int)leavePercent + (int)burnPercent + (int)buildersPercent + (int)miscPercent;
-		//Global.Log.v("TotalScore", "" + outScore);
+		Global.Log.v("TotalScore", "" + outScore);
 		return outScore;
 	}
 	

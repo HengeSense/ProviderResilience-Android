@@ -81,8 +81,8 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		btn_next = (Button)this.findViewById(R.id.btn_next);
 		btn_next.setOnClickListener(this);
 
-		String answerDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
-		db.insertMisc("laugh", 1, answerDate);
+		String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
+		db.insertMisc("laugh", 1, date);
 
 	}
 

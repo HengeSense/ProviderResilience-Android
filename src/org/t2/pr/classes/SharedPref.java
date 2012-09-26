@@ -67,7 +67,7 @@ public class SharedPref {
 	}
 	
 	public static boolean getWelcomeMessage() {
-		return Global.sharedPref.getBoolean("welcome", true);
+		return Global.sharedPref.getBoolean("welcome", false);
 	}
 
 	public static void setWelcomeMessage(boolean enabled) {
@@ -75,7 +75,7 @@ public class SharedPref {
 	}
 	
 	public static boolean getReminders() {
-		return Global.sharedPref.getBoolean("reminders", true);
+		return Global.sharedPref.getBoolean("reminders", false);
 	}
 
 	public static void setReminders(boolean enabled) {

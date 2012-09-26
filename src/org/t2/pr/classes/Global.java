@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 public class Global {
 
 	//Enables logging to console
-	public static final boolean DebugOn = false;
+	public static final boolean DebugOn = true;
 
 	public static boolean seenWelcome = false;
 	

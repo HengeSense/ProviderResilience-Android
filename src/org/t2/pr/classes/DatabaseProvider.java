@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -97,9 +98,9 @@ public class DatabaseProvider
 		
 		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(dateFormat.parse(inDate));
-		} catch (ParseException e) {
-			//e.printStackTrace();
+			c.setTime(new java.util.Date(inDate));
+		} catch (Exception e) {
+			Log.v("PARSEERROR!", e.toString());
 		}
 		c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
 		c.set(Calendar.MINUTE, SharedPref.getResetMinute());
@@ -114,8 +115,8 @@ public class DatabaseProvider
 		
 		Calendar c = Calendar.getInstance();
 		try {
-			c.setTime(dateFormat.parse(inDate));
-		} catch (ParseException e) {
+			c.setTime(new java.util.Date(inDate));
+		} catch (Exception e) {
 			//e.printStackTrace();
 		}
 		c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
@@ -329,7 +330,8 @@ public class DatabaseProvider
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
 		String query = "select banswer from BurnoutAnswers where answerDate >= '" + getStartDate(answerDate) + "' and answerdate <= '" + getEndDate(answerDate) + "'";
-
+		//Log.v("query", query);
+		
 		int scoreTotal = 0;
 
 		try
@@ -387,7 +389,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select answerDate from BurnoutAnswers order by bID desc";
+		String query = "select answerDate from BurnoutAnswers order by bID asc";
 
 		List<String> list = new ArrayList<String>();
 
@@ -396,7 +398,12 @@ public class DatabaseProvider
 		{
 			do 
 			{
-				list.add(cursor.getString(0)); 
+				
+				//String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy", Date.parse(cursor.getString(0)));
+				
+				if(!list.contains(cursor.getString(0)))
+					list.add(cursor.getString(0)); 
+				
 			} 
 			while (cursor.moveToNext());
 		}
@@ -426,7 +433,7 @@ public class DatabaseProvider
 		{
 			Cursor kcursor = this.db.rawQuery(kquery, null);
 
-			//if any killer, subract 5 pts
+			//if any killer, subtract 5 pts
 			if (kcursor.moveToFirst()) 
 			{
 				do 
@@ -510,7 +517,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select answerDate from QOLAnswers order by qolaID desc";
+		String query = "select answerDate from QOLAnswers order by qolaID asc";
 
 		List<String> list = new ArrayList<String>();
 
@@ -519,6 +526,7 @@ public class DatabaseProvider
 		{
 			do 
 			{
+				if(!list.contains(cursor.getString(0)))
 				list.add(cursor.getString(0)); 
 			} 
 			while (cursor.moveToNext());

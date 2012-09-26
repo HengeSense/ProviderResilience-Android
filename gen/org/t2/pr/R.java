@@ -331,6 +331,7 @@ public final class R {
         public static final int chk6=0x7f0a0058;
         public static final int container=0x7f0a0000;
         public static final int custom_title=0x7f0a0009;
+        public static final int datechart=0x7f0a0003;
         public static final int dialogbody=0x7f0a003d;
         public static final int dontShowAgain=0x7f0a003e;
         public static final int flClock=0x7f0a000f;
@@ -355,7 +356,6 @@ public final class R {
         public static final int ivcard=0x7f0a0006;
         public static final int layout=0x7f0a00a8;
         public static final int leftButton=0x7f0a00a6;
-        public static final int linechart=0x7f0a0003;
         public static final int llMainMenu=0x7f0a0031;
         public static final int ll_sliderparent=0x7f0a0080;
         public static final int ll_sliders=0x7f0a0090;

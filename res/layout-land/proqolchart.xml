@@ -5,14 +5,12 @@
     android:background="@drawable/background"
     android:orientation="vertical" >
 
-    
-    
-    <!-- LinearLayout android:id="@+id/chart" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" /-->
-    <zencharts.charts.LineChart
-            android:id="@+id/linechart"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-         />
-    </LinearLayout>
-    
+    <!-- LinearLayout android:id="@+id/chart" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1" / -->
+
+    <zencharts.charts.DateChart
+        android:id="@+id/datechart"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" />
+
+</LinearLayout>

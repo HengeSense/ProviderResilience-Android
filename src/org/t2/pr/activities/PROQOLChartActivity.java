@@ -18,7 +18,10 @@ import org.t2.pr.classes.DatabaseProvider;
 import org.t2.pr.classes.Global;
 import org.t2.pr.classes.Scoring;
 
+import zencharts.charts.DateChart;
 import zencharts.charts.LineChart;
+import zencharts.data.DatePoint;
+import zencharts.data.DateSeries;
 import zencharts.data.LinePoint;
 import zencharts.data.LineSeries;
 
@@ -36,10 +39,8 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 	private static DatabaseProvider db = new DatabaseProvider(Global.appContext);
 	private Button btnUpdate;
 	GraphicalView mChartView;
-	XYMultipleSeriesDataset dataset;
-	XYMultipleSeriesRenderer renderer;
 	//LinearLayout chartLayout;
-	public LineChart lineChart;
+	public DateChart dateChart;
 
 	private static final double THREEDAYS = 81300000 *13;
 
@@ -49,9 +50,14 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.proqolchart);
 
-		lineChart = (LineChart)this.findViewById(R.id.linechart);
-		lineChart.gridLines = true;
-		lineChart.loadFont("Elronmonospace.ttf", 16, 2, 2);
+		dateChart = (DateChart)this.findViewById(R.id.datechart);
+		DateTime startTime = new DateTime().withMonthOfYear(1).withTime(0, 0, 0, 0);
+		DateTime endTime = new DateTime().withMonthOfYear(12).withTime(0, 0, 0, 0);
+		
+		dateChart.loadFont("Elronmonospace.ttf", 16, 2, 2);
+		dateChart.setPeriod(new Duration(startTime, endTime));
+		dateChart.setPeriodStartTime(startTime);
+		dateChart.maxValueManual = 50;
 		
 		getZenChartData();
 		//chartLayout = (LinearLayout) findViewById(R.id.chart);
@@ -73,49 +79,56 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 
 		if(qoldates.size() > 0)
 		{
-			LineSeries qolSeries = new LineSeries(this, R.drawable.circle);
+			DateSeries qolSeries = new DateSeries(this, R.drawable.circle);
 			qolSeries.dashEffect = new float[] {10,20};
 			qolSeries.lineColor = Color.RED;
 			qolSeries.lineWidth = 5;
 
-			LineSeries burnSeries = new LineSeries(this, R.drawable.triangle);
+			DateSeries burnSeries = new DateSeries(this, R.drawable.triangle);
 			burnSeries.dashEffect = new float[] {10,20};
 			burnSeries.lineColor = Color.GREEN;
 			burnSeries.lineWidth = 5;
 
-			LineSeries stsSeries = new LineSeries(this, R.drawable.square);
+			DateSeries stsSeries = new DateSeries(this, R.drawable.square);
 			stsSeries.lineColor = Color.BLUE;
 			stsSeries.lineWidth = 5;
 
 			for(int cs = 0; cs < qoldates.size(); cs++)
 			{
 				String tdate = qoldates.get(cs);
-				Date date = new java.util.Date(tdate);
+				long date = new java.util.Date(tdate).getTime();
 				double score = Scoring.QOLCompassionScore(qoldates.get(cs));
-				qolSeries.add(new LinePoint((int)score, "", DateFormat.format("MM/dd/yy", date).toString()));
+				qolSeries.add(new DatePoint(date, (int)score, ""));
 			}
 
 			for(int burn = 0; burn < qoldates.size(); burn++)
 			{
 
 				String tdate = qoldates.get(burn);
-				Date date = new java.util.Date(tdate);
+				long date = new java.util.Date(tdate).getTime();
 				double score = Scoring.QOLBurnoutScore(qoldates.get(burn));
-				burnSeries.add(new LinePoint((int)score, "", "x"));
+				burnSeries.add(new DatePoint(date, (int)score, ""));
 			}
 
 			for(int sts = 0; sts < qoldates.size(); sts++)
 			{
 
 				String tdate = qoldates.get(sts);
-				Date date = new java.util.Date(tdate);
+				long date = new java.util.Date(tdate).getTime();
 				double score = Scoring.QOLSTSScore(qoldates.get(sts));
-				stsSeries.add(new LinePoint((int)score, "", "x"));
+				stsSeries.add(new DatePoint(date, (int)score, ""));
 			}
 
-			lineChart.addSeries(qolSeries);
-			lineChart.addSeries(burnSeries);
-			lineChart.addSeries(stsSeries);
+			dateChart.addSeries(qolSeries);
+			dateChart.addSeries(burnSeries);
+			dateChart.addSeries(stsSeries);
+			
+			long sdate = new java.util.Date(qoldates.get(0)).getTime();
+			long edate = new java.util.Date(qoldates.get(qoldates.size()-1)).getTime();
+			DateTime startTime = new DateTime(sdate).withTime(0, 0, 0, 0);
+			DateTime endTime = new DateTime(edate).withTime(0, 0, 0, 0).plusHours(24);
+			dateChart.setPeriod(new Duration(startTime, endTime));
+			dateChart.setPeriodStartTime(startTime);
 			
 		}
 	}

@@ -22,8 +22,8 @@
         android:text="ProQOL Graph"
         android:textColor="#000000" />
 
-    <zencharts.charts.LineChart
-        android:id="@+id/linechart"
+    <zencharts.charts.DateChart
+        android:id="@+id/datechart"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="5" />
@@ -45,24 +45,24 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Quality of Life"
-                android:background="#990000" />
+                android:background="#990000"
+                android:text="Quality of Life" />
 
             <TextView
                 style="@style/ScaleFontMedium"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Burnout" 
-                android:background="#009900" />
+                android:background="#009900"
+                android:text="Burnout" />
 
             <TextView
                 style="@style/ScaleFontMedium"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Secondary Traumatic Stress" 
-                android:background="#000099" />
+                android:background="#000099"
+                android:text="Secondary Traumatic Stress" />
         </LinearLayout>
 
         <Button
@@ -73,7 +73,6 @@
             android:layout_weight="1"
             android:contentDescription="Update"
             android:gravity="center_vertical|center_horizontal"
-            
             android:text="Update ProQOL"
             android:textColor="#000000" />
     </LinearLayout>

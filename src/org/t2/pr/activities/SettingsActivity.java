@@ -178,20 +178,8 @@ public class SettingsActivity extends ABSActivity
 		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 			SharedPref.setNotifyHour(hourOfDay);
 			SharedPref.setNotifyMinute(minute);
-
-			Calendar nc = Calendar.getInstance();
-			nc.set(Calendar.HOUR_OF_DAY, SharedPref.getNotifyHour());
-			nc.set(Calendar.MINUTE, SharedPref.getNotifyMinute());
-			nc.set(Calendar.SECOND, 0);
-
-			// Schedule an alarm
-			final AlarmManager mgr =
-					(AlarmManager)SettingsActivity.this.getSystemService(Context.ALARM_SERVICE);
-			final Intent intent = new Intent(SettingsActivity.this,NotificationService.class);
-			final PendingIntent pend =
-					PendingIntent.getService(SettingsActivity.this, 0, intent,
-							PendingIntent.FLAG_UPDATE_CURRENT);
-				mgr.setRepeating(AlarmManager.RTC_WAKEUP, nc.getTimeInMillis(), (1000*60*60*24*7), pend);
+			SetReminder();
+			
 		}
 	};
 	private TimePickerDialog.OnTimeSetListener mResetTimeSetListener =
@@ -239,6 +227,7 @@ public class SettingsActivity extends ABSActivity
 			break;
 		case R.id.toggle_reminders:			
 			SharedPref.setReminders(toggle_reminders.isChecked());
+			SetReminder();
 			break;
 		case R.id.toggle_anondata:			
 			SharedPref.setAnonData(toggle_anondata.isChecked());
@@ -249,6 +238,31 @@ public class SettingsActivity extends ABSActivity
 		case R.id.toggle_setreset:
 			showDialog(RESET_DIALOG_ID);
 			break;
+		}
+	}
+	
+	public void SetReminder()
+	{
+		final AlarmManager mgr =
+				(AlarmManager)SettingsActivity.this.getSystemService(Context.ALARM_SERVICE);
+		final Intent intent = new Intent(SettingsActivity.this,NotificationService.class);
+		final PendingIntent pend =
+				PendingIntent.getService(SettingsActivity.this, 0, intent,
+						PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		if(SharedPref.getReminders())
+		{
+			Calendar nc = Calendar.getInstance();
+			nc.set(Calendar.HOUR_OF_DAY, SharedPref.getNotifyHour());
+			nc.set(Calendar.MINUTE, SharedPref.getNotifyMinute());
+			nc.set(Calendar.SECOND, 0);
+
+			// Schedule an alarm
+			mgr.setRepeating(AlarmManager.RTC_WAKEUP, nc.getTimeInMillis(), (1000*60*60*24*7), pend);
+		}
+		else
+		{
+			mgr.cancel(pend);
 		}
 	}
 

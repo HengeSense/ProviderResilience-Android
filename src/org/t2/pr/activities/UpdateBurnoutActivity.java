@@ -87,7 +87,7 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 		int answerValue = 0;
 		int position = 0;
 		try{position = Integer.parseInt(seekBar.getTag().toString().trim());}catch(Exception ex){}
-		Global.Log.v("position", "" + position);
+		//Global.Log.v("position", "" + position);
 		View parent = (View) seekBar.getParent();
 
 		TextView low = (TextView) parent.findViewById(R.id.tv_lowvalue);
@@ -120,7 +120,7 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 		{
 			//Reverse answers 2,4,6,8,10
 			if(reverseScore.contains(Integer.parseInt(questionList.get(position)[0])) )
-				answerValue = (11 - (progress / 10));
+				answerValue = (10 - (progress / 10));
 			else
 				answerValue = progress / 10;
 			
