@@ -102,8 +102,34 @@ public class DatabaseProvider
 		} catch (Exception e) {
 			Log.v("PARSEERROR!", e.toString());
 		}
-		c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
-		c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+		
+		if(c.get(Calendar.HOUR_OF_DAY) <  SharedPref.getResetHour())
+		{
+			c.add(Calendar.DAY_OF_YEAR, -1);  
+			c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+			c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+		}
+		else if(c.get(Calendar.HOUR_OF_DAY) ==  SharedPref.getResetHour())
+		{
+			if(c.get(Calendar.MINUTE) <  SharedPref.getResetMinute())
+			{
+				c.add(Calendar.DAY_OF_YEAR, -1);  
+				c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+				c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+			}
+			else
+			{
+				c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+				c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+			}
+		}
+		else
+		{
+			c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+			c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+		}
+		
+		
 		
 		return dateFormat.format(c.getTime());
 		
@@ -119,9 +145,32 @@ public class DatabaseProvider
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
-		c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
-		c.set(Calendar.MINUTE, SharedPref.getResetMinute());
-		c.add(Calendar.DATE, 1);  
+		
+		if(c.get(Calendar.HOUR_OF_DAY) <  SharedPref.getResetHour())
+		{
+			c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+			c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+		}
+		else if(c.get(Calendar.HOUR_OF_DAY) ==  SharedPref.getResetHour())
+		{
+			if(c.get(Calendar.MINUTE) <  SharedPref.getResetMinute())
+			{
+				c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+				c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+			}
+			else
+			{
+				c.add(Calendar.DAY_OF_YEAR, 1);  
+				c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+				c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+			}
+		}
+		else
+		{
+			c.add(Calendar.DAY_OF_YEAR, 1);  
+			c.set(Calendar.HOUR_OF_DAY, SharedPref.getResetHour());
+			c.set(Calendar.MINUTE, SharedPref.getResetMinute());
+		}
 		
 		return dateFormat.format(c.getTime());
 		
@@ -429,6 +478,39 @@ public class DatabaseProvider
 
 		int scoreTotal = 0;
 
+		
+
+		
+		
+		//if(foundKiller) scoreTotal -= 5;
+		
+		try
+		{
+			Cursor bcursor = this.db.rawQuery(bquery, null);
+
+			//Six points for first answer, 1 point each additional
+			//if(bcursor.getCount() > 0)
+			//	scoreTotal += 5;
+
+			if (bcursor.moveToFirst()) 
+			{
+				do 
+				{
+					if(bcursor.getInt(0) == 1)
+					{
+						if(scoreTotal == 0)
+							scoreTotal = 5;
+						scoreTotal++;
+					}
+				} 
+				while (bcursor.moveToNext());
+			}
+			if (bcursor != null && !bcursor.isClosed()) 
+			{
+				bcursor.close();
+			}
+		}catch(Exception ex){}
+
 		try
 		{
 			Cursor kcursor = this.db.rawQuery(kquery, null);
@@ -449,35 +531,12 @@ public class DatabaseProvider
 				kcursor.close();
 			}
 		}catch(Exception ex){}
-
-		if(scoreTotal < -10) scoreTotal = -10;
 		
-		//if(foundKiller) scoreTotal -= 5;
-		
-		try
-		{
-			Cursor bcursor = this.db.rawQuery(bquery, null);
-
-			//Six points for first answer, 1 point each additional
-			if(bcursor.getCount() > 0) scoreTotal += 5;
-
-			if (bcursor.moveToFirst()) 
-			{
-				do 
-				{
-					if(bcursor.getInt(0) == 1)
-						scoreTotal++;
-				} 
-				while (bcursor.moveToNext());
-			}
-			if (bcursor != null && !bcursor.isClosed()) 
-			{
-				bcursor.close();
-			}
-		}catch(Exception ex){}
-
 		db.close();
 
+		if(scoreTotal < -10) scoreTotal = -10;
+		if(scoreTotal > 10) scoreTotal = 10;
+		
 		return scoreTotal;
 	}
 
@@ -486,7 +545,7 @@ public class DatabaseProvider
 
 		OpenHelper openHelper = new OpenHelper(this.context);
 		this.db = openHelper.getWritableDatabase();
-		String query = "select a.qolAnswer, q.custom from QOLAnswers a join PROQOL q on q.qolID = a.qolQuestion where a.answerDate >= '" + getStartDate(answerDate) + "' and a.answerdate <= '" + getEndDate(answerDate) + "' order by q.custom";
+		String query = "select a.qolAnswer, q.custom from QOLAnswers a join PROQOL q on q.qolID = a.qolQuestion where a.answerDate = '" + answerDate + "' order by q.custom";
 
 		List<String[]> list = new ArrayList<String[]>();
 

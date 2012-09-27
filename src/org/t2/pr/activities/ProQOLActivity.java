@@ -110,17 +110,17 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 		int numDays = Days.daysBetween(start, end).getDays();
 		tv_timesince.setText("It's been " + numDays + " days since your last update.");
 
-		tv_qolcsvalue.setText(Scoring.AcuityString(Scoring.QOLCompassionScore(sDate)) + "\r\n" + (Scoring.QOLCompassionScore(sDate)));
-		tv_qolbvalue.setText(Scoring.AcuityString(Scoring.QOLBurnoutScore(sDate)) + "\r\n" + (Scoring.QOLBurnoutScore(sDate)));
-		tv_qolstsvalue.setText(Scoring.AcuityString(Scoring.QOLSTSScore(sDate)) + "\r\n" + (Scoring.QOLSTSScore(sDate)));
+		tv_qolcsvalue.setText(Scoring.AcuityString(Scoring.QOLCompassionScore(lastDate)) + "\r\n" + (Scoring.QOLCompassionScore(lastDate)));
+		tv_qolbvalue.setText(Scoring.AcuityString(Scoring.QOLBurnoutScore(lastDate)) + "\r\n" + (Scoring.QOLBurnoutScore(lastDate)));
+		tv_qolstsvalue.setText(Scoring.AcuityString(Scoring.QOLSTSScore(lastDate)) + "\r\n" + (Scoring.QOLSTSScore(lastDate)));
 
-		if(Scoring.AcuityString(Scoring.QOLCompassionScore(sDate)) == "LOW")
+		if(Scoring.AcuityString(Scoring.QOLCompassionScore(lastDate)) == "LOW")
 		{
 			iv_csvalue.setImageResource(R.drawable.gaugevert_red);
 			tv_qolcsdesc.setText(csShortL);
 			moreText = csLongL;
 		}
-		else if(Scoring.AcuityString(Scoring.QOLCompassionScore(sDate)) == "HIGH")
+		else if(Scoring.AcuityString(Scoring.QOLCompassionScore(lastDate)) == "HIGH")
 		{
 			iv_csvalue.setImageResource(R.drawable.gaugevert_green);
 			tv_qolcsdesc.setText(csShortH);
@@ -133,13 +133,13 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 			moreText = csLongA;
 		}
 
-		if(Scoring.AcuityString(Scoring.QOLBurnoutScore(sDate)) == "HIGH")
+		if(Scoring.AcuityString(Scoring.QOLBurnoutScore(lastDate)) == "HIGH")
 		{
 			iv_bvalue.setImageResource(R.drawable.gaugevert_red);
 			tv_qolbdesc.setText(buShortH);
 			moreText = buLongH;
 		}
-		else if(Scoring.AcuityString(Scoring.QOLBurnoutScore(sDate)) == "LOW")
+		else if(Scoring.AcuityString(Scoring.QOLBurnoutScore(lastDate)) == "LOW")
 		{
 			iv_bvalue.setImageResource(R.drawable.gaugevert_green);
 			tv_qolbdesc.setText(buShortL);
@@ -152,13 +152,13 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 			moreText = buLongA;
 		}
 
-		if(Scoring.AcuityString(Scoring.QOLSTSScore(sDate)) == "HIGH")
+		if(Scoring.AcuityString(Scoring.QOLSTSScore(lastDate)) == "HIGH")
 		{
 			iv_stsvalue.setImageResource(R.drawable.gaugevert_red);
 			tv_qolstsdesc.setText(stShortH);
 			moreText = stLongH;
 		}
-		else if(Scoring.AcuityString(Scoring.QOLSTSScore(sDate)) == "LOW")
+		else if(Scoring.AcuityString(Scoring.QOLSTSScore(lastDate)) == "LOW")
 		{
 			iv_stsvalue.setImageResource(R.drawable.gaugevert_green);
 			tv_qolstsdesc.setText(stShortL);

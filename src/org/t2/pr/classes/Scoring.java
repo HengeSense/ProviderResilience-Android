@@ -279,13 +279,23 @@ public class Scoring {
 		return miscScore;
 	}
 	
+	public static String getLastQOLDate()
+	{
+		String lastDate = "";
+		ArrayList<String> qoldates = (ArrayList<String>) db.selectQOLDates();
+		if(qoldates.size()>0)
+			lastDate = qoldates.get(0);
+		
+		return lastDate;
+	}
+	
 	public static int TotalResilienceScore(String date)
 	{
 		
 		double proQOLPercentage = 45;
 		double burnoutPercentage = 15;
-		double builderskillersPercentage = 5;
-		double clockPercentage = 10;
+		double builderskillersPercentage = 10;
+		double clockPercentage = 20;
 		
 		double maxPROQOLPoints = 20;
 		double maxBurnoutPoints = 15;
@@ -293,10 +303,11 @@ public class Scoring {
 		double maxLeavePoints = 20;
 		
 		//ProQOL
-		double proqolPercent = (proQOLPercentage * (((PROQOLScore(date) / maxPROQOLPoints) * 100) * .01));
-		if(PROQOLScore(date) <= 0f)
+		String lastQOL = getLastQOLDate();
+		double proqolPercent = (proQOLPercentage * (((PROQOLScore(lastQOL) / maxPROQOLPoints) * 100) * .01));
+		if(PROQOLScore(lastQOL) <= 0f)
 			proqolPercent = 0;
-		Global.Log.v("proqolScore", "" + PROQOLScore(date));
+		Global.Log.v("proqolScore", "" + PROQOLScore(lastQOL));
 		Global.Log.v("proqolPercent", "" + proqolPercent);
 
 		//Burnout

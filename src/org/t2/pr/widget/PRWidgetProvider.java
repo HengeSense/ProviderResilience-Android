@@ -167,7 +167,7 @@ public class PRWidgetProvider extends AppWidgetProvider {
 		    //paint.setColor(Color.BLACK);
 		    myCanvas.drawText(tvYearDigit + ":" + tvMonthDigit + ":" + tvDayDigit + ":" + tvHourDigit + ":" + tvMinuteDigit, 10, 40, paint);
 			
-		    String sDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
+		    String sDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 		    int totalResScore = Scoring.TotalResilienceScore(sDate);
 		    if(Scoring.TotalResilienceString(totalResScore).equals("HIGH"))
 		    {

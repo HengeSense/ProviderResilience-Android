@@ -52,7 +52,7 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 		
 		
 		dateChart.loadFont("Elronmonospace.ttf", 16, 2, 2);
-		dateChart.maxValueManual = 15;
+		dateChart.maxValueManual = 100;
 		getZenChartData();
 
 		//chartLayout = (LinearLayout) findViewById(R.id.chart);
@@ -88,7 +88,7 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 				
 				long date = new java.util.Date(tdate).getTime();
 				
-				double score = Scoring.BurnoutScore(tdate);
+				double score = 100 - Scoring.RawBurnoutScore(tdate);
 				//Log.v("Log", "date:"+date+" score:"+score);
 				
 				boSeries.add(new DatePoint(date, (int)score, ""));

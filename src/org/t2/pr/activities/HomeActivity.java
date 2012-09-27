@@ -312,6 +312,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			}
 
 		}, 0, 5000);
+		
 	}
 
 	/**
@@ -319,7 +320,8 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 	 */
 	private void updateDisplay()
 	{
-
+		sDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
+		
 		if(SharedPref.getOnVacation())
 		{
 			tv_Vacation.setVisibility(View.VISIBLE);
@@ -432,27 +434,29 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 			else
 				tv_rratinglabel.setBackgroundResource(R.drawable.gaugehoriz_blue);
 
-			tv_qolcsvalue.setText(Scoring.AcuityString(Scoring.QOLCompassionScore(sDate)) + "\r\n" + (Scoring.QOLCompassionScore(sDate) ));
-			tv_qolbvalue.setText(Scoring.AcuityString(Scoring.QOLBurnoutScore(sDate)) + "\r\n" + (Scoring.QOLBurnoutScore(sDate)));
-			tv_qolstsvalue.setText(Scoring.AcuityString(Scoring.QOLSTSScore(sDate)) + "\r\n" + (Scoring.QOLSTSScore(sDate) ));
+			String lastQOL = Scoring.getLastQOLDate();
+			
+			tv_qolcsvalue.setText(Scoring.AcuityString(Scoring.QOLCompassionScore(lastQOL)) + "\r\n" + (Scoring.QOLCompassionScore(lastQOL) ));
+			tv_qolbvalue.setText(Scoring.AcuityString(Scoring.QOLBurnoutScore(lastQOL)) + "\r\n" + (Scoring.QOLBurnoutScore(lastQOL)));
+			tv_qolstsvalue.setText(Scoring.AcuityString(Scoring.QOLSTSScore(lastQOL)) + "\r\n" + (Scoring.QOLSTSScore(lastQOL) ));
 
-			if(Scoring.AcuityString(Scoring.QOLCompassionScore(sDate)) == "LOW")
+			if(Scoring.AcuityString(Scoring.QOLCompassionScore(lastQOL)) == "LOW")
 				iv_qolcsvalue.setImageResource(R.drawable.gaugevert_red);
-			else if(Scoring.AcuityString(Scoring.QOLCompassionScore(sDate)) == "HIGH")
+			else if(Scoring.AcuityString(Scoring.QOLCompassionScore(lastQOL)) == "HIGH")
 				iv_qolcsvalue.setImageResource(R.drawable.gaugevert_green);
 			else
 				iv_qolcsvalue.setImageResource(R.drawable.gaugevert_blue);
 
-			if(Scoring.AcuityString(Scoring.QOLBurnoutScore(sDate)) == "HIGH")
+			if(Scoring.AcuityString(Scoring.QOLBurnoutScore(lastQOL)) == "HIGH")
 				iv_qolbvalue.setImageResource(R.drawable.gaugevert_red);
-			else if(Scoring.AcuityString(Scoring.QOLBurnoutScore(sDate)) == "LOW")
+			else if(Scoring.AcuityString(Scoring.QOLBurnoutScore(lastQOL)) == "LOW")
 				iv_qolbvalue.setImageResource(R.drawable.gaugevert_green);
 			else
 				iv_qolbvalue.setImageResource(R.drawable.gaugevert_blue);
 
-			if(Scoring.AcuityString(Scoring.QOLSTSScore(sDate)) == "HIGH")
+			if(Scoring.AcuityString(Scoring.QOLSTSScore(lastQOL)) == "HIGH")
 				iv_qolstsvalue.setImageResource(R.drawable.gaugevert_red);
-			else if(Scoring.AcuityString(Scoring.QOLSTSScore(sDate)) == "LOW")
+			else if(Scoring.AcuityString(Scoring.QOLSTSScore(lastQOL)) == "LOW")
 				iv_qolstsvalue.setImageResource(R.drawable.gaugevert_green);
 			else
 				iv_qolstsvalue.setImageResource(R.drawable.gaugevert_blue);
