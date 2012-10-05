@@ -21,7 +21,7 @@ public class Global {
 	//http://api.brightcove.com/services/library?command=find_all_playlists&token=aEKaJd8fSOxJHDP_akYJVkjXLywOcC8jSESi13ZrmdY0VVI6r7FDEQ..
 	
 	//Flurry
-	public static final String FLURRY_KEY = "CZLAXW4ZETEQKTVP1TY2";
+	public static final String FLURRY_KEY = "W3NK8836GSFB7N9N5W82"; //CZLAXW4ZETEQKTVP1TY2 - dev version key
 	
 	public static SharedPreferences sharedPref;
 
