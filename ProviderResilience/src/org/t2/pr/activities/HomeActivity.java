@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.Calendar;
@@ -33,74 +36,143 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// TODO: Auto-generated Javadoc
 /**
- * Create screen provides navigation to all activity choosing functionality
- * @author stephenody
+ * Create screen provides navigation to all activity choosing functionality.
  *
+ * @author stephenody
  */
 public class HomeActivity extends ABSActivity implements OnClickListener
 {
+	
+	/** The pending intent. */
 	private PendingIntent pendingIntent;
 
+	/** The m handler. */
 	private Handler mHandler = new Handler();
 
+	/** The tv_ vacation. */
 	public TextView tv_Vacation;
 
+	/** The tv_rratingvalue. */
 	public TextView tv_rratingvalue;
+	
+	/** The tv_rratinglabel. */
 	public TextView tv_rratinglabel;
 
+	/** The tv_qolcsvalue. */
 	public TextView tv_qolcsvalue;
+	
+	/** The tv_qolbvalue. */
 	public TextView tv_qolbvalue;
+	
+	/** The tv_qolstsvalue. */
 	public TextView tv_qolstsvalue;
 
+	/** The iv_qolcsvalue. */
 	public ImageView iv_qolcsvalue;
+	
+	/** The iv_qolbvalue. */
 	public ImageView iv_qolbvalue;
+	
+	/** The iv_qolstsvalue. */
 	public ImageView iv_qolstsvalue;
 
+	/** The tv year shadow. */
 	public TextView tvYearShadow;
+	
+	/** The tv year digit. */
 	public TextView tvYearDigit;
+	
+	/** The tv year label. */
 	public TextView tvYearLabel;
 
+	/** The tv month shadow. */
 	public TextView tvMonthShadow;
+	
+	/** The tv month digit. */
 	public TextView tvMonthDigit;
+	
+	/** The tv month label. */
 	public TextView tvMonthLabel;
 
+	/** The tv day shadow. */
 	public TextView tvDayShadow;
+	
+	/** The tv day digit. */
 	public TextView tvDayDigit;
+	
+	/** The tv day label. */
 	public TextView tvDayLabel;
 
+	/** The tv hour shadow. */
 	public TextView tvHourShadow;
+	
+	/** The tv hour digit. */
 	public TextView tvHourDigit;
+	
+	/** The tv hour label. */
 	public TextView tvHourLabel;
 
+	/** The tv minute shadow. */
 	public TextView tvMinuteShadow;
+	
+	/** The tv minute digit. */
 	public TextView tvMinuteDigit;
+	
+	/** The tv minute label. */
 	public TextView tvMinuteLabel;
 
+	/** The tf digital num. */
 	Typeface tfDigitalNum;
+	
+	/** The tf digital chr. */
 	Typeface tfDigitalChr;
 
+	/** The btn rr clock. */
 	private ImageButton btnRRClock;
+	
+	/** The btn r rating. */
 	private ImageButton btnRRating;
+	
+	/** The btn pro qol. */
 	private ImageButton btnProQOL;
 
+	/** The Constant DATE_DIALOG_ID. */
 	static final int DATE_DIALOG_ID = 0;
+	
+	/** The c year. */
 	private int cYear;
+	
+	/** The c month. */
 	private int cMonth;
+	
+	/** The c day. */
 	private int cDay;
+	
+	/** The c hour. */
 	private int cHour;
+	
+	/** The c min. */
 	private int cMin;
 
+	/** The v year. */
 	private int vYear;
+	
+	/** The v month. */
 	private int vMonth;
+	
+	/** The v day. */
 	private int vDay;
 
 	//	private int dYear;
 	//	private int dMonth;
 	//	private int dDay;
 
+	/** The s date. */
 	private String sDate = "";
 
+	/** The min timer. */
 	private Timer minTimer;
 
 	/* (non-Javadoc)
@@ -227,7 +299,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
     }
 
 	/**
-	 * A timer to handle the display of the vacation clock updates
+	 * A timer to handle the display of the vacation clock updates.
 	 */
 	private void TimerTick()
 	{
@@ -316,7 +388,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 	}
 
 	/**
-	 * Updates the scoring display and the vacation clock display
+	 * Updates the scoring display and the vacation clock display.
 	 */
 	private void updateDisplay()
 	{
@@ -506,6 +578,7 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 
 	}
 
+	/** The m date set listener. */
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
 			new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, 
@@ -557,12 +630,16 @@ public class HomeActivity extends ABSActivity implements OnClickListener
 		}
 	}
 
+	/** The start cards runnable. */
 	private Runnable startCardsRunnable = new Runnable() {
 		public void run() {
 			startCardsActivity();
 		}
 	};
 
+	/**
+	 * Start cards activity.
+	 */
 	private void startCardsActivity() 
 	{
 		Intent intent = new Intent(this, CardsActivity.class);

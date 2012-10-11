@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.R;
@@ -11,12 +14,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
 /**
- * Navigation enabled webview activity
- *
+ * Navigation enabled webview activity.
  */
 public class ABSWebViewActivity extends FlurryActivity 
 {
+	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.FlurryActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -25,12 +32,25 @@ public class ABSWebViewActivity extends FlurryActivity
 
 	}
 
+	/**
+	 * Sets the content.
+	 *
+	 * @param contentString the new content
+	 */
 	protected void setContent(String contentString) 
 	{
 		WebView wv = (WebView)this.findViewById(R.id.webview);
 		formatWebViewText(this, wv, contentString, android.R.color.primary_text_dark);
 	}
 
+	/**
+	 * Format web view text.
+	 *
+	 * @param c the c
+	 * @param wv the wv
+	 * @param contentString the content string
+	 * @param textColor the text color
+	 */
 	public static void formatWebViewText(Activity c, WebView wv, String contentString, int textColor) 
 	{
 		if(contentString == null) 

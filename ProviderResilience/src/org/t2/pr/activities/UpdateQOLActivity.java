@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.ArrayList;
@@ -12,25 +15,52 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UpdateQOLActivity.
+ */
 public class UpdateQOLActivity extends ABSActivity
 {
 
+	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
+	
+	/** The question list. */
 	private List<String[]> questionList;
+	
+	/** The answers. */
 	private ArrayList<int[]> answers;
 
+	/** The cur question. */
 	private int curQuestion = 0;
 
+	/** The btn one. */
 	public Button btnOne;
+	
+	/** The btn two. */
 	public Button btnTwo;
+	
+	/** The btn three. */
 	public Button btnThree;
+	
+	/** The btn four. */
 	public Button btnFour;
+	
+	/** The btn five. */
 	public Button btnFive;
+	
+	/** The txt question. */
 	public TextView txtQuestion;
+	
+	/** The txt numbers. */
 	public TextView txtNumbers;
 
+	/** The m_ progress dialog. */
 	private ProgressDialog m_ProgressDialog = null;
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -62,6 +92,11 @@ public class UpdateQOLActivity extends ABSActivity
 		showQuestion(0);
 	}
 
+	/**
+	 * Show question.
+	 *
+	 * @param answerValue the answer value
+	 */
 	private void showQuestion(int answerValue)
 	{
 		try
@@ -86,6 +121,9 @@ public class UpdateQOLActivity extends ABSActivity
 		catch(Exception ex){}
 	}
 
+	/**
+	 * Save answers threaded.
+	 */
 	public void saveAnswersThreaded()
 	{
 		m_ProgressDialog = ProgressDialog.show(this, "Please wait...", " Saving your ratings...", true);
@@ -104,6 +142,7 @@ public class UpdateQOLActivity extends ABSActivity
 		thread.start();
 	}
 
+	/** The terminate. */
 	private Runnable terminate = new Runnable() {
 		public void run() {
 			m_ProgressDialog.dismiss();
@@ -111,11 +150,17 @@ public class UpdateQOLActivity extends ABSActivity
 		}
 	};
 
+	/**
+	 * Finish activity.
+	 */
 	private void finishActivity()
 	{
 		this.finish();
 	}
 	
+	/**
+	 * Populate qol questions.
+	 */
 	private void populateQOLQuestions()
 	{
 		questionList = db.selectQOLQuestions();
@@ -128,6 +173,9 @@ public class UpdateQOLActivity extends ABSActivity
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -135,6 +183,9 @@ public class UpdateQOLActivity extends ABSActivity
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

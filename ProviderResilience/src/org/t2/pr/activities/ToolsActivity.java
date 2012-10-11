@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.R;
@@ -9,30 +12,58 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ToolsActivity.
+ */
 public class ToolsActivity extends ABSActivity implements OnClickListener
 {
 
+	/** The btn videos. */
 	private ImageView btnVideos;
+	
+	/** The tv videos. */
 	private TextView tvVideos;
 
+	/** The btn exercise. */
 	private ImageView btnExercise;
+	
+	/** The tv exercise. */
 	private TextView tvExercise;
 
+	/** The btn remind me. */
 	private ImageView btnRemindMe;
+	
+	/** The tv remind me. */
 	private TextView tvRemindMe;
 
+	/** The btn laugh. */
 	private ImageView btnLaugh;
+	
+	/** The tv laugh. */
 	private TextView tvLaugh;
 
+	/** The btn builders. */
 	private ImageView btnBuilders;
+	
+	/** The tv builders. */
 	private TextView tvBuilders;
 
+	/** The btn pro qol. */
 	private ImageView btnProQOL;
+	
+	/** The tv pro qol. */
 	private TextView tvProQOL;
 
+	/** The btn burnout. */
 	private ImageView btnBurnout;
+	
+	/** The tv burnout. */
 	private TextView tvBurnout;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -86,6 +117,9 @@ public class ToolsActivity extends ABSActivity implements OnClickListener
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -93,6 +127,9 @@ public class ToolsActivity extends ABSActivity implements OnClickListener
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

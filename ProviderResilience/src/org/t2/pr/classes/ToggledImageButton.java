@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.classes;
 
 import android.content.Context;
@@ -5,33 +8,63 @@ import android.graphics.Color;
 import android.util.AttributeSet;
 import android.widget.ImageButton;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ToggledImageButton.
+ */
 public class ToggledImageButton extends ImageButton 
 {
 
 	//private AccessibilityManager aManager;
+	/** The is checked. */
 	private boolean isChecked = false;
+	
+	/** The on resource. */
 	public int onResource = 0;
+	
+	/** The off resource. */
 	public int offResource = 0;
 	
 	//
+	/**
+	 * Instantiates a new toggled image button.
+	 *
+	 * @param context the context
+	 */
 	public ToggledImageButton(Context context) 
 	{
 		super(context);
 		this.init();
 	}
 
+	/**
+	 * Instantiates a new toggled image button.
+	 *
+	 * @param context the context
+	 * @param attrs the attrs
+	 */
 	public ToggledImageButton(Context context, AttributeSet attrs) 
 	{
 		super(context, attrs);
 		this.init();
 	}
 
+	/**
+	 * Instantiates a new toggled image button.
+	 *
+	 * @param context the context
+	 * @param attrs the attrs
+	 * @param defStyle the def style
+	 */
 	public ToggledImageButton(Context context, AttributeSet attrs, int defStyle) 
 	{
 		super(context, attrs, defStyle);
 		this.init();
 	}
 
+	/**
+	 * Inits the.
+	 */
 	private void init() 
 	{
 		//aManager = (AccessibilityManager)this.getContext().getSystemService(Context.ACCESSIBILITY_SERVICE);
@@ -40,6 +73,11 @@ public class ToggledImageButton extends ImageButton
 		this.setBackgroundColor(Color.TRANSPARENT);
 	}
 
+	/**
+	 * Sets the checked.
+	 *
+	 * @param isChecked the new checked
+	 */
 	public void setChecked(boolean isChecked) 
 	{
 		this.isChecked = isChecked;
@@ -57,6 +95,11 @@ public class ToggledImageButton extends ImageButton
 		this.refreshDrawableState();
 	}
 
+	/**
+	 * Checks if is checked.
+	 *
+	 * @return true, if is checked
+	 */
 	public boolean isChecked()
 	{
 		return isChecked;

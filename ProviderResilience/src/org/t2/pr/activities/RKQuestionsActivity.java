@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.ArrayList;
@@ -18,19 +21,36 @@ import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RKQuestionsActivity.
+ */
 public class RKQuestionsActivity  extends ABSActivity
 {
 
+	/** The btn customize. */
 	public Button btnCustomize;
+	
+	/** The btn finish. */
 	public Button btnFinish;
+	
+	/** The custom killer. */
 	public static String customKiller = "";
+	
+	/** The question list. */
 	private List<String[]> questionList;
+	
+	/** The answers. */
 	private ArrayList<int[]> answers;
 
 	//private ProgressDialog m_ProgressDialog = null;
+	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
 	//private Context ctx;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -51,6 +71,9 @@ public class RKQuestionsActivity  extends ABSActivity
 
 	}
 
+	/**
+	 * Populate rk questions.
+	 */
 	private void PopulateRKQuestions()
 	{
 		questionList = db.selectRKQuestions();
@@ -103,12 +126,18 @@ public class RKQuestionsActivity  extends ABSActivity
 		}
 	}
 
+	/**
+	 * Save questions.
+	 */
 	public void SaveQuestions()
 	{
 		String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 		db.insertRKAnswers(answers, date);
 	}
 
+	/**
+	 * Custom question.
+	 */
 	public void CustomQuestion()
 	{
 		//Ask for question
@@ -131,12 +160,18 @@ public class RKQuestionsActivity  extends ABSActivity
 		alert.show();
 	}
 
+	/**
+	 * Reload activity.
+	 */
 	public void reloadActivity()
 	{
 		this.finish();
 		this.startActivity(ActivityFactory.getRKQuestionsActivity(this));
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -144,6 +179,9 @@ public class RKQuestionsActivity  extends ABSActivity
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.classes;
 
 import android.content.Context;
@@ -8,29 +11,60 @@ import android.view.MotionEvent;
 import android.view.ViewParent;
 import android.widget.SeekBar;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Slider.
+ */
 public class Slider extends SeekBar {
 
+	/** The m thumb. */
 	Drawable mThumb;
+	
+	/** The can slide. */
 	private boolean canSlide = false;
 
+	/**
+	 * Instantiates a new slider.
+	 *
+	 * @param context the context
+	 * @param attrs the attrs
+	 * @param defStyle the def style
+	 */
 	public Slider(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
 
+	/**
+	 * Instantiates a new slider.
+	 *
+	 * @param context the context
+	 * @param attrs the attrs
+	 */
 	public Slider(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
+	/**
+	 * Instantiates a new slider.
+	 *
+	 * @param context the context
+	 */
 	public Slider(Context context) {
 		super(context);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.AbsSeekBar#setThumb(android.graphics.drawable.Drawable)
+	 */
 	@Override
 	public void setThumb(Drawable thumb) {
 		super.setThumb(thumb);
 		mThumb = thumb;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.AbsSeekBar#onTouchEvent(android.view.MotionEvent)
+	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 

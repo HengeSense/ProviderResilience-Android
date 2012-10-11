@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.R;
@@ -8,22 +11,41 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RRatingActivity.
+ */
 public class RRatingActivity extends ABSActivity
 {
 
+	/** The btn pro qol. */
 	public ImageView btnProQOL;
+	
+	/** The tv pro qol. */
 	public TextView tvProQOL;
 
+	/** The btn rr clock. */
 	public ImageView btnRRClock;
+	
+	/** The tv rr clock. */
 	public TextView tvRRClock;
 
+	/** The btn builders killers. */
 	public ImageView btnBuildersKillers;
+	
+	/** The tv builders killers. */
 	public TextView tvBuildersKillers;
 
+	/** The btn burnout. */
 	public ImageView btnBurnout;
+	
+	/** The tv burnout. */
 	public TextView tvBurnout;
 
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -55,6 +77,9 @@ public class RRatingActivity extends ABSActivity
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -62,6 +87,9 @@ public class RRatingActivity extends ABSActivity
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

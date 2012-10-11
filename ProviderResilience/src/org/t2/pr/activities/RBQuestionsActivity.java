@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.ArrayList;
@@ -18,19 +21,36 @@ import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RBQuestionsActivity.
+ */
 public class RBQuestionsActivity  extends ABSActivity
 {
 
+	/** The btn customize. */
 	public Button btnCustomize;
+	
+	/** The btn killers. */
 	public Button btnKillers;
+	
+	/** The custom builder. */
 	public static String customBuilder = "";
+	
+	/** The question list. */
 	private List<String[]> questionList;
+	
+	/** The answers. */
 	private ArrayList<int[]> answers;
 
 	//private ProgressDialog m_ProgressDialog = null;
+	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
 	//private Context ctx;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -50,6 +70,9 @@ public class RBQuestionsActivity  extends ABSActivity
 
 	}
 
+	/**
+	 * Populate rb questions.
+	 */
 	private void PopulateRBQuestions()
 	{
 		questionList = db.selectRBQuestions();
@@ -102,12 +125,18 @@ public class RBQuestionsActivity  extends ABSActivity
 		}
 	}
 
+	/**
+	 * Save questions.
+	 */
 	public void SaveQuestions()
 	{
 		String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 		db.insertRBAnswers(answers, date);
 	}
 
+	/**
+	 * Custom question.
+	 */
 	public void CustomQuestion()
 	{
 		//Ask for question
@@ -130,6 +159,9 @@ public class RBQuestionsActivity  extends ABSActivity
 		alert.show();
 	}
 
+	/**
+	 * Reload activity.
+	 */
 	public void reloadActivity()
 	{
 		this.finish();
@@ -137,6 +169,9 @@ public class RBQuestionsActivity  extends ABSActivity
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -144,6 +179,9 @@ public class RBQuestionsActivity  extends ABSActivity
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

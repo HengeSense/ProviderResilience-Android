@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.R;
@@ -10,17 +13,31 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class StretchesActivity.
+ */
 public class StretchesActivity extends ABSActivity implements SimpleGestureListener{
 
 
+	/** The card names. */
 	private String[] cardNames;
+	
+	/** The card index. */
 	private int cardIndex = -1;
 
+	/** The iv card. */
 	private TransitionView ivCard;
+	
+	/** The detector. */
 	private SimpleGestureFilter detector;
 
+	/** The tv_permission. */
 	public TextView tv_permission;
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -41,6 +58,9 @@ public class StretchesActivity extends ABSActivity implements SimpleGestureListe
 		NextCard();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -48,6 +68,9 @@ public class StretchesActivity extends ABSActivity implements SimpleGestureListe
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{
@@ -59,12 +82,18 @@ public class StretchesActivity extends ABSActivity implements SimpleGestureListe
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#dispatchTouchEvent(android.view.MotionEvent)
+	 */
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent me){
 		this.detector.onTouchEvent(me);
 		return super.dispatchTouchEvent(me);
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.classes.SimpleGestureFilter.SimpleGestureListener#onSwipe(int)
+	 */
 	@Override
 	public void onSwipe(int direction) {
 
@@ -77,12 +106,18 @@ public class StretchesActivity extends ABSActivity implements SimpleGestureListe
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.classes.SimpleGestureFilter.SimpleGestureListener#onDoubleTap()
+	 */
 	@Override
 	public void onDoubleTap() {
 	}
 
 
 
+	/**
+	 * Next card.
+	 */
 	private void NextCard()
 	{
 		if(cardIndex < (cardNames.length -1))
@@ -95,6 +130,9 @@ public class StretchesActivity extends ABSActivity implements SimpleGestureListe
 		ivCard.refreshDrawableState();
 	}
 
+	/**
+	 * Prev card.
+	 */
 	private void PrevCard()
 	{
 		if(cardIndex > 0)
@@ -107,6 +145,9 @@ public class StretchesActivity extends ABSActivity implements SimpleGestureListe
 		ivCard.refreshDrawableState();
 	}
 
+	/**
+	 * Load cards.
+	 */
 	private void LoadCards()
 	{
 		//Load cards

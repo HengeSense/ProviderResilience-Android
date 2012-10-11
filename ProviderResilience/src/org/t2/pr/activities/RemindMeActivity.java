@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.R;
@@ -21,17 +24,37 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RemindMeActivity.
+ */
 public class RemindMeActivity extends ABSActivity implements OnClickListener
 {
 
+	/** The btn depression. */
 	private ImageView btnDepression;
+	
+	/** The btn alcohol. */
 	private ImageView btnAlcohol;
+	
+	/** The btn anger. */
 	private ImageView btnAnger;
+	
+	/** The btn seek depression. */
 	private ImageView btnSeekDepression;
+	
+	/** The btn stigma. */
 	private ImageView btnStigma;
+	
+	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
+	
+	/** The read api. */
 	private ReadAPI readAPI;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -60,6 +83,9 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 		readAPI.setMediaDeliveryType(MediaDeliveryTypeEnum.HTTP);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -67,6 +93,9 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{
@@ -146,6 +175,9 @@ public class RemindMeActivity extends ABSActivity implements OnClickListener
 		}
 	}
 	
+	/**
+	 * Error msg.
+	 */
 	public void ErrorMsg()
 	{
 		

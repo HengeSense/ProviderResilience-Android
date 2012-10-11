@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.Calendar;
@@ -16,16 +19,20 @@ import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+// TODO: Auto-generated Javadoc
 /**
- * Opens a (non-dismissible) timed splash screen
- * 
+ * Opens a (non-dismissible) timed splash screen.
+ *
  * @author Steve Ody (stephen.ody@tee2.org)
  */
 
 public class SplashActivity extends FlurryActivity implements OnClickListener 
 {
+	
+	/** The timeout timer. */
 	private Timer timeoutTimer;
 
+	/** The start handler. */
 	private Handler startHandler = new Handler() 
 	{
 		@Override
@@ -36,6 +43,9 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 		}
 	};
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.FlurryActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -58,6 +68,9 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 
 	}
 
+	/**
+	 * Start start activity.
+	 */
 	private void startStartActivity() 
 	{
 		if (SharedPref.getIsEulaAccepted()) 
@@ -71,6 +84,9 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 		}
 	}
 
+	/**
+	 * Start eula activity.
+	 */
 	private void startEulaActivity() 
 	{
 		this.stopTimer();
@@ -78,6 +94,9 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 		this.finish();
 	}
 
+	/**
+	 * Start main activity.
+	 */
 	private void startMainActivity() 
 	{
 		this.stopTimer();
@@ -103,6 +122,9 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 		this.finish();
 	} 
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.FlurryActivity#onStop()
+	 */
 	@Override
 	protected void onStop() 
 	{
@@ -110,6 +132,9 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 		this.stopTimer();
 	}
 
+	/**
+	 * Stop timer.
+	 */
 	private void stopTimer() 
 	{
 		if (timeoutTimer != null) 
@@ -119,6 +144,9 @@ public class SplashActivity extends FlurryActivity implements OnClickListener
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.view.View.OnClickListener#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

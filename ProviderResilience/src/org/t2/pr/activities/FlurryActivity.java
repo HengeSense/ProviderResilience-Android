@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.classes.Global;
@@ -9,18 +12,26 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+// TODO: Auto-generated Javadoc
 /**
  * Flurry class provides analytics and should be the base class for all activities.
  * 
  * @author Steve Ody (stephen.ody@tee2.org)
  */
 public class FlurryActivity extends Activity {
+	
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Global.sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onStart()
+	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -30,6 +41,9 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onStop()
+	 */
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -39,6 +53,11 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
+	/**
+	 * On event.
+	 *
+	 * @param event the event
+	 */
 	public void onEvent(String event) 
 	{
 		if(SharedPref.getSendAnnonData())
@@ -49,6 +68,13 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
+	/**
+	 * On error.
+	 *
+	 * @param arg0 the arg0
+	 * @param arg1 the arg1
+	 * @param arg2 the arg2
+	 */
 	public void onError(String arg0, String arg1, String arg2)
 	{
 		if(SharedPref.getSendAnnonData())
@@ -57,6 +83,9 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
+	/**
+	 * On page view.
+	 */
 	public void onPageView() 
 	{
 		if(SharedPref.getSendAnnonData())

@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.R;
@@ -18,16 +21,24 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+// TODO: Auto-generated Javadoc
 /**
- * Shows a browser based information screen
- * @author stephenody
+ * Shows a browser based information screen.
  *
+ * @author stephenody
  */
 public class AboutActivity extends ABSActivity
 {
+	
+	/** The shownav. */
 	boolean shownav = true;
+	
+	/** The m swipe view. */
 	SwipeView mSwipeView;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{

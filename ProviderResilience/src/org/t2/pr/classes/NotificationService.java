@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.classes;
 
 import java.util.Calendar;
@@ -14,15 +17,26 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class NotificationService.
+ */
 public class NotificationService extends IntentService {
 
+    /** The Constant TAG. */
     @SuppressWarnings("unused")
     private static final String TAG = "NotificationService";
 
+    /**
+     * Instantiates a new notification service.
+     */
     public NotificationService() {
         super("NotificationService");
     }
 
+    /* (non-Javadoc)
+     * @see android.app.IntentService#onHandleIntent(android.content.Intent)
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
         

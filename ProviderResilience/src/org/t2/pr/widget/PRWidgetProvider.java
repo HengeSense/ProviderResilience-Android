@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.widget;
 
 import java.util.Calendar;
@@ -31,19 +34,42 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PRWidgetProvider.
+ */
 public class PRWidgetProvider extends AppWidgetProvider {
 
+	/** The Constant ACTION_CLICK. */
 	private static final String ACTION_CLICK = "ACTION_CLICK";
 
+	/** The v year. */
 	private int vYear;
+	
+	/** The v month. */
 	private int vMonth;
+	
+	/** The v day. */
 	private int vDay;
+	
+	/** The c year. */
 	private int cYear;
+	
+	/** The c month. */
 	private int cMonth;
+	
+	/** The c day. */
 	private int cDay;
+	
+	/** The c hour. */
 	private int cHour;
+	
+	/** The c min. */
 	private int cMin;
 	
+	/* (non-Javadoc)
+	 * @see android.appwidget.AppWidgetProvider#onUpdate(android.content.Context, android.appwidget.AppWidgetManager, int[])
+	 */
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 			int[] appWidgetIds) {

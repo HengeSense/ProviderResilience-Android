@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.ArrayList;
@@ -27,20 +30,30 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+// TODO: Auto-generated Javadoc
 /**
- * Charting activity that displays burnout data 
- * @author stephenody
+ * Charting activity that displays burnout data.
  *
+ * @author stephenody
  */
 public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 {
 
+	/** The db. */
 	private static DatabaseProvider db = new DatabaseProvider(Global.appContext);
+	
+	/** The btn update. */
 	private Button btnUpdate;
 
+	/** The chart layout. */
 	LinearLayout chartLayout;
+	
+	/** The date chart. */
 	public DateChart dateChart;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -66,6 +79,11 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 		catch(Exception ex){}
 	}
 
+	/**
+	 * Gets the zen chart data.
+	 *
+	 * @return the zen chart data
+	 */
 	private void getZenChartData()
 	{
 
@@ -109,6 +127,9 @@ public class BurnoutChartActivity extends ABSActivity implements OnClickListener
 
 	//
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onPause()
+	 */
 	@Override
 	public void onPause()
 	{

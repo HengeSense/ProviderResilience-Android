@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.ArrayList;
@@ -33,17 +36,31 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PROQOLChartActivity.
+ */
 public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 {
 
+	/** The db. */
 	private static DatabaseProvider db = new DatabaseProvider(Global.appContext);
+	
+	/** The btn update. */
 	private Button btnUpdate;
+	
+	/** The m chart view. */
 	GraphicalView mChartView;
 	//LinearLayout chartLayout;
+	/** The date chart. */
 	public DateChart dateChart;
 
+	/** The Constant THREEDAYS. */
 	private static final double THREEDAYS = 81300000 *13;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -73,6 +90,11 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 
 	}
 
+	/**
+	 * Gets the zen chart data.
+	 *
+	 * @return the zen chart data
+	 */
 	private void getZenChartData()
 	{
 		ArrayList<String> qoldates = (ArrayList<String>) db.selectQOLDates();
@@ -133,17 +155,26 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onResume()
+	 */
 	protected void onResume() 
 	{
 		super.onResume();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onPause()
+	 */
 	@Override
 	public void onPause()
 	{
 		super.onPause();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -151,6 +182,9 @@ public class PROQOLChartActivity extends ABSActivity implements OnClickListener
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

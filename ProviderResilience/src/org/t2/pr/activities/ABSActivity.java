@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.List;
@@ -15,25 +18,41 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
+// TODO: Auto-generated Javadoc
 /**
- * Base class that handles application navigation
- * @author stephenody
+ * Base class that handles application navigation.
  *
+ * @author stephenody
  */
 public abstract class ABSActivity extends FlurryActivity implements OnClickListener
 {
 
 	
+	/** The is content view set. */
 	@SuppressWarnings("unused")
 	private boolean isContentViewSet = false;
 	
+	/** The ll main menu. */
 	private LinearLayout llMainMenu;
+	
+	/** The btn main dashboard. */
 	public ToggledImageButton btnMainDashboard;
+	
+	/** The btn main tools. */
 	public ToggledImageButton btnMainTools;
+	
+	/** The btn main cards. */
 	public ToggledImageButton btnMainCards;
+	
+	/** The btn main about. */
 	public ToggledImageButton btnMainAbout;
+	
+	/** The btn main settings. */
 	public ToggledImageButton btnMainSettings;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.FlurryActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -44,6 +63,9 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 
 
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#setContentView(int)
+	 */
 	@Override
 	public void setContentView(int layoutResID) 
 	{
@@ -52,6 +74,9 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 		initButtons();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#setContentView(android.view.View, android.view.ViewGroup.LayoutParams)
+	 */
 	@Override
 	public void setContentView(View view, LayoutParams params) 
 	{
@@ -60,6 +85,9 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 		initButtons();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#setContentView(android.view.View)
+	 */
 	@Override
 	public void setContentView(View view) 
 	{
@@ -68,24 +96,39 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 		initButtons();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onResume()
+	 */
 	@Override
 	protected void onResume() 
 	{
 		super.onResume();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.FlurryActivity#onStart()
+	 */
 	@Override
 	protected void onStart() 
 	{
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see android.app.Activity#onDestroy()
+	 */
 	@Override
 	protected void onDestroy() 
 	{
 		super.onDestroy();
 	}
 
+	/**
+	 * Checks if is callable.
+	 *
+	 * @param intent the intent
+	 * @return true, if is callable
+	 */
 	protected boolean isCallable(Intent intent) 
 	{
 		List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -93,8 +136,9 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 	}
 	
 	/**
-	 * Shows or hides the navigation toolbar
-	 * @param visibility
+	 * Shows or hides the navigation toolbar.
+	 *
+	 * @param visibility the visibility
 	 */
 	public void SetMenuVisibility(int visibility)
 	{
@@ -103,7 +147,7 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 	}
 	
 	/**
-	 * Initializes buttons on the main navigation toolbar
+	 * Initializes buttons on the main navigation toolbar.
 	 */
 	protected void initButtons() 
 	{

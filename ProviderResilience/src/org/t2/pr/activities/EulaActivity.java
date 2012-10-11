@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.Calendar;
@@ -11,15 +14,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+// TODO: Auto-generated Javadoc
 /**
- * Displays an EULA screen
- * 
+ * Displays an EULA screen.
  */
 public class EulaActivity extends ABSWebViewActivity 
 {
+	
+	/** The btn accept. */
 	Button btnAccept;
+	
+	/** The btn deny. */
 	Button btnDeny;
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSWebViewActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -49,6 +59,9 @@ public class EulaActivity extends ABSWebViewActivity
 		this.setContent(getString(R.string.eula_content));
 	}
 
+	/**
+	 * Accept pressed.
+	 */
 	public void AcceptPressed() 
 	{
 		SharedPref.setIsEulaAccepted(true);
@@ -59,6 +72,9 @@ public class EulaActivity extends ABSWebViewActivity
 		this.finish();
 	}
 
+	/**
+	 * Decline pressed.
+	 */
 	public void DeclinePressed() 
 	{
 		this.setResult(0);

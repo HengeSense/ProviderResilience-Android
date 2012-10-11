@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.ArrayList;
@@ -21,49 +24,109 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ProQOLActivity.
+ */
 public class ProQOLActivity extends ABSActivity implements OnClickListener
 {
 
+	/** The btn update qol. */
 	ImageButton btnUpdateQOL;
 
+	/** The tv_qolcsvalue. */
 	public TextView tv_qolcsvalue;
+	
+	/** The tv_qolbvalue. */
 	public TextView tv_qolbvalue;
+	
+	/** The tv_qolstsvalue. */
 	public TextView tv_qolstsvalue;
+	
+	/** The tv_qolcsdesc. */
 	public TextView tv_qolcsdesc;
+	
+	/** The tv_qolbdesc. */
 	public TextView tv_qolbdesc;
+	
+	/** The tv_qolstsdesc. */
 	public TextView tv_qolstsdesc;
+	
+	/** The tv_timesince. */
 	public TextView tv_timesince;
+	
+	/** The iv_csvalue. */
 	public ImageView iv_csvalue;
+	
+	/** The iv_bvalue. */
 	public ImageView iv_bvalue;
+	
+	/** The iv_stsvalue. */
 	public ImageView iv_stsvalue;
+	
+	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
 
+	/** The cs short l. */
 	private String csShortL = "Low Score   (click here for more)\r\nYou've scored in the low range of Compassion Satisfaction.";
+	
+	/** The cs short a. */
 	private String csShortA = "Average Score   (click here for more)\r\nYou've scored in the average range of Compassion Satisfaction.";
+	
+	/** The cs short h. */
 	private String csShortH = "High Score   (click here for more)\r\nYou've scored in the high range of Compassion Satisfaction.";
 
+	/** The bu short l. */
 	private String buShortL = "Low Score   (click here for more)\r\nYour score on the Burnout subscale is in the low range.";
+	
+	/** The bu short a. */
 	private String buShortA = "Average Score   (click here for more)\r\nYour score on the Burnout subscale is in the average range.";
+	
+	/** The bu short h. */
 	private String buShortH = "High Score   (click here for more)\r\nYour score on the Burnout subscale is in the high range.";
 
+	/** The st short l. */
 	private String stShortL = "Low Score   (click here for more)\r\nYour score on the Secondary Traumatic Stress scale is in the low range.";
+	
+	/** The st short a. */
 	private String stShortA = "Average Score   (click here for more)\r\nYour score on the Secondary Traumatic Stress scale is in the average range.";
+	
+	/** The st short h. */
 	private String stShortH = "High Score   (click here for more)\r\nYour score on the Secondary Traumatic Stress scale is in the high range.";
 
+	/** The cs long l. */
 	private String csLongL = "You've scored in the low range of Compassion Satisfaction which means that more than seventy-five percent of those completing this scale scored higher than you did. This score suggests that you may either find problems with your current work, or there may be some other reason-for example, you might derive your satisfaction from activities other than your work.";
+	
+	/** The cs long a. */
 	private String csLongA = "You've scored in the average range of Compassion Satisfaction. Approximately twenty-five percent of individuals completing this scale scored higher than you did, and about twenty-five percent scored lower than you. This suggests that you don't find your work to be consistently satisfying, but that you do derive some degree of satisfaction from your daily work activities.";
+	
+	/** The cs long h. */
 	private String csLongH = "You've scored in the high range of Compassion Satisfaction which is higher than seventy-five percent of individuals completing this scale. This suggest that are experiencing considerable satisfaction with your work and that your daily activities tend to bring you pleasure through a sense of competence and accomplishment.";
 
+	/** The bu long l. */
 	private String buLongL = "You're score associated with Burnout is in a range that is lower than approximately seventy-five percent of the scores of those who have taken this scale. This low score suggests that you are energetic, like what you are doing and feel like you are making a difference in the work that you do.";
+	
+	/** The bu long a. */
 	private String buLongA = "Your score on the Burnout subscale is in the average range. Approximately twenty-five percent of individuals completing this scale scored higher than you did, and about twenty-five percent scored lower than you. This may indicate that you currently experience some frustration in your work and may be feeling somewhat discouraged or ineffective at times. It may be worth reviewing your answers to see if you can pin down the source of these feelings and determine how you might improve your experience at work.";
+	
+	/** The bu long h. */
 	private String buLongH = "Your score associated with Burnout is higher than about seventy-five percent of your colleagues who have completed this scale. You may wish to think about what aspect of your work makes you feel like you are not effective in your position. Your score may reflect your mood; perhaps you are having a 'bad day' or are in need of some time off. If the high score persists or if it is reflective of other worries, it may be a cause for concern.";
 
+	/** The st long l. */
 	private String stLongL = "You're score associated with Secondary Traumatic Stress is in a range that is lower than approximately seventy-five percent of the scores of those who have taken this scale. You may not be working with individuals who are reporting and describing traumatic events or if you are, you are doing a good job creating necessary emotional boundaries.";
+	
+	/** The st long a. */
 	private String stLongA = "Your score on the Secondary Traumatic Stress subscale is in the average range. Approximately twenty-five percent of individuals completing this scale scored higher than you did, and about twenty-five percent scored lower. If you are working with clients or patients who are describing highly traumatic experiences, be sure to focus on self-care which includes maintaining physical, emotional, social, and spiritual supports.";
+	
+	/** The st long h. */
 	private String stLongH = "Your score associated with Secondary Traumatic Stress is higher than about seventy-five percent of your colleagues who have completed this scale. You may want to take some time to think about what at work may be frightening to you or if there is some other reason for the elevated score. While higher scores do not mean that you do have a problem, they are an indication that you may want to examine how you feel about your work and your work environment. You may wish to discuss this with your supervisor, a colleague, or a health care professional.";
 
+	/** The more text. */
 	private String moreText = "";
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -94,6 +157,9 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 
 	}
 
+	/**
+	 * Update display.
+	 */
 	public void UpdateDisplay()
 	{
 		String sDate = (String) android.text.format.DateFormat.format("MM/dd/yyyy", new java.util.Date());
@@ -172,6 +238,12 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 		}
 	}
 
+	/**
+	 * Show popup.
+	 *
+	 * @param inTitle the in title
+	 * @param inText the in text
+	 */
 	public void ShowPopup(String inTitle, String inText)
 	{
 		final Dialog dialog = new Dialog(this);
@@ -194,6 +266,9 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 		dialog.show();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -201,6 +276,9 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onResume()
+	 */
 	@Override
 	public void onResume()
 	{
@@ -208,6 +286,9 @@ public class ProQOLActivity extends ABSActivity implements OnClickListener
 		super.onResume();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{

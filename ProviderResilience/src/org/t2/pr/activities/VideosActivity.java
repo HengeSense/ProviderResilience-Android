@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import org.t2.pr.R;
@@ -22,14 +25,28 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class VideosActivity.
+ */
 public class VideosActivity extends ABSActivity implements OnClickListener
 {
 
+	/** The btn vid comp fat. */
 	private ImageView btnVidCompFat;
+	
+	/** The btn vid trauma. */
 	private ImageView btnVidTrauma;
+	
+	/** The read api. */
 	private ReadAPI readAPI;
+	
+	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
 	
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -49,6 +66,9 @@ public class VideosActivity extends ABSActivity implements OnClickListener
 		readAPI.setMediaDeliveryType(MediaDeliveryTypeEnum.HTTP);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -56,6 +76,9 @@ public class VideosActivity extends ABSActivity implements OnClickListener
 		super.onStart();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{
@@ -95,6 +118,9 @@ public class VideosActivity extends ABSActivity implements OnClickListener
 		}
 	}
 
+	/**
+	 * Error msg.
+	 */
 	public void ErrorMsg()
 	{
 		

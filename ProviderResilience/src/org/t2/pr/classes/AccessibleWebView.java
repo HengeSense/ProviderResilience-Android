@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.classes;
 
 import java.io.BufferedReader;
@@ -25,6 +28,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+// TODO: Auto-generated Javadoc
 /**
  * A WebView that is designed to read its contents. In order to get the screen
  * reading to work properly, you must enable accessibility in system settings,
@@ -41,32 +45,67 @@ import android.webkit.WebViewClient;
  */
 public class AccessibleWebView extends WebView 
 {
+	
+	/** The Constant TAG. */
 	private static final String TAG = AccessibleWebView.class.getSimpleName();
 
+	/** The Constant WHAT_START_DOCUMENT_REACHED. */
 	private static final int WHAT_START_DOCUMENT_REACHED = 0;
+	
+	/** The Constant WHAT_END_DOCUMENT_REACHED. */
 	private static final int WHAT_END_DOCUMENT_REACHED = 1;
 
+	/** The a manager. */
 	private AccessibilityManager aManager;
+	
+	/** The js interface. */
 	private JSInterface jsInterface;
+	
+	/** The js interface handler. */
 	private JSInterfaceHandler jsInterfaceHandler;
+	
+	/** The m end of doc reached. */
 	private boolean mEndOfDocReached = false;
+	
+	/** The ics. */
 	private boolean ICS = false; 
 
+	/** The aweb view client. */
 	private AccessibleWebViewClient awebViewClient;
+	
+	/** The web view client. */
 	private WebViewClient webViewClient;
 
+	/**
+	 * Instantiates a new accessible web view.
+	 *
+	 * @param context the context
+	 */
 	public AccessibleWebView(Context context) 
 	{
 		super(context);
 		this.init();
 	}
 
+	/**
+	 * Instantiates a new accessible web view.
+	 *
+	 * @param context the context
+	 * @param attrs the attrs
+	 */
 	public AccessibleWebView(Context context, AttributeSet attrs) 
 	{
 		super(context, attrs);
 		this.init();
 	}
 
+	/**
+	 * Instantiates a new accessible web view.
+	 *
+	 * @param context the context
+	 * @param attrs the attrs
+	 * @param defStyle the def style
+	 */
 	public AccessibleWebView(Context context, AttributeSet attrs, int defStyle) 
 	{
 		super(context, attrs, defStyle);
@@ -109,6 +148,9 @@ public class AccessibleWebView extends WebView
 
 	}
 
+	/* (non-Javadoc)
+	 * @see android.webkit.WebView#loadData(java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void loadData(String data, String mimeType, String encoding) 
 	{
@@ -131,6 +173,9 @@ public class AccessibleWebView extends WebView
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.webkit.WebView#loadDataWithBaseURL(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
+	 */
 	@Override
 	public void loadDataWithBaseURL(String baseUrl, String data,
 			String mimeType, String encoding, String historyUrl) 
@@ -157,7 +202,8 @@ public class AccessibleWebView extends WebView
 	/**
 	 * Handles the appending of the code. The JS is read from a file in the raw
 	 * resources.
-	 * @param sb
+	 *
+	 * @param sb the sb
 	 */
 	private void appendJS(StringBuffer sb) 
 	{
@@ -178,6 +224,12 @@ public class AccessibleWebView extends WebView
 		sb.append("</script>\n");
 	}
 
+	/**
+	 * Shift focus.
+	 *
+	 * @param direction the direction
+	 * @return true, if successful
+	 */
 	private boolean shiftFocus(int direction) 
 	{
 		View v = focusSearch(direction);
@@ -188,6 +240,9 @@ public class AccessibleWebView extends WebView
 		return false;
 	}
 
+	/* (non-Javadoc)
+	 * @see android.webkit.WebView#onKeyDown(int, android.view.KeyEvent)
+	 */
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) 
 	{
@@ -240,6 +295,9 @@ public class AccessibleWebView extends WebView
 		return super.onKeyDown(keyCode, event);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.webkit.WebView#onKeyUp(int, android.view.KeyEvent)
+	 */
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) 
 	{
@@ -292,6 +350,13 @@ public class AccessibleWebView extends WebView
 		return super.onKeyUp(keyCode, event);
 	}
 
+	/**
+	 * Change key code.
+	 *
+	 * @param base the base
+	 * @param newKeyCode the new key code
+	 * @return the key event
+	 */
 	private static KeyEvent changeKeyCode(KeyEvent base, int newKeyCode) 
 	{
 		return new KeyEvent(
@@ -307,6 +372,12 @@ public class AccessibleWebView extends WebView
 				);
 	}
 
+	/**
+	 * Speak text.
+	 *
+	 * @param text the text
+	 * @param queueMode the queue mode
+	 */
 	private void speakText(String text, int queueMode) 
 	{
 		if(aManager.isEnabled()) 
@@ -328,12 +399,19 @@ public class AccessibleWebView extends WebView
 	 *
 	 */
 	private class JSInterface {
+		
+		/**
+		 * Start of document reached.
+		 */
 		@SuppressWarnings("unused")
 		public void startOfDocumentReached() 
 		{
 			jsInterfaceHandler.sendEmptyMessage(WHAT_START_DOCUMENT_REACHED);
 		}
 
+		/**
+		 * End of docuemnt reached.
+		 */
 		@SuppressWarnings("unused")
 		public void endOfDocuemntReached() 
 		{
@@ -341,8 +419,15 @@ public class AccessibleWebView extends WebView
 		}
 	}
 
+	/**
+	 * The Class JSInterfaceHandler.
+	 */
 	private class JSInterfaceHandler extends Handler 
 	{
+		
+		/* (non-Javadoc)
+		 * @see android.os.Handler#handleMessage(android.os.Message)
+		 */
 		@Override
 		public void handleMessage(Message msg) 
 		{
@@ -367,8 +452,15 @@ public class AccessibleWebView extends WebView
 		}
 	}
 
+	/**
+	 * The Class AccessibleWebViewClient.
+	 */
 	private class AccessibleWebViewClient extends WebViewClient 
 	{
+		
+		/* (non-Javadoc)
+		 * @see android.webkit.WebViewClient#onLoadResource(android.webkit.WebView, java.lang.String)
+		 */
 		@Override
 		public void onLoadResource(WebView view, String url) 
 		{
@@ -402,6 +494,9 @@ public class AccessibleWebView extends WebView
 			}
 		}
 
+		/* (non-Javadoc)
+		 * @see android.webkit.WebViewClient#shouldOverrideUrlLoading(android.webkit.WebView, java.lang.String)
+		 */
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) 
 		{

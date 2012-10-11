@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.activities;
 
 import java.util.ArrayList;
@@ -16,17 +19,32 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class UpdateBurnoutActivity.
+ */
 public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekBarChangeListener
 {
+	
+	/** The question list. */
 	private List<String[]> questionList;
+	
+	/** The answers. */
 	private ArrayList<int[]> answers;
 
+	/** The btn kontinue. */
 	public Button btnKontinue;
+	
+	/** The reverse score. */
 	private ArrayList<Integer> reverseScore;
 	
 	//private ProgressDialog m_ProgressDialog = null;
+	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -50,6 +68,9 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 		reverseScore.add(10);
 	}
 
+	/**
+	 * Populate burnout questions.
+	 */
 	private void populateBurnoutQuestions()
 	{
 		questionList = db.selectBurnoutQuestions();
@@ -62,6 +83,9 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 		}
 	}
 
+	/**
+	 * Inflate slider view.
+	 */
 	public void inflateSliderView()
 	{
 		for(int i= 0; i< questionList.size(); i++)
@@ -81,6 +105,9 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.SeekBar.OnSeekBarChangeListener#onProgressChanged(android.widget.SeekBar, int, boolean)
+	 */
 	@Override
 	public void onProgressChanged(SeekBar seekBar, int progress, boolean fromTouch) {
 
@@ -131,6 +158,9 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onStart()
+	 */
 	@Override
 	public void onStart()
 	{
@@ -138,12 +168,18 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 		super.onStart();
 	}
 
+	/**
+	 * Save questions.
+	 */
 	public void SaveQuestions()
 	{
 		String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 		db.insertBurnoutAnswers(answers, date);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
+	 */
 	@Override
 	public void onClick(View v) 
 	{
@@ -159,12 +195,18 @@ public class UpdateBurnoutActivity extends ABSActivity implements Slider.OnSeekB
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.SeekBar.OnSeekBarChangeListener#onStartTrackingTouch(android.widget.SeekBar)
+	 */
 	@Override
 	public void onStartTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/* (non-Javadoc)
+	 * @see android.widget.SeekBar.OnSeekBarChangeListener#onStopTrackingTouch(android.widget.SeekBar)
+	 */
 	@Override
 	public void onStopTrackingTouch(SeekBar seekBar) {
 		// TODO Auto-generated method stub

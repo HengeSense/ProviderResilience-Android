@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.classes;
 
 import java.util.ArrayList;
@@ -10,10 +13,20 @@ import org.joda.time.PeriodType;
 
 import android.util.Log;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Scoring.
+ */
 public class Scoring {
 
+	/** The db. */
 	private static DatabaseProvider db = new DatabaseProvider(Global.appContext);
 
+	/**
+	 * Leave clock score.
+	 *
+	 * @return the int
+	 */
 	public static int LeaveClockScore()
 	{
 		int cYear;
@@ -78,6 +91,12 @@ public class Scoring {
 
 	}
 
+	/**
+	 * QOL compassion score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int QOLCompassionScore(String date)
 	{
 		List<String[]> answerList = db.selectQOLAnswers(date);
@@ -110,6 +129,12 @@ public class Scoring {
 		return totalScore;
 	}
 
+	/**
+	 * QOL burnout score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int QOLBurnoutScore(String date)
 	{
 		List<String[]> answerList = db.selectQOLAnswers(date);
@@ -157,6 +182,12 @@ public class Scoring {
 		return totalScore;
 	}
 
+	/**
+	 * QOLSTS score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int QOLSTSScore(String date)
 	{
 		List<String[]> answerList = db.selectQOLAnswers(date);
@@ -189,6 +220,12 @@ public class Scoring {
 		return totalScore;
 	}
 
+	/**
+	 * Acuity string.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String AcuityString(int value)
 	{
 		String acuity = "";
@@ -202,6 +239,12 @@ public class Scoring {
 		return acuity;
 	}
 
+	/**
+	 * PROQOL score.
+	 *
+	 * @param date the date
+	 * @return the double
+	 */
 	public static double PROQOLScore(String date)
 	{
 		//If there have been no answers return 0
@@ -228,6 +271,12 @@ public class Scoring {
 		
 	}
 
+	/**
+	 * Burnout score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int BurnoutScore(String date)
 	{
 		int dbvalues = db.selectBurnoutScore(date);
@@ -244,11 +293,23 @@ public class Scoring {
 		return totalScore;
 	}
 	
+	/**
+	 * Raw burnout score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int RawBurnoutScore(String date)
 	{
 		return db.selectBurnoutScore(date);
 	}
 
+	/**
+	 * Builders killers score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int BuildersKillersScore(String date)
 	{
 		int totalScore = db.selectBuildersKillersScore(date);
@@ -257,6 +318,12 @@ public class Scoring {
 		return totalScore;
 	}
 
+	/**
+	 * Misc score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int MiscScore(String date)
 	{
 		ArrayList<Integer> laugh = (ArrayList<Integer>) db.selectMisc("laugh", date);
@@ -279,6 +346,11 @@ public class Scoring {
 		return miscScore;
 	}
 	
+	/**
+	 * Gets the last qol date.
+	 *
+	 * @return the last qol date
+	 */
 	public static String getLastQOLDate()
 	{
 		String lastDate = "";
@@ -289,6 +361,12 @@ public class Scoring {
 		return lastDate;
 	}
 	
+	/**
+	 * Total resilience score.
+	 *
+	 * @param date the date
+	 * @return the int
+	 */
 	public static int TotalResilienceScore(String date)
 	{
 		
@@ -336,6 +414,12 @@ public class Scoring {
 		return outScore;
 	}
 	
+	/**
+	 * Total resilience string.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String TotalResilienceString(int value)
 	{
 		String acuity = "";

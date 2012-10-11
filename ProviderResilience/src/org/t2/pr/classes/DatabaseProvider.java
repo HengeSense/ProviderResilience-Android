@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.classes;
 
 import android.content.Context;
@@ -14,26 +17,44 @@ import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
+// TODO: Auto-generated Javadoc
 /**
- * Handles all database operations
- * 
+ * Handles all database operations.
+ *
  * @author Steve Ody (stephen.ody@tee2.org)
  */
 
 public class DatabaseProvider 
 {
 
+	/** The Constant DATABASE_NAME. */
 	private static final String DATABASE_NAME = "nrproviderres.db";
+	
+	/** The Constant DATABASE_VERSION. */
 	private static final int DATABASE_VERSION = 7;
 
+	/** The context. */
 	private Context context;
+	
+	/** The db. */
 	private SQLiteDatabase db;
 
+	/**
+	 * Instantiates a new database provider.
+	 *
+	 * @param context the context
+	 */
 	public DatabaseProvider(Context context) 
 	{
 		this.context = context;      
 	}
 
+	/**
+	 * Scrub input.
+	 *
+	 * @param input the input
+	 * @return the string
+	 */
 	public String scrubInput(String input)
 	{
 		//TODO: make robust
@@ -41,6 +62,11 @@ public class DatabaseProvider
 		return Output;
 	}
 
+	/**
+	 * Select rb questions.
+	 *
+	 * @return the list
+	 */
 	public List<String[]> selectRBQuestions()
 	{
 
@@ -72,6 +98,11 @@ public class DatabaseProvider
 		return list;
 	}
 
+	/**
+	 * Insert rb question.
+	 *
+	 * @param inQuestion the in question
+	 */
 	public void insertRBQuestion(String inQuestion)
 	{
 		OpenHelper openHelper = new OpenHelper(this.context);
@@ -92,6 +123,12 @@ public class DatabaseProvider
 		db.close();
 	}
 
+	/**
+	 * Gets the start date.
+	 *
+	 * @param inDate the in date
+	 * @return the start date
+	 */
 	public String getStartDate(String inDate)
 	{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
@@ -135,6 +172,12 @@ public class DatabaseProvider
 		
 	}
 	
+	/**
+	 * Gets the end date.
+	 *
+	 * @param inDate the in date
+	 * @return the end date
+	 */
 	public String getEndDate(String inDate)
 	{
 		SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
@@ -176,6 +219,12 @@ public class DatabaseProvider
 		
 	}
 	
+	/**
+	 * Insert rb answers.
+	 *
+	 * @param inAnswers the in answers
+	 * @param answerDate the answer date
+	 */
 	public void insertRBAnswers(List<int[]> inAnswers, String answerDate)
 	{
 
@@ -204,6 +253,11 @@ public class DatabaseProvider
 
 	}
 
+	/**
+	 * Select rk questions.
+	 *
+	 * @return the list
+	 */
 	public List<String[]> selectRKQuestions()
 	{
 
@@ -235,6 +289,11 @@ public class DatabaseProvider
 		return list;
 	}
 
+	/**
+	 * Insert rk question.
+	 *
+	 * @param inQuestion the in question
+	 */
 	public void insertRKQuestion(String inQuestion)
 	{
 		OpenHelper openHelper = new OpenHelper(this.context);
@@ -255,6 +314,12 @@ public class DatabaseProvider
 		db.close();
 	}
 
+	/**
+	 * Insert rk answers.
+	 *
+	 * @param inAnswers the in answers
+	 * @param answerDate the answer date
+	 */
 	public void insertRKAnswers(List<int[]> inAnswers, String answerDate)
 	{
 
@@ -283,6 +348,11 @@ public class DatabaseProvider
 
 	}
 
+	/**
+	 * Select qol questions.
+	 *
+	 * @return the list
+	 */
 	public List<String[]> selectQOLQuestions()
 	{
 
@@ -314,6 +384,12 @@ public class DatabaseProvider
 		return list;
 	}
 
+	/**
+	 * Insert qol answers.
+	 *
+	 * @param inAnswers the in answers
+	 * @param answerDate the answer date
+	 */
 	public void insertQOLAnswers(List<int[]> inAnswers, String answerDate)
 	{
 
@@ -342,6 +418,11 @@ public class DatabaseProvider
 
 	}
 
+	/**
+	 * Select burnout questions.
+	 *
+	 * @return the list
+	 */
 	public List<String[]> selectBurnoutQuestions()
 	{
 
@@ -373,6 +454,12 @@ public class DatabaseProvider
 		return list;
 	}
 
+	/**
+	 * Select burnout score.
+	 *
+	 * @param answerDate the answer date
+	 * @return the int
+	 */
 	public int selectBurnoutScore(String answerDate)
 	{
 
@@ -405,6 +492,12 @@ public class DatabaseProvider
 		return scoreTotal;
 	}
 
+	/**
+	 * Insert burnout answers.
+	 *
+	 * @param inAnswers the in answers
+	 * @param answerDate the answer date
+	 */
 	public void insertBurnoutAnswers(List<int[]> inAnswers, String answerDate)
 	{
 
@@ -433,6 +526,11 @@ public class DatabaseProvider
 
 	}
 
+	/**
+	 * Select burnout dates.
+	 *
+	 * @return the list
+	 */
 	public List<String> selectBURNOUTDates()
 	{
 
@@ -466,6 +564,12 @@ public class DatabaseProvider
 		return list;
 	}
 	
+	/**
+	 * Select builders killers score.
+	 *
+	 * @param answerDate the answer date
+	 * @return the int
+	 */
 	public int selectBuildersKillersScore(String answerDate)
 	{
 		OpenHelper openHelper = new OpenHelper(this.context);
@@ -540,6 +644,12 @@ public class DatabaseProvider
 		return scoreTotal;
 	}
 
+	/**
+	 * Select qol answers.
+	 *
+	 * @param answerDate the answer date
+	 * @return the list
+	 */
 	public List<String[]> selectQOLAnswers(String answerDate)
 	{
 
@@ -571,6 +681,11 @@ public class DatabaseProvider
 		return list;
 	}
 
+	/**
+	 * Select qol dates.
+	 *
+	 * @return the list
+	 */
 	public List<String> selectQOLDates()
 	{
 
@@ -600,6 +715,9 @@ public class DatabaseProvider
 		return list;
 	}
 
+	/**
+	 * Clear data.
+	 */
 	public void ClearData()
 	{
 		OpenHelper openHelper = new OpenHelper(this.context);
@@ -612,6 +730,9 @@ public class DatabaseProvider
 		db.close();
 	}
 
+	/**
+	 * Enter test data.
+	 */
 	public void EnterTestData()
 	{
 		Random rnd = new Random();
@@ -650,6 +771,13 @@ public class DatabaseProvider
 
 	}
 
+	/**
+	 * Insert misc.
+	 *
+	 * @param type the type
+	 * @param value the value
+	 * @param answerDate the answer date
+	 */
 	public void insertMisc(String type, int value, String answerDate)
 	{
 
@@ -670,6 +798,13 @@ public class DatabaseProvider
 
 	}
 
+	/**
+	 * Select misc.
+	 *
+	 * @param type the type
+	 * @param answerDate the answer date
+	 * @return the list
+	 */
 	public List<Integer> selectMisc(String type, String answerDate)
 	{
 
@@ -698,14 +833,25 @@ public class DatabaseProvider
 		return list;
 	}
 
+	/**
+	 * The Class OpenHelper.
+	 */
 	private static class OpenHelper extends SQLiteOpenHelper 
 	{
 
+		/**
+		 * Instantiates a new open helper.
+		 *
+		 * @param context the context
+		 */
 		OpenHelper(Context context) 
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
+		/* (non-Javadoc)
+		 * @see android.database.sqlite.SQLiteOpenHelper#onCreate(android.database.sqlite.SQLiteDatabase)
+		 */
 		@Override
 		public void onCreate(SQLiteDatabase db) 
 		{
@@ -789,6 +935,9 @@ public class DatabaseProvider
 			db.execSQL(createMisc);
 		}
 
+		/* (non-Javadoc)
+		 * @see android.database.sqlite.SQLiteOpenHelper#onUpgrade(android.database.sqlite.SQLiteDatabase, int, int)
+		 */
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 		{

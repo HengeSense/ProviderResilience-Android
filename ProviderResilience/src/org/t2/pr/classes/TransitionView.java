@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package org.t2.pr.classes;
 
 /**
@@ -18,26 +21,41 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+// TODO: Auto-generated Javadoc
 /**
  * A transition view provides animated switching of 
  * a predefined set of image resources.
  */
 public class TransitionView extends RelativeLayout {
 
-   /** One of the two in-memory art images */
+   /** One of the two in-memory art images. */
    private ImageView _artView1;
-   /** The other of the two in-memory art images */
+   
+   /** The other of the two in-memory art images. */
    private ImageView _artView2;
-   /** Length of art view transition animation, in milliseconds */
+   
+   /** Length of art view transition animation, in milliseconds. */
    private final int ANIMATION_DURATION_MSEC = 300;
-   /** The underlying ImageSwitcher that performs transitions */
+   
+   /** The underlying ImageSwitcher that performs transitions. */
    private ImageSwitcher _imageSwitcher;
 
+   /** The anim r in. */
    private Animation animRIn;
+   
+   /** The anim r out. */
    private Animation animROut;
+   
+   /** The anim l in. */
    private Animation animLIn;
+   
+   /** The anim l out. */
    private Animation animLOut;
+   
+   /** The anim f in. */
    private Animation animFIn;
+   
+   /** The anim f out. */
    private Animation animFOut;
 
    
@@ -88,21 +106,36 @@ public class TransitionView extends RelativeLayout {
       addView(_imageSwitcher, fullScreenLayout);
    }
 
-   /** @see android.view.View#View(Context, AttributeSet) */
+   /**
+    * Instantiates a new transition view.
+    *
+    * @param context the context
+    * @param attrs the attrs
+    * @see android.view.View#View(Context, AttributeSet)
+    */
    public TransitionView(Context context, AttributeSet attrs) {
       super(context, attrs);
       customInit(context);
    }
 
-   /** @see android.view.View#View(Context, AttributeSet, int) */
+   /**
+    * Instantiates a new transition view.
+    *
+    * @param context the context
+    * @param attrs the attrs
+    * @param defStyle the def style
+    * @see android.view.View#View(Context, AttributeSet, int)
+    */
    public TransitionView(Context context, AttributeSet attrs, int defStyle) {
       super(context, attrs, defStyle);
       customInit(context);
    }
 
    /**
-    * Change the currently displayed image
-    * @param pageRight if true, the next image will be shown, else the previous image will appear
+    * Change the currently displayed image.
+    *
+    * @param newRESID the new resid
+    * @param dir the dir
     */
    public void changePage(int newRESID, int dir) {
 	   
