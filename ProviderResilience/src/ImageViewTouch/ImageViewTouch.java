@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package ImageViewTouch;
 
@@ -15,61 +41,25 @@ import android.view.ScaleGestureDetector;
 import android.view.ScaleGestureDetector.OnScaleGestureListener;
 import android.view.ViewConfiguration;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class ImageViewTouch.
- */
 public class ImageViewTouch extends ImageViewTouchBase {
 
-	/** The Constant MIN_ZOOM. */
 	static final float MIN_ZOOM = 0.9f;
-	
-	/** The m scale detector. */
 	protected ScaleGestureDetector mScaleDetector;
-	
-	/** The m gesture detector. */
 	protected GestureDetector mGestureDetector;
-	
-	/** The m touch slop. */
 	protected int mTouchSlop;
-	
-	/** The m current scale factor. */
 	protected float mCurrentScaleFactor;
-	
-	/** The m scale factor. */
 	protected float mScaleFactor;
-	
-	/** The m double tap direction. */
 	protected int mDoubleTapDirection;
-	
-	/** The m gesture listener. */
 	protected OnGestureListener mGestureListener;
-	
-	/** The m scale listener. */
 	protected OnScaleGestureListener mScaleListener;
-	
-	/** The m double tap enabled. */
 	protected boolean mDoubleTapEnabled = true;
-	
-	/** The m scale enabled. */
 	protected boolean mScaleEnabled = true;
-	
-	/** The m scroll enabled. */
 	protected boolean mScrollEnabled = true;
 
-	/**
-	 * Instantiates a new image view touch.
-	 *
-	 * @param context the context
-	 * @param attrs the attrs
-	 */
 	public ImageViewTouch( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 	}
 
-	/* (non-Javadoc)
-	 * @see ImageViewTouch.ImageViewTouchBase#init()
-	 */
 	@Override
 	protected void init() {
 		super.init();
@@ -84,63 +74,30 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		mDoubleTapDirection = 1;
 	}
 
-	/**
-	 * Sets the double tap enabled.
-	 *
-	 * @param value the new double tap enabled
-	 */
 	public void setDoubleTapEnabled( boolean value ) {
 		mDoubleTapEnabled = value;
 	}
 
-	/**
-	 * Sets the scale enabled.
-	 *
-	 * @param value the new scale enabled
-	 */
 	public void setScaleEnabled( boolean value ) {
 		mScaleEnabled = value;
 	}
 
-	/**
-	 * Sets the scroll enabled.
-	 *
-	 * @param value the new scroll enabled
-	 */
 	public void setScrollEnabled( boolean value ) {
 		mScrollEnabled = value;
 	}
 
-	/**
-	 * Gets the double tap enabled.
-	 *
-	 * @return the double tap enabled
-	 */
 	public boolean getDoubleTapEnabled() {
 		return mDoubleTapEnabled;
 	}
 
-	/**
-	 * Gets the gesture listener.
-	 *
-	 * @return the gesture listener
-	 */
 	protected OnGestureListener getGestureListener() {
 		return new GestureListener();
 	}
 
-	/**
-	 * Gets the scale listener.
-	 *
-	 * @return the scale listener
-	 */
 	protected OnScaleGestureListener getScaleListener() {
 		return new ScaleListener();
 	}
 
-	/* (non-Javadoc)
-	 * @see ImageViewTouch.ImageViewTouchBase#onBitmapChanged(android.graphics.drawable.Drawable)
-	 */
 	@Override
 	protected void onBitmapChanged( Drawable drawable ) {
 		super.onBitmapChanged( drawable );
@@ -150,18 +107,12 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		mCurrentScaleFactor = v[Matrix.MSCALE_X];
 	}
 
-	/* (non-Javadoc)
-	 * @see ImageViewTouch.ImageViewTouchBase#_setImageDrawable(android.graphics.drawable.Drawable, boolean, android.graphics.Matrix, float)
-	 */
 	@Override
 	protected void _setImageDrawable( final Drawable drawable, final boolean reset, final Matrix initial_matrix, final float maxZoom ) {
 		super._setImageDrawable( drawable, reset, initial_matrix, maxZoom );
 		mScaleFactor = getMaxZoom() / 3;
 	}
 
-	/* (non-Javadoc)
-	 * @see android.view.View#onTouchEvent(android.view.MotionEvent)
-	 */
 	@Override
 	public boolean onTouchEvent( MotionEvent event ) {
 		mScaleDetector.onTouchEvent( event );
@@ -177,18 +128,12 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see ImageViewTouch.ImageViewTouchBase#onZoom(float)
-	 */
 	@Override
 	protected void onZoom( float scale ) {
 		super.onZoom( scale );
 		if ( !mScaleDetector.isInProgress() ) mCurrentScaleFactor = scale;
 	}
 
-	/**
-	 * Fake initial zoom.
-	 */
 	public void fakeInitialZoom()
 	{
 		float scale = getScale();
@@ -199,14 +144,6 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		zoomTo( targetScale, 0, 0, 200 );
 		invalidate();
 	}
-	
-	/**
-	 * On double tap post.
-	 *
-	 * @param scale the scale
-	 * @param maxZoom the max zoom
-	 * @return the float
-	 */
 	protected float onDoubleTapPost( float scale, float maxZoom ) {
 		if ( mDoubleTapDirection == 1 ) {
 			if ( ( scale + ( mScaleFactor * 2 ) ) <= maxZoom ) {
@@ -221,22 +158,8 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		}
 	}
 
-	/**
-	 * The listener interface for receiving gesture events.
-	 * The class that is interested in processing a gesture
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addGestureListener<code> method. When
-	 * the gesture event occurs, that object's appropriate
-	 * method is invoked.
-	 *
-	 * @see GestureEvent
-	 */
 	public class GestureListener extends GestureDetector.SimpleOnGestureListener {
 
-		/* (non-Javadoc)
-		 * @see android.view.GestureDetector.SimpleOnGestureListener#onDoubleTap(android.view.MotionEvent)
-		 */
 		@Override
 		public boolean onDoubleTap( MotionEvent e ) {
 			Log.i( LOG_TAG, "onDoubleTap. double tap enabled? " + mDoubleTapEnabled );
@@ -252,9 +175,6 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			return super.onDoubleTap( e );
 		}
 
-		/* (non-Javadoc)
-		 * @see android.view.GestureDetector.SimpleOnGestureListener#onLongPress(android.view.MotionEvent)
-		 */
 		@Override
 		public void onLongPress( MotionEvent e ) {
 			if ( isLongClickable() ) {
@@ -265,9 +185,6 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			}
 		}
 
-		/* (non-Javadoc)
-		 * @see android.view.GestureDetector.SimpleOnGestureListener#onScroll(android.view.MotionEvent, android.view.MotionEvent, float, float)
-		 */
 		@Override
 		public boolean onScroll( MotionEvent e1, MotionEvent e2, float distanceX, float distanceY ) {
 			if ( !mScrollEnabled ) return false;
@@ -281,9 +198,6 @@ public class ImageViewTouch extends ImageViewTouchBase {
 			return super.onScroll( e1, e2, distanceX, distanceY );
 		}
 
-		/* (non-Javadoc)
-		 * @see android.view.GestureDetector.SimpleOnGestureListener#onFling(android.view.MotionEvent, android.view.MotionEvent, float, float)
-		 */
 		@Override
 		public boolean onFling( MotionEvent e1, MotionEvent e2, float velocityX, float velocityY ) {
 			if ( !mScrollEnabled ) return false;
@@ -302,22 +216,8 @@ public class ImageViewTouch extends ImageViewTouchBase {
 		}
 	}
 
-	/**
-	 * The listener interface for receiving scale events.
-	 * The class that is interested in processing a scale
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addScaleListener<code> method. When
-	 * the scale event occurs, that object's appropriate
-	 * method is invoked.
-	 *
-	 * @see ScaleEvent
-	 */
 	public class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
 
-		/* (non-Javadoc)
-		 * @see android.view.ScaleGestureDetector.SimpleOnScaleGestureListener#onScale(android.view.ScaleGestureDetector)
-		 */
 		@SuppressWarnings("unused")
 		@Override
 		public boolean onScale( ScaleGestureDetector detector ) {

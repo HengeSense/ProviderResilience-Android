@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package ImageViewTouch;
 
@@ -14,132 +40,61 @@ import android.util.Log;
 import android.widget.ImageView;
 
 
-// TODO: Auto-generated Javadoc
 /**
- * Base View to manage image zoom/scrool/pinch operations.
- *
+ * Base View to manage image zoom/scrool/pinch operations
+ * 
  * @author alessandro
+ * 
  */
 public class ImageViewTouchBase extends ImageView implements IDisposable {
 
-	/**
-	 * The listener interface for receiving onBitmapChanged events.
-	 * The class that is interested in processing a onBitmapChanged
-	 * event implements this interface, and the object created
-	 * with that class is registered with a component using the
-	 * component's <code>addOnBitmapChangedListener<code> method. When
-	 * the onBitmapChanged event occurs, that object's appropriate
-	 * method is invoked.
-	 *
-	 * @see OnBitmapChangedEvent
-	 */
 	public interface OnBitmapChangedListener {
 
-		/**
-		 * On bitmap changed.
-		 *
-		 * @param drawable the drawable
-		 */
 		void onBitmapChanged( Drawable drawable );
 	};
 
-	/** The Constant LOG_TAG. */
 	public static final String LOG_TAG = "image";
 
-	/** The m easing. */
 	protected Easing mEasing = new Cubic();
-	
-	/** The m base matrix. */
 	protected Matrix mBaseMatrix = new Matrix();
-	
-	/** The m supp matrix. */
 	protected Matrix mSuppMatrix = new Matrix();
-	
-	/** The m handler. */
 	protected Handler mHandler = new Handler();
-	
-	/** The m on layout runnable. */
 	protected Runnable mOnLayoutRunnable = null;
-	
-	/** The m max zoom. */
 	protected float mMaxZoom;
-	
-	/** The m display matrix. */
 	protected final Matrix mDisplayMatrix = new Matrix();
-	
-	/** The m matrix values. */
 	protected final float[] mMatrixValues = new float[9];
-	
-	/** The m this height. */
 	protected int mThisWidth = -1, mThisHeight = -1;
-	
-	/** The m fit to screen. */
 	protected boolean mFitToScreen = false;
-	
-	/** The max zoom. */
 	final protected float MAX_ZOOM = 2.0f;
 
-	/** The m bitmap rect. */
 	protected RectF mBitmapRect = new RectF();
-	
-	/** The m center rect. */
 	protected RectF mCenterRect = new RectF();
-	
-	/** The m scroll rect. */
 	protected RectF mScrollRect = new RectF();
 
-	/** The m listener. */
 	private OnBitmapChangedListener mListener;
 
-	/**
-	 * Instantiates a new image view touch base.
-	 *
-	 * @param context the context
-	 */
 	public ImageViewTouchBase( Context context ) {
 		super( context );
 		init();
 	}
 
-	/**
-	 * Instantiates a new image view touch base.
-	 *
-	 * @param context the context
-	 * @param attrs the attrs
-	 */
 	public ImageViewTouchBase( Context context, AttributeSet attrs ) {
 		super( context, attrs );
 		init();
 	}
 
-	/**
-	 * Sets the on bitmap changed listener.
-	 *
-	 * @param listener the new on bitmap changed listener
-	 */
 	public void setOnBitmapChangedListener( OnBitmapChangedListener listener ) {
 		mListener = listener;
 	}
 
-	/**
-	 * Inits the.
-	 */
 	protected void init() {
 		setScaleType( ImageView.ScaleType.MATRIX );
 	}
 
-	/**
-	 * Clear.
-	 */
 	public void clear() {
 		setImageBitmap( null, true );
 	}
 
-	/**
-	 * Sets the fit to screen.
-	 *
-	 * @param value the new fit to screen
-	 */
 	public void setFitToScreen( boolean value ) {
 		if ( value != mFitToScreen ) {
 			mFitToScreen = value;
@@ -147,9 +102,6 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see android.view.View#onLayout(boolean, int, int, int, int)
-	 */
 	@Override
 	protected void onLayout( boolean changed, int left, int top, int right, int bottom ) {
 		super.onLayout( changed, left, top, right, bottom );
@@ -169,17 +121,11 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.ImageView#setImageBitmap(android.graphics.Bitmap)
-	 */
 	@Override
 	public void setImageBitmap( Bitmap bm ) {
 		setImageBitmap( bm, true );
 	}
 	
-	/* (non-Javadoc)
-	 * @see android.widget.ImageView#setImageResource(int)
-	 */
 	@Override
 	public void setImageResource( int resId ) {
 		setImageDrawable( getContext().getResources().getDrawable( resId ) );
@@ -202,10 +148,13 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 	 * Similar to {@link #setImageBitmap(Bitmap, boolean)} but an optional view {@link Matrix} can be passed to determine the new
 	 * bitmap view matrix.<br />
 	 * This method is useful if you need to restore a Bitmap with the same zoom/pan values from a previous state
-	 *
-	 * @param bitmap - the {@link Bitmap} to display
-	 * @param reset the reset
-	 * @param matrix - the {@link Matrix} to be used to display the new bitmap
+	 * 
+	 * @param bitmap
+	 *           - the {@link Bitmap} to display
+	 * @param reset
+	 * @param matrix
+	 *           - the {@link Matrix} to be used to display the new bitmap
+	 * 
 	 * @see #setImageBitmap(Bitmap, boolean)
 	 * @see #setImageBitmap(Bitmap)
 	 * @see #getImageViewMatrix()
@@ -216,12 +165,13 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 	}
 
 	/**
-	 * Sets the image bitmap.
-	 *
-	 * @param bitmap the bitmap
-	 * @param reset the reset
-	 * @param matrix the matrix
-	 * @param maxZoom - maximum zoom allowd during zoom gestures
+	 * 
+	 * @param bitmap
+	 * @param reset
+	 * @param matrix
+	 * @param maxZoom
+	 *           - maximum zoom allowd during zoom gestures
+	 * 
 	 * @see #setImageBitmap(Bitmap, boolean, Matrix)
 	 */
 	public void setImageBitmap( final Bitmap bitmap, final boolean reset, Matrix matrix, float maxZoom ) {
@@ -234,22 +184,11 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 			setImageDrawable( null, reset, matrix, maxZoom );
 	}
 
-	/* (non-Javadoc)
-	 * @see android.widget.ImageView#setImageDrawable(android.graphics.drawable.Drawable)
-	 */
 	@Override
 	public void setImageDrawable( Drawable drawable ) {
 		setImageDrawable( drawable, true, null, -1 );
 	}
 
-	/**
-	 * Sets the image drawable.
-	 *
-	 * @param drawable the drawable
-	 * @param reset the reset
-	 * @param initial_matrix the initial_matrix
-	 * @param maxZoom the max zoom
-	 */
 	public void setImageDrawable( final Drawable drawable, final boolean reset, final Matrix initial_matrix, final float maxZoom ) {
 
 		final int viewWidth = getWidth();
@@ -268,14 +207,6 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		_setImageDrawable( drawable, reset, initial_matrix, maxZoom );
 	}
 
-	/**
-	 * _set image drawable.
-	 *
-	 * @param drawable the drawable
-	 * @param reset the reset
-	 * @param initial_matrix the initial_matrix
-	 * @param maxZoom the max zoom
-	 */
 	protected void _setImageDrawable( final Drawable drawable, final boolean reset, final Matrix initial_matrix, final float maxZoom ) {
 
 		if ( drawable != null ) {
@@ -306,22 +237,12 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		onBitmapChanged( drawable );
 	}
 
-	/**
-	 * On bitmap changed.
-	 *
-	 * @param bitmap the bitmap
-	 */
 	protected void onBitmapChanged( final Drawable bitmap ) {
 		if ( mListener != null ) {
 			mListener.onBitmapChanged( bitmap );
 		}
 	}
 
-	/**
-	 * Max zoom.
-	 *
-	 * @return the float
-	 */
 	protected float maxZoom() {
 		final Drawable drawable = getDrawable();
 
@@ -335,20 +256,10 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		return max;
 	}
 
-	/**
-	 * Gets the max zoom.
-	 *
-	 * @return the max zoom
-	 */
 	public float getMaxZoom() {
 		return mMaxZoom;
 	}
 
-	/**
-	 * Gets the image view matrix.
-	 *
-	 * @return the image view matrix
-	 */
 	public Matrix getImageViewMatrix() {
 		mDisplayMatrix.set( mBaseMatrix );
 		mDisplayMatrix.postConcat( mSuppMatrix );
@@ -357,9 +268,9 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 
 	/**
 	 * Returns the current image display matrix. This matrix can be used in the next call to the
-	 *
-	 * @return the display matrix
 	 * {@link #setImageBitmap(Bitmap, boolean, Matrix)} to restore the same view state of the previous {@link Bitmap}
+	 * 
+	 * @return
 	 */
 	public Matrix getDisplayMatrix() {
 		return new Matrix( mSuppMatrix );
@@ -367,10 +278,9 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 
 	/**
 	 * Setup the base matrix so that the image is centered and scaled properly.
-	 *
-	 * @param drawable the drawable
-	 * @param matrix the matrix
-	 * @return the proper base matrix
+	 * 
+	 * @param bitmap
+	 * @param matrix
 	 */
 	protected void getProperBaseMatrix( Drawable drawable, Matrix matrix ) {
 		float viewWidth = getWidth();
@@ -396,10 +306,9 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 
 	/**
 	 * Setup the base matrix so that the image is centered and scaled properly.
-	 *
-	 * @param bitmap the bitmap
-	 * @param matrix the matrix
-	 * @return the proper base matrix2
+	 * 
+	 * @param bitmap
+	 * @param matrix
 	 */
 	protected void getProperBaseMatrix2( Drawable bitmap, Matrix matrix ) {
 		float viewWidth = getWidth();
@@ -414,23 +323,11 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		matrix.postTranslate( ( viewWidth - w * scale ) / MAX_ZOOM, ( viewHeight - h * scale ) / MAX_ZOOM );
 	}
 
-	/**
-	 * Gets the value.
-	 *
-	 * @param matrix the matrix
-	 * @param whichValue the which value
-	 * @return the value
-	 */
 	protected float getValue( Matrix matrix, int whichValue ) {
 		matrix.getValues( mMatrixValues );
 		return mMatrixValues[whichValue];
 	}
 
-	/**
-	 * Gets the bitmap rect.
-	 *
-	 * @return the bitmap rect
-	 */
 	protected RectF getBitmapRect() {
 		final Drawable drawable = getDrawable();
 
@@ -441,40 +338,18 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		return mBitmapRect;
 	}
 
-	/**
-	 * Gets the scale.
-	 *
-	 * @param matrix the matrix
-	 * @return the scale
-	 */
 	protected float getScale( Matrix matrix ) {
 		return getValue( matrix, Matrix.MSCALE_X );
 	}
 
-	/**
-	 * Gets the rotation.
-	 *
-	 * @return the rotation
-	 */
 	public float getRotation() {
 		return 0;
 	}
 
-	/**
-	 * Gets the scale.
-	 *
-	 * @return the scale
-	 */
 	public float getScale() {
 		return getScale( mSuppMatrix );
 	}
 
-	/**
-	 * Center.
-	 *
-	 * @param horizontal the horizontal
-	 * @param vertical the vertical
-	 */
 	protected void center( boolean horizontal, boolean vertical ) {
 		// Log.i(LOG_TAG, "center");
 		final Drawable drawable = getDrawable();
@@ -486,13 +361,6 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		}
 	}
 
-	/**
-	 * Gets the center.
-	 *
-	 * @param horizontal the horizontal
-	 * @param vertical the vertical
-	 * @return the center
-	 */
 	protected RectF getCenter( boolean horizontal, boolean vertical ) {
 		final Drawable drawable = getDrawable();
 
@@ -526,59 +394,28 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		return mCenterRect;
 	}
 
-	/**
-	 * Post translate.
-	 *
-	 * @param deltaX the delta x
-	 * @param deltaY the delta y
-	 */
 	protected void postTranslate( float deltaX, float deltaY ) {
 		mSuppMatrix.postTranslate( deltaX, deltaY );
 		setImageMatrix( getImageViewMatrix() );
 	}
 
-	/**
-	 * Post scale.
-	 *
-	 * @param scale the scale
-	 * @param centerX the center x
-	 * @param centerY the center y
-	 */
 	protected void postScale( float scale, float centerX, float centerY ) {
 		mSuppMatrix.postScale( scale, scale, centerX, centerY );
 		setImageMatrix( getImageViewMatrix() );
 	}
 
-	/**
-	 * Zoom to.
-	 *
-	 * @param scale the scale
-	 */
 	protected void zoomTo( float scale ) {
 		float cx = getWidth() / 2F;
 		float cy = getHeight() / 2F;
 		zoomTo( scale, cx, cy );
 	}
 
-	/**
-	 * Zoom to.
-	 *
-	 * @param scale the scale
-	 * @param durationMs the duration ms
-	 */
 	public void zoomTo( float scale, float durationMs ) {
 		float cx = getWidth() / 2F;
 		float cy = getHeight() / 2F;
 		zoomTo( scale, cx, cy, durationMs );
 	}
 
-	/**
-	 * Zoom to.
-	 *
-	 * @param scale the scale
-	 * @param centerX the center x
-	 * @param centerY the center y
-	 */
 	protected void zoomTo( float scale, float centerX, float centerY ) {
 		// Log.i(LOG_TAG, "zoomTo");
 
@@ -590,29 +427,12 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		center( true, true );
 	}
 
-	/**
-	 * On zoom.
-	 *
-	 * @param scale the scale
-	 */
 	protected void onZoom( float scale ) {}
 
-	/**
-	 * Scroll by.
-	 *
-	 * @param x the x
-	 * @param y the y
-	 */
 	public void scrollBy( float x, float y ) {
 		panBy( x, y );
 	}
 
-	/**
-	 * Pan by.
-	 *
-	 * @param dx the dx
-	 * @param dy the dy
-	 */
 	protected void panBy( double dx, double dy ) {
 		RectF rect = getBitmapRect();
 		mScrollRect.set( (float) dx, (float) dy, 0, 0 );
@@ -621,12 +441,6 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		center( true, true );
 	}
 
-	/**
-	 * Update rect.
-	 *
-	 * @param bitmapRect the bitmap rect
-	 * @param scrollRect the scroll rect
-	 */
 	protected void updateRect( RectF bitmapRect, RectF scrollRect ) {
 		float width = getWidth();
 		float height = getHeight();
@@ -641,13 +455,6 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		// Log.d( LOG_TAG, "scrollRect(2): " + scrollRect.toString() );
 	}
 
-	/**
-	 * Scroll by.
-	 *
-	 * @param distanceX the distance x
-	 * @param distanceY the distance y
-	 * @param durationMs the duration ms
-	 */
 	protected void scrollBy( float distanceX, float distanceY, final double durationMs ) {
 		final double dx = distanceX;
 		final double dy = distanceY;
@@ -676,14 +483,6 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		} );
 	}
 
-	/**
-	 * Zoom to.
-	 *
-	 * @param scale the scale
-	 * @param centerX the center x
-	 * @param centerY the center y
-	 * @param durationMs the duration ms
-	 */
 	protected void zoomTo( float scale, final float centerX, final float centerY, final float durationMs ) {
 		// Log.i( LOG_TAG, "zoomTo: " + scale + ", " + centerX + ": " + centerY );
 		final long startTime = System.currentTimeMillis();
@@ -706,9 +505,6 @@ public class ImageViewTouchBase extends ImageView implements IDisposable {
 		} );
 	}
 
-	/* (non-Javadoc)
-	 * @see ImageViewTouch.IDisposable#dispose()
-	 */
 	@Override
 	public void dispose() {
 		clear();

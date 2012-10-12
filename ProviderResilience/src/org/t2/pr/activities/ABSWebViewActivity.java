@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -14,16 +40,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-// TODO: Auto-generated Javadoc
 /**
- * Navigation enabled webview activity.
+ * Navigation enabled webview activity
+ *
  */
 public class ABSWebViewActivity extends FlurryActivity 
 {
-	
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.FlurryActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -32,25 +54,12 @@ public class ABSWebViewActivity extends FlurryActivity
 
 	}
 
-	/**
-	 * Sets the content.
-	 *
-	 * @param contentString the new content
-	 */
 	protected void setContent(String contentString) 
 	{
 		WebView wv = (WebView)this.findViewById(R.id.webview);
 		formatWebViewText(this, wv, contentString, android.R.color.primary_text_dark);
 	}
 
-	/**
-	 * Format web view text.
-	 *
-	 * @param c the c
-	 * @param wv the wv
-	 * @param contentString the content string
-	 * @param textColor the text color
-	 */
 	public static void formatWebViewText(Activity c, WebView wv, String contentString, int textColor) 
 	{
 		if(contentString == null) 

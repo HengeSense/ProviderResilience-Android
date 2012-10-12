@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -26,48 +52,24 @@ import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.ToggleButton;
 
-// TODO: Auto-generated Javadoc
 /**
- * Allows changing application wide settings.
- *
+ * Allows changing application wide settings
  * @author stephenody
+ *
  */
 public class SettingsActivity extends ABSActivity
 {
-	
-	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
-	
-	/** The btn reset. */
 	Button btnReset;
-	
-	/** The btn set reset. */
 	Button btnSetReset;
-	
-	/** The btn feedback. */
 	Button btnFeedback;
-	
-	/** The btn set time. */
 	Button btnSetTime;
-	
-	/** The toggle_welcome. */
 	private ToggleButton toggle_welcome;
-	
-	/** The toggle_reminders. */
 	private ToggleButton toggle_reminders;
-	
-	/** The toggle_anondata. */
 	private ToggleButton toggle_anondata;
-	
-	/** The Constant TIME_DIALOG_ID. */
 	static final int TIME_DIALOG_ID = 1;
-	
-	/** The Constant RESET_DIALOG_ID. */
 	static final int RESET_DIALOG_ID = 2;
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -104,7 +106,7 @@ public class SettingsActivity extends ABSActivity
 	}
 
 	/**
-	 * Confirmation dialog before clearing user data.
+	 * Confirmation dialog before clearing user data
 	 */
 	public void AskClearData()
 	{
@@ -125,7 +127,7 @@ public class SettingsActivity extends ABSActivity
 	}
 
 	/**
-	 * Clears all user entered data (QOL/VAS).
+	 * Clears all user entered data (QOL/VAS)
 	 */
 	public void ClearData()
 	{
@@ -159,7 +161,7 @@ public class SettingsActivity extends ABSActivity
 	}
 
 	/**
-	 * Adds some test data in the database for chart display.
+	 * Adds some test data in the database for chart display
 	 */
 	public void EnterTestData()
 	{
@@ -177,7 +179,7 @@ public class SettingsActivity extends ABSActivity
 	}
 
 	/**
-	 * Opens and pre-populates an email intent.
+	 * Opens and pre-populates an email intent
 	 */
 	public void Feedback()
 	{
@@ -199,7 +201,6 @@ public class SettingsActivity extends ABSActivity
 		{}
 	}
 
-	/** The m time set listener. */
 	private TimePickerDialog.OnTimeSetListener mTimeSetListener =
 			new TimePickerDialog.OnTimeSetListener() {
 		@Override
@@ -210,8 +211,6 @@ public class SettingsActivity extends ABSActivity
 			
 		}
 	};
-	
-	/** The m reset time set listener. */
 	private TimePickerDialog.OnTimeSetListener mResetTimeSetListener =
 			new TimePickerDialog.OnTimeSetListener() {
 		@Override
@@ -221,9 +220,6 @@ public class SettingsActivity extends ABSActivity
 		}
 	};
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateDialog(int)
-	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
@@ -274,9 +270,6 @@ public class SettingsActivity extends ABSActivity
 		}
 	}
 	
-	/**
-	 * Sets the reminder.
-	 */
 	public void SetReminder()
 	{
 		final AlarmManager mgr =

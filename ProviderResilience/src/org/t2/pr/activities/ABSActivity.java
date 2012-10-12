@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -18,41 +44,25 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 
-// TODO: Auto-generated Javadoc
 /**
- * Base class that handles application navigation.
- *
+ * Base class that handles application navigation
  * @author stephenody
+ *
  */
 public abstract class ABSActivity extends FlurryActivity implements OnClickListener
 {
 
 	
-	/** The is content view set. */
 	@SuppressWarnings("unused")
 	private boolean isContentViewSet = false;
 	
-	/** The ll main menu. */
 	private LinearLayout llMainMenu;
-	
-	/** The btn main dashboard. */
 	public ToggledImageButton btnMainDashboard;
-	
-	/** The btn main tools. */
 	public ToggledImageButton btnMainTools;
-	
-	/** The btn main cards. */
 	public ToggledImageButton btnMainCards;
-	
-	/** The btn main about. */
 	public ToggledImageButton btnMainAbout;
-	
-	/** The btn main settings. */
 	public ToggledImageButton btnMainSettings;
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.FlurryActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
@@ -63,9 +73,6 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 
 
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#setContentView(int)
-	 */
 	@Override
 	public void setContentView(int layoutResID) 
 	{
@@ -74,9 +81,6 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 		initButtons();
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#setContentView(android.view.View, android.view.ViewGroup.LayoutParams)
-	 */
 	@Override
 	public void setContentView(View view, LayoutParams params) 
 	{
@@ -85,9 +89,6 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 		initButtons();
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#setContentView(android.view.View)
-	 */
 	@Override
 	public void setContentView(View view) 
 	{
@@ -96,39 +97,24 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 		initButtons();
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onResume()
-	 */
 	@Override
 	protected void onResume() 
 	{
 		super.onResume();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.FlurryActivity#onStart()
-	 */
 	@Override
 	protected void onStart() 
 	{
 		super.onStart();
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onDestroy()
-	 */
 	@Override
 	protected void onDestroy() 
 	{
 		super.onDestroy();
 	}
 
-	/**
-	 * Checks if is callable.
-	 *
-	 * @param intent the intent
-	 * @return true, if is callable
-	 */
 	protected boolean isCallable(Intent intent) 
 	{
 		List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
@@ -136,9 +122,8 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 	}
 	
 	/**
-	 * Shows or hides the navigation toolbar.
-	 *
-	 * @param visibility the visibility
+	 * Shows or hides the navigation toolbar
+	 * @param visibility
 	 */
 	public void SetMenuVisibility(int visibility)
 	{
@@ -147,7 +132,7 @@ public abstract class ABSActivity extends FlurryActivity implements OnClickListe
 	}
 	
 	/**
-	 * Initializes buttons on the main navigation toolbar.
+	 * Initializes buttons on the main navigation toolbar
 	 */
 	protected void initButtons() 
 	{

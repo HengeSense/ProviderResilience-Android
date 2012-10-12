@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -21,36 +47,19 @@ import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class RBQuestionsActivity.
- */
 public class RBQuestionsActivity  extends ABSActivity
 {
 
-	/** The btn customize. */
 	public Button btnCustomize;
-	
-	/** The btn killers. */
 	public Button btnKillers;
-	
-	/** The custom builder. */
 	public static String customBuilder = "";
-	
-	/** The question list. */
 	private List<String[]> questionList;
-	
-	/** The answers. */
 	private ArrayList<int[]> answers;
 
 	//private ProgressDialog m_ProgressDialog = null;
-	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
 	//private Context ctx;
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -70,9 +79,6 @@ public class RBQuestionsActivity  extends ABSActivity
 
 	}
 
-	/**
-	 * Populate rb questions.
-	 */
 	private void PopulateRBQuestions()
 	{
 		questionList = db.selectRBQuestions();
@@ -125,18 +131,12 @@ public class RBQuestionsActivity  extends ABSActivity
 		}
 	}
 
-	/**
-	 * Save questions.
-	 */
 	public void SaveQuestions()
 	{
 		String date = (String) android.text.format.DateFormat.format("MM/dd/yyyy hh:mm aa", new java.util.Date());
 		db.insertRBAnswers(answers, date);
 	}
 
-	/**
-	 * Custom question.
-	 */
 	public void CustomQuestion()
 	{
 		//Ask for question
@@ -159,9 +159,6 @@ public class RBQuestionsActivity  extends ABSActivity
 		alert.show();
 	}
 
-	/**
-	 * Reload activity.
-	 */
 	public void reloadActivity()
 	{
 		this.finish();
@@ -169,9 +166,6 @@ public class RBQuestionsActivity  extends ABSActivity
 		
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onStart()
-	 */
 	@Override
 	public void onStart()
 	{
@@ -179,9 +173,6 @@ public class RBQuestionsActivity  extends ABSActivity
 		super.onStart();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
-	 */
 	@Override
 	public void onClick(View v) 
 	{

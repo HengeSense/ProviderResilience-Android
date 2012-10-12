@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -15,52 +41,25 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class UpdateQOLActivity.
- */
 public class UpdateQOLActivity extends ABSActivity
 {
 
-	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
-	
-	/** The question list. */
 	private List<String[]> questionList;
-	
-	/** The answers. */
 	private ArrayList<int[]> answers;
 
-	/** The cur question. */
 	private int curQuestion = 0;
 
-	/** The btn one. */
 	public Button btnOne;
-	
-	/** The btn two. */
 	public Button btnTwo;
-	
-	/** The btn three. */
 	public Button btnThree;
-	
-	/** The btn four. */
 	public Button btnFour;
-	
-	/** The btn five. */
 	public Button btnFive;
-	
-	/** The txt question. */
 	public TextView txtQuestion;
-	
-	/** The txt numbers. */
 	public TextView txtNumbers;
 
-	/** The m_ progress dialog. */
 	private ProgressDialog m_ProgressDialog = null;
 	
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -92,11 +91,6 @@ public class UpdateQOLActivity extends ABSActivity
 		showQuestion(0);
 	}
 
-	/**
-	 * Show question.
-	 *
-	 * @param answerValue the answer value
-	 */
 	private void showQuestion(int answerValue)
 	{
 		try
@@ -121,9 +115,6 @@ public class UpdateQOLActivity extends ABSActivity
 		catch(Exception ex){}
 	}
 
-	/**
-	 * Save answers threaded.
-	 */
 	public void saveAnswersThreaded()
 	{
 		m_ProgressDialog = ProgressDialog.show(this, "Please wait...", " Saving your ratings...", true);
@@ -142,7 +133,6 @@ public class UpdateQOLActivity extends ABSActivity
 		thread.start();
 	}
 
-	/** The terminate. */
 	private Runnable terminate = new Runnable() {
 		public void run() {
 			m_ProgressDialog.dismiss();
@@ -150,17 +140,11 @@ public class UpdateQOLActivity extends ABSActivity
 		}
 	};
 
-	/**
-	 * Finish activity.
-	 */
 	private void finishActivity()
 	{
 		this.finish();
 	}
 	
-	/**
-	 * Populate qol questions.
-	 */
 	private void populateQOLQuestions()
 	{
 		questionList = db.selectQOLQuestions();
@@ -173,9 +157,6 @@ public class UpdateQOLActivity extends ABSActivity
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onStart()
-	 */
 	@Override
 	public void onStart()
 	{
@@ -183,9 +164,6 @@ public class UpdateQOLActivity extends ABSActivity
 		super.onStart();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
-	 */
 	@Override
 	public void onClick(View v) 
 	{

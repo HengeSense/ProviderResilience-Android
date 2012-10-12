@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -26,101 +52,47 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class RRClockActivity.
- */
 public class RRClockActivity extends ABSActivity
 {
 
-	/** The tv_ vacation. */
 	public TextView tv_Vacation;
 
-	/** The tv year shadow. */
 	public TextView tvYearShadow;
-	
-	/** The tv year digit. */
 	public TextView tvYearDigit;
-	
-	/** The tv year label. */
 	public TextView tvYearLabel;
 
-	/** The tv month shadow. */
 	public TextView tvMonthShadow;
-	
-	/** The tv month digit. */
 	public TextView tvMonthDigit;
-	
-	/** The tv month label. */
 	public TextView tvMonthLabel;
 
-	/** The tv day shadow. */
 	public TextView tvDayShadow;
-	
-	/** The tv day digit. */
 	public TextView tvDayDigit;
-	
-	/** The tv day label. */
 	public TextView tvDayLabel;
 
-	/** The tv hour shadow. */
 	public TextView tvHourShadow;
-	
-	/** The tv hour digit. */
 	public TextView tvHourDigit;
-	
-	/** The tv hour label. */
 	public TextView tvHourLabel;
 
-	/** The tv minute shadow. */
 	public TextView tvMinuteShadow;
-	
-	/** The tv minute digit. */
 	public TextView tvMinuteDigit;
-	
-	/** The tv minute label. */
 	public TextView tvMinuteLabel;
 
-	/** The tf digital num. */
 	Typeface tfDigitalNum;
-	
-	/** The tf digital chr. */
 	Typeface tfDigitalChr;
 
-	/** The btn rr clock. */
 	private ImageButton btnRRClock;
-	
-	/** The tb vacation. */
 	private ToggleButton tbVacation;
-	
-	/** The tv toggle label. */
 	TextView tvToggleLabel;
 
-	/** The Constant DATE_DIALOG_ID. */
 	static final int DATE_DIALOG_ID = 0;
-	
-	/** The c year. */
 	private int cYear;
-	
-	/** The c month. */
 	private int cMonth;
-	
-	/** The c day. */
 	private int cDay;
-	
-	/** The c hour. */
 	private int cHour;
-	
-	/** The c min. */
 	private int cMin;
 
-	/** The v year. */
 	private int vYear;
-	
-	/** The v month. */
 	private int vMonth;
-	
-	/** The v day. */
 	private int vDay;
 
 	//	private int dYear;
@@ -128,12 +100,8 @@ public class RRClockActivity extends ABSActivity
 	//	private int dDay;
 
 
-	/** The min timer. */
 	private Timer minTimer;
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -228,9 +196,6 @@ public class RRClockActivity extends ABSActivity
 
 	}
 
-	/**
-	 * Timer tick.
-	 */
 	private void TimerTick()
 	{
 		runOnUiThread(new Runnable(){
@@ -242,9 +207,6 @@ public class RRClockActivity extends ABSActivity
 			}});
 	}
 
-	/**
-	 * Update display.
-	 */
 	private void updateDisplay()
 	{
 		if(SharedPref.getOnVacation())
@@ -380,7 +342,6 @@ public class RRClockActivity extends ABSActivity
 
 	}
 
-	/** The m date set listener. */
 	private DatePickerDialog.OnDateSetListener mDateSetListener =
 			new DatePickerDialog.OnDateSetListener() {
 		public void onDateSet(DatePicker view, int year, 
@@ -395,9 +356,6 @@ public class RRClockActivity extends ABSActivity
 		}
 	};
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreateDialog(int)
-	 */
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		switch (id) {
@@ -409,9 +367,6 @@ public class RRClockActivity extends ABSActivity
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
-	 */
 	@Override
 	public void onClick(View v) 
 	{

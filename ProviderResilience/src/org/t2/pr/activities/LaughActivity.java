@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -42,44 +68,19 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class LaughActivity.
- */
 public class LaughActivity extends ABSActivity implements OnClickListener
 {
-	
-	/** The awv. */
 	public ImageViewTouch awv;
-	
-	/** The dilbert array. */
 	ArrayList<DilbertObject> dilbertArray;
-	
-	/** The dilbert index. */
 	private int dilbertIndex = 0;
-	
-	/** The btn_prev. */
 	private Button btn_prev;
-	
-	/** The btn_next. */
 	private Button btn_next;
-	
-	/** The db. */
 	private DatabaseProvider db = new DatabaseProvider(this);
-	
-	/** The bmp dilbert. */
 	private Bitmap bmpDilbert;
-	
-	/** The m_ progress dialog. */
 	private ProgressDialog m_ProgressDialog = null;
-	
-	/** The tv title. */
 	private TextView tvTitle;
-	
-	/** The comic title. */
 	private String comicTitle = "";
 
-	/** The Constant base64Array. */
 	final static char base64Array [] = {
 		'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 		'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -91,9 +92,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		'4', '5', '6', '7', '8', '9', '+', '/'
 	};		
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -117,9 +115,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 
 	}
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onStart()
-	 */
 	@Override
 	public void onStart()
 	{
@@ -136,9 +131,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 
 	}
 
-	/**
-	 * Query dilbert rss.
-	 */
 	public void QueryDilbertRSS()
 	{
 
@@ -220,14 +212,12 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		thread.start();
 	}
 
-	/** The Show dilbert runnable. */
 	private Runnable ShowDilbertRunnable = new Runnable() {
 		public void run() {
 			ShowDilbert() ;
 		}
 	};
 
-	/** The Get dilbert runnable. */
 	private Runnable GetDilbertRunnable = new Runnable() {
 		public void run() {
 			GetDilbertComic() ;
@@ -235,12 +225,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		}
 	};
 
-	/**
-	 * Parses the json.
-	 *
-	 * @param sb the sb
-	 * @return the array list
-	 */
 	public ArrayList<DilbertObject> parseJSON(StringBuilder sb)
 	{
 		ArrayList<DilbertObject> markers = new ArrayList<DilbertObject>();
@@ -300,9 +284,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		return markers;
 	}
 
-	/**
-	 * Gets the dilbert comic.
-	 */
 	public void GetDilbertComic()
 	{
 		DilbertObject curDilbert = dilbertArray.get(dilbertIndex);
@@ -310,9 +291,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		bmpDilbert = getBitmapFromURL(curDilbert.imageURL, false);
 	}
 
-	/**
-	 * Show dilbert.
-	 */
 	public void ShowDilbert()
 	{
 
@@ -350,12 +328,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 
 	}
 
-	/**
-	 * Base64 encode.
-	 *
-	 * @param string the string
-	 * @return the string
-	 */
 	private static String base64Encode (String string)    {
 		String encodedString = "";
 		byte bytes [] = string.getBytes ();
@@ -402,9 +374,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		return encodedString;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.t2.pr.activities.ABSActivity#onClick(android.view.View)
-	 */
 	@Override
 	public void onClick(View v) 
 	{
@@ -436,13 +405,6 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		}
 	}
 
-	/**
-	 * Gets the bitmap from url.
-	 *
-	 * @param src the src
-	 * @param secure the secure
-	 * @return the bitmap from url
-	 */
 	public Bitmap getBitmapFromURL(String src, boolean secure) {
 
 		if(secure)
@@ -518,29 +480,17 @@ public class LaughActivity extends ABSActivity implements OnClickListener
 		return null;
 	}
 
-	/**
-	 * The Class DilbertObject.
-	 */
 	public class DilbertObject
 	{
-		
-		/** The date time. */
 		public String dateTime = "";
-		
-		/** The image url. */
 		public String imageURL = "";
 	}
 
-	/** The Error msg runnable. */
 	private Runnable ErrorMsgRunnable = new Runnable() {
 		public void run() {
 			ErrorMsg();
 		}
 	};
-	
-	/**
-	 * Error msg.
-	 */
 	public void ErrorMsg()
 	{
 

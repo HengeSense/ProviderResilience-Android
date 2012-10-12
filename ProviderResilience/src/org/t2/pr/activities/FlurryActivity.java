@@ -1,5 +1,31 @@
 /*
  * 
+ * Provider Resilience
+ * 
+ * Copyright © 2009-2012 United States Government as represented by 
+ * the Chief Information Officer of the National Center for Telehealth 
+ * and Technology. All Rights Reserved.
+ * 
+ * Copyright © 2009-2012 Contributors. All Rights Reserved. 
+ * 
+ * THIS OPEN SOURCE AGREEMENT ("AGREEMENT") DEFINES THE RIGHTS OF USE, 
+ * REPRODUCTION, DISTRIBUTION, MODIFICATION AND REDISTRIBUTION OF CERTAIN 
+ * COMPUTER SOFTWARE ORIGINALLY RELEASED BY THE UNITED STATES GOVERNMENT 
+ * AS REPRESENTED BY THE GOVERNMENT AGENCY LISTED BELOW ("GOVERNMENT AGENCY"). 
+ * THE UNITED STATES GOVERNMENT, AS REPRESENTED BY GOVERNMENT AGENCY, IS AN 
+ * INTENDED THIRD-PARTY BENEFICIARY OF ALL SUBSEQUENT DISTRIBUTIONS OR 
+ * REDISTRIBUTIONS OF THE SUBJECT SOFTWARE. ANYONE WHO USES, REPRODUCES, 
+ * DISTRIBUTES, MODIFIES OR REDISTRIBUTES THE SUBJECT SOFTWARE, AS DEFINED 
+ * HEREIN, OR ANY PART THEREOF, IS, BY THAT ACTION, ACCEPTING IN FULL THE 
+ * RESPONSIBILITIES AND OBLIGATIONS CONTAINED IN THIS AGREEMENT.
+ * 
+ * Government Agency: The National Center for Telehealth and Technology
+ * Government Agency Original Software Designation: Provider Resilience001
+ * Government Agency Original Software Title: Provider Resilience
+ * User Registration Requested. Please send email 
+ * with your contact information to: robert.kayl2@us.army.mil
+ * Government Agency Point of Contact for Original Software: robert.kayl2@us.army.mil
+ * 
  */
 package org.t2.pr.activities;
 
@@ -12,26 +38,18 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-// TODO: Auto-generated Javadoc
 /**
  * Flurry class provides analytics and should be the base class for all activities.
  * 
  * @author Steve Ody (stephen.ody@tee2.org)
  */
 public class FlurryActivity extends Activity {
-	
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Global.sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onStart()
-	 */
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -41,9 +59,6 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onStop()
-	 */
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -53,11 +68,6 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
-	/**
-	 * On event.
-	 *
-	 * @param event the event
-	 */
 	public void onEvent(String event) 
 	{
 		if(SharedPref.getSendAnnonData())
@@ -68,13 +78,6 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
-	/**
-	 * On error.
-	 *
-	 * @param arg0 the arg0
-	 * @param arg1 the arg1
-	 * @param arg2 the arg2
-	 */
 	public void onError(String arg0, String arg1, String arg2)
 	{
 		if(SharedPref.getSendAnnonData())
@@ -83,9 +86,6 @@ public class FlurryActivity extends Activity {
 		}
 	}
 
-	/**
-	 * On page view.
-	 */
 	public void onPageView() 
 	{
 		if(SharedPref.getSendAnnonData())
